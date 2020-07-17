@@ -1,0 +1,6 @@
+module Pods_Grem_GremTests {
+  umbrella header "Pods-Grem-GremTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

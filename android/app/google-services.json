@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "452326262426",
+    "firebase_url": "https://grem-customlogin.firebaseio.com",
+    "project_id": "grem-customlogin",
+    "storage_bucket": "grem-customlogin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452326262426:android:21e229d09cbeded4ef8123",
+        "android_client_info": {
+          "package_name": "com.decentral.Grem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452326262426-75a28eiqpj2jrthebfm61fba6190q6dv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPHsWXs1W15WWnsD3RC3dlzkA3a2ks76E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452326262426-cva4gl3f8d1c8rndu83hc0fghm82mif9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "452326262426-tahmjghqslqi7c3lnc5hft2ml21h6a8l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Grem002"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
