@@ -1,8 +1,8 @@
-import React from "react";
-import { Platform, KeyboardAvoidingView, SafeAreaView } from "react-native";
-import { GiftedChat } from "react-native-gifted-chat";
-import firebase from "firebase";
-import Fire from "../Fire";
+import React from 'react';
+import { Platform, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
+import firebase from 'firebase';
+import Fire from '../Fire';
 
 export default class ChatScreen extends React.Component {
   state = {
@@ -12,7 +12,7 @@ export default class ChatScreen extends React.Component {
   get user() {
     return {
       _id: Fire.uid,
-      name: firebase.auth().currentUser.uid,
+      name: firebase.auth().currentUser.displayName,
     };
   }
 
@@ -20,7 +20,7 @@ export default class ChatScreen extends React.Component {
     Fire.get((message) =>
       this.setState((previous) => ({
         messages: GiftedChat.append(previous.messages, message),
-      }))
+      })),
     );
   }
 
@@ -37,14 +37,13 @@ export default class ChatScreen extends React.Component {
       />
     );
 
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       return (
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior="padding"
           keyboardVerticalOffset={30}
-          enabled
-        >
+          enabled>
           {chat}
         </KeyboardAvoidingView>
       );

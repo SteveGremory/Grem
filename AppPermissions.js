@@ -1,8 +1,9 @@
-import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {PlatformIOSStatic, Platform} from 'react-native';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { Platform } from 'react-native';
 
 const PLATFORM_PHOTO_PERMISSIONS = {
   ios: PERMISSIONS.IOS.PHOTO_LIBRARY,
+  android: PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
 };
 
 const REQUEST_PERMISSIONS_TYPE = {
@@ -46,4 +47,4 @@ class AppPermission {
 }
 
 const Permission = new AppPermission();
-export {Permission, PERMISSION_TYPE};
+export { Permission, PERMISSION_TYPE };

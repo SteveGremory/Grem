@@ -6182,11 +6182,6 @@ react-native-image-crop-picker@^0.32.0:
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.32.2.tgz#862bddc99f7a8e17b7f584846a0c46bfad233917"
   integrity sha512-x1rwdpVKL6v1AY38rLNYUkLEJIxOK/3C8ipmNbcYFUKunVcmsEvhGLX2ll9kMjp/q+vGOmx4YO38eGp0axYoxg==
 
-react-native-image-picker@^2.3.1:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.2.tgz#ddfb257fd0cf2bf7f4b1887477a88265e0720c83"
-  integrity sha512-XJ7alzivLRcnb9kB1chsNIeGgAeVZvW8S7m4zXFkLNGFRUhq/Fh52wlrBp0OEXu6iTrQ+1SW3ikC8cP9wirFZw==
-
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"

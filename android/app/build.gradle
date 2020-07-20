@@ -131,6 +131,8 @@ android {
     defaultConfig {
         applicationId "com.grem"
         targetSdkVersion rootProject.ext.targetSdkVersion
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
     }
