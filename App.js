@@ -46,7 +46,7 @@ const AppContainer = createStackNavigator(
           },
         },
         Messges: {
-          screen: MessagingScreen,
+          screen: ChatScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Icon name="ios-chatbox-ellipses" size={24} color={tintColor} />

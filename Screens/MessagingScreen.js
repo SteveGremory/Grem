@@ -3,22 +3,22 @@ import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
 
 export default class MessagesScreen extends React.Component {
   state = { chats: [] };
-  render() {
-    renderChats = (chatboxes) => {
-      return (
-        <View style={styles.feedItem}>
-          <Image source={chatboxes.avatar} style={styles.avatar} />
-          <View style={{ flex: 1 }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}></View>
-          </View>
+  renderChats = (chatboxes) => {
+    return (
+      <View style={styles.feedItem}>
+        <Image source={chatboxes.avatar} style={styles.avatar} />
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}></View>
         </View>
-      );
-    };
+      </View>
+    );
+  };
+  render() {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
