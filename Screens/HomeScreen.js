@@ -10,19 +10,20 @@ import {
 import * as firebase from 'firebase';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import userInfo from '../user.js';
 
 // temporary data until we pull from Firebase
 
 export default class HomeScreen extends React.Component {
-  componentDidMount() {
-    fetch('http://localhost:7878/posts')
-      .then((res) => res.json())
-      .then((posts) => this.setState({ posts })).catch = (err) => {
-      console.log(err);
-    };
-  }
+  //componentDidMount() {
+  //fetch('http://localhost:5000')
+  //.then((res) => res.json())
+  //.then((posts) => this.setState({ posts })).catch = (err) => {
+  //console.log(err);
+  //};
+  //}
 
-  state = { posts: [] };
+  state = userInfo;
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
@@ -67,7 +68,7 @@ export default class HomeScreen extends React.Component {
         </View>
         <FlatList
           style={styles.feed}
-          data={this.state.posts}
+          data={this.state.userInfo}
           renderItem={({ item }) => this.renderPost(item)}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}

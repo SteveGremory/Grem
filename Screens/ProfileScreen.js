@@ -8,14 +8,14 @@ import {
   ScrollView,
 } from 'react-native';
 import firebase from 'firebase';
-JSONstr = require('../Bridge');
+import userInfo from '../user.js';
 
 function uploadUserID() {
   let userID = firebase.auth().currentUser.uid;
 }
 
 export default class ProfileScreen extends React.Component {
-  state = JSONstr;
+  state = userInfo;
 
   //unsubscribe = null;
   //TODO: MAKE LOGIC FOR REALTIME FOLLOWER UPDATES
