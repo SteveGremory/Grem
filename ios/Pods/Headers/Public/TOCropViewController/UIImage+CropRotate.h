@@ -1,1 +1,1 @@
-../../../TOCropViewController/Objective-C/TOCropViewController/Categories/UIImage+CropRotate.h
+../../../TOCropViewController/Objective-C/TOCropViewController/include/UIImage+CropRotate.h
