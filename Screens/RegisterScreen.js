@@ -41,23 +41,22 @@ export class RegisterScreen extends React.Component {
   };
   render() {
     return (
-      <ScrollView style={{ backgroundColor: 'black' }}>
         <View style={styles.container}>
-          <StatusBar barStyle="light-content"></StatusBar>
+          
           <Image
             source={require('../assets/Logo.png')}
             style={{
               marginTop: 20,
               marginBottom: -38,
               width: '100%',
-              height: '80%',
+              height: '50%',
               flex: 0,
             }}></Image>
 
           <TouchableOpacity
             style={styles.back}
             onPress={() => this.props.navigation.goBack()}>
-            <Icon name="ios-arrow-round-back" size={32} color="white"></Icon>
+            <Icon name="ios-arrow-back" size={32} color="white"></Icon>
           </TouchableOpacity>
 
           <View style={styles.form}>
@@ -108,7 +107,6 @@ export class RegisterScreen extends React.Component {
             </Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
     );
   }
 }

@@ -50,7 +50,7 @@ export default class PostScreen extends React.Component {
         <ScrollView>
           <View style={styles.header}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <Icon name="md-arrow-back" size={24} color="black" />
+              <Icon name="ios-arrow-back" size={24} color="black" />
             </TouchableOpacity>
             <TouchableOpacity onPress={this.uploadPost}>
               <Text style={{ fontSize: 20 }}>Post</Text>
