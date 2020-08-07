@@ -66,6 +66,9 @@ const AppContainer = createStackNavigator(
                   shadowOffset: { width: 0, height: 10 },
                   shadowRadius: 10,
                   shadowOpacity: 0.3,
+                  elevation: 3,
+                  backgroundColor: "#FFF",
+                  borderColor: '#E9446A',
                 }}
               />
             ),
