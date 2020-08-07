@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -18,11 +18,11 @@ export default class LoadingScreen extends React.Component {
 
   render() {
     return (
-      <View style={{alignItems: 'center', flex: 1, backgroundColor: 'black'}}>
+      <View style={{ alignItems: 'center', flex: 1, backgroundColor: 'black' }}>
         <Image
           source={require('../assets/Logo.png')}
-          style={{width: "100%", height: "50%"}}></Image>
-        <ActivityIndicator size="large" style={{flex: 1, marginBottom: 300}} />
+          style={{ width: '100%', height: '50%' }}></Image>
+        <ActivityIndicator style={{ flex: 1, marginBottom: 300 }} />
       </View>
     );
   }

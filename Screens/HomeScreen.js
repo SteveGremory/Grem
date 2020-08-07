@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   header: {
-    paddingTop: 18,
+    paddingTop: 38,
     paddingBottom: 16,
     backgroundColor: 'black',
     alignItems: 'center',

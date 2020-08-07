@@ -6,8 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  StatusBar,
-  LayoutAnimation,
+  SafeAreaView,
   ScrollView,
 } from 'react-native';
 
@@ -41,86 +40,82 @@ export class RegisterScreen extends React.Component {
   };
   render() {
     return (
-        <View style={styles.container}>
-          
-          <Image
-            source={require('../assets/Logo.png')}
-            style={{
-              marginTop: 20,
-              marginBottom: -38,
-              width: '100%',
-              height: '50%',
-              flex: 0,
-            }}></Image>
+      <View style={styles.container}>
+        <ScrollView style={{ flex: 1 }}>
+          <SafeAreaView>
+            <Image
+              source={require('../assets/Logo.png')}
+              style={{
+                width: '100%',
+                height: '50%',
+              }}></Image>
 
-          <TouchableOpacity
-            style={styles.back}
-            onPress={() => this.props.navigation.goBack()}>
-            <Icon name="ios-arrow-back" size={32} color="white"></Icon>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.back}
+              onPress={() => this.props.navigation.goBack()}>
+              <Icon name="ios-arrow-back" size={32} color="white"></Icon>
+            </TouchableOpacity>
 
-          <View style={styles.form}>
-            <View>
-              <Text style={styles.inputTitle}>Full Name</Text>
-              <TextInput
-                style={styles.input}
-                autoCapitalize="none"
-                onChangeText={(name) => this.setState({ name })}
-                value={this.state.name}></TextInput>
+            <View style={styles.form}>
+              <View>
+                <Text style={styles.inputTitle}>Full Name</Text>
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  onChangeText={(name) => this.setState({ name })}
+                  value={this.state.name}></TextInput>
+              </View>
+              <View style={{ marginTop: 32 }}>
+                <Text style={styles.inputTitle}>Email Address</Text>
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  onChangeText={(email) => this.setState({ email })}
+                  value={this.state.email}></TextInput>
+              </View>
+              <View style={{ marginTop: 32 }}>
+                <Text style={styles.inputTitle}>Password</Text>
+                <TextInput
+                  style={styles.input}
+                  secureTextEntry
+                  autoCapitalize="none"
+                  onChangeText={(password) => this.setState({ password })}
+                  value={this.state.password}></TextInput>
+              </View>
             </View>
-            <View style={{ marginTop: 32 }}>
-              <Text style={styles.inputTitle}>Email Address</Text>
-              <TextInput
-                style={styles.input}
-                autoCapitalize="none"
-                onChangeText={(email) => this.setState({ email })}
-                value={this.state.email}></TextInput>
+            <View
+              style={
+                (styles.errorMessage, { marginTop: -10, marginBottom: 30 })
+              }>
+              {this.state.errorMessage && (
+                <Text style={styles.error}>{this.state.errorMessage}</Text>
+              )}
             </View>
-            <View style={{ marginTop: 32 }}>
-              <Text style={styles.inputTitle}>Password</Text>
-              <TextInput
-                style={styles.input}
-                secureTextEntry
-                autoCapitalize="none"
-                onChangeText={(password) => this.setState({ password })}
-                value={this.state.password}></TextInput>
-            </View>
-          </View>
-          <View
-            style={(styles.errorMessage, { marginTop: -10, marginBottom: 30 })}>
-            {this.state.errorMessage && (
-              <Text style={styles.error}>{this.state.errorMessage}</Text>
-            )}
-          </View>
-          <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-            <Text style={{ color: 'white', fontWeight: '500' }}>Sign Up</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
+              <Text style={{ color: 'white', fontWeight: '500' }}>Sign Up</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{ alignSelf: 'center', marginTop: 28, flex: 1 }}
-            onPress={() => this.props.navigation.navigate('Login')}>
-            <Text style={{ color: '#414959', fontSize: 14, borderRadius: 10 }}>
-              Been Here Before?
-              <Text style={{ fontWeight: '500', color: '#E9446A' }}>
-                Log In!
+            <TouchableOpacity
+              style={{ alignSelf: 'center', marginTop: 28, flex: 1 }}
+              onPress={() => this.props.navigation.navigate('Login')}>
+              <Text
+                style={{ color: '#414959', fontSize: 14, borderRadius: 10 }}>
+                Been Here Before?
+                <Text style={{ fontWeight: '500', color: '#E9446A' }}>
+                  Log In!
+                </Text>
               </Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
+            </TouchableOpacity>
+          </SafeAreaView>
+        </ScrollView>
+      </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-  },
-  greeting: {
-    marginTop: 32,
-    fontSize: 18,
-    fontWeight: '400',
-    textAlign: 'center',
   },
   errorMessage: {
     height: 72,
@@ -131,13 +126,12 @@ const styles = StyleSheet.create({
   error: {
     color: '#E9446A',
     fontSize: 13,
-    fontWeight: '600',
+    fontWeight: '500',
     textAlign: 'center',
   },
   form: {
-    marginTop: 10,
-    marginBottom: 48,
     marginHorizontal: 30,
+    marginBottom: 24,
   },
   inputTitle: {
     color: '#8A8F9E',
@@ -156,9 +150,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'magenta',
     borderRadius: 4,
     height: 52,
-    borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 40,
   },
   back: {
     position: 'absolute',
@@ -170,14 +164,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(21, 22, 48, 0.1)',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 90,
-    marginTop: 48,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 export default RegisterScreen;
