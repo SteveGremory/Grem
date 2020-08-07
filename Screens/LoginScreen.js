@@ -32,6 +32,9 @@ export class LoginScreen extends React.Component {
   };
   render() {
     return (
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
         <View style={styles.container}>
           <StatusBar barStyle="light-content"></StatusBar>
           <Image
@@ -69,7 +72,6 @@ export class LoginScreen extends React.Component {
           <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
             <Text style={{ color: 'white', fontWeight: '500' }}>Sign In</Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             style={{
               alignSelf: 'center',
@@ -84,6 +86,7 @@ export class LoginScreen extends React.Component {
             </Text>
           </TouchableOpacity>
         </View>
+      </KeyboardAvoidingView>
     );
   }
 }
