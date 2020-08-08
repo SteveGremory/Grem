@@ -42,7 +42,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   header: {
-    paddingTop: 40,
+    ...Platform.select({
+
+      ios: {
+        paddingTop: 38,
+      },
+      android: {
+        paddingTop: 16,
+      },
+    }),
     paddingBottom: 16,
     backgroundColor: 'black',
     alignItems: 'center',

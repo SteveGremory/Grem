@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-export default class NotificationScreen extends React.Component {
+export default class TrendingScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>NotificationScreen</Text>
+        <Text>TrendingScreen</Text>
       </View>
     );
   }

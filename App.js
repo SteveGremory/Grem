@@ -9,7 +9,7 @@ import RegisterScreen from './Screens/RegisterScreen';
 import LoadingScreen from './Screens/LoadingScreen';
 import HomeScreen from './Screens/HomeScreen';
 import LoginScreen from './Screens/LoginScreen';
-import NotificationScreen from './Screens/NotificationScreen';
+import TrendingScreen from './Screens/TrendingScreen';
 import MessagingScreen from './Screens/MessagingScreen';
 import PostScreen from './Screens/PostScreen';
 import ProfileScreen from './Screens/ProfileScreen';
@@ -73,10 +73,10 @@ const AppContainer = createStackNavigator(
           },
         },
         Notification: {
-          screen: NotificationScreen,
+          screen: TrendingScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
-              <Icon name="ios-notifications" size={24} color={tintColor} />
+              <Icon name="md-trending-up" size={24} color={tintColor} />
             ),
           },
         },
