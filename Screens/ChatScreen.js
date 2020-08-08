@@ -41,7 +41,6 @@ export default class ChatScreen extends React.Component {
       return (
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          behavior="padding"
           keyboardVerticalOffset={30}
           enabled>
           {chat}

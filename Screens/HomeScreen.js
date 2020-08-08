@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import userInfo from '../user.js';
@@ -76,7 +76,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   header: {
-    paddingTop: 38,
+    ...Platform.select({
+
+      ios: {
+        paddingTop: 38,
+      },
+      android: {
+        paddingTop: 24,
+      },
+    }),
     paddingBottom: 16,
     backgroundColor: 'black',
     alignItems: 'center',
