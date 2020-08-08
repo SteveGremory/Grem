@@ -7,13 +7,9 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
-  LayoutAnimation,
   ScrollView,
-  KeyboardAvoidingView,
 } from 'react-native';
 import * as firebase from 'firebase';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 
 export class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -34,60 +30,57 @@ export class LoginScreen extends React.Component {
   };
   render() {
     return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{flex: 1}}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ flex: 1 }}>
         <View style={styles.container}>
-            <StatusBar barStyle="light-content"></StatusBar>
-            <Image
-              source={require('../assets/Logo.png')}
-              style={{
-                width: '100%',
-                height: '50%',
-                marginTop: -24,
-              }}></Image>
+          <StatusBar barStyle="light-content"></StatusBar>
+          <Image
+            source={require('../assets/Logo.png')}
+            style={{
+              width: '100%',
+              height: '50%',
+              marginTop: -24,
+            }}></Image>
 
-            <View style={styles.form}>
-              <View>
-                <Text style={styles.inputTitle}>Email Address</Text>
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  onChangeText={(email) => this.setState({ email })}
-                  value={this.state.email}></TextInput>
-              </View>
-              <View style={{ marginTop: 32 }}>
-                <Text style={styles.inputTitle}>Password</Text>
-                <TextInput
-                  style={styles.input}
-                  secureTextEntry
-                  autoCapitalize="none"
-                  onChangeText={(password) => this.setState({ password })}
-                  value={this.state.password}></TextInput>
-              </View>
+          <View style={styles.form}>
+            <View>
+              <Text style={styles.inputTitle}>Email Address</Text>
+              <TextInput
+                style={styles.input}
+                autoCapitalize="none"
+                onChangeText={(email) => this.setState({ email })}
+                value={this.state.email}></TextInput>
             </View>
-            <View
-              style={
-                (styles.errorMessage)
-              }>
-              {this.state.errorMessage && (
-                <Text style={styles.error}>{this.state.errorMessage}</Text>
-              )}
+            <View style={{ marginTop: 32 }}>
+              <Text style={styles.inputTitle}>Password</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                autoCapitalize="none"
+                onChangeText={(password) => this.setState({ password })}
+                value={this.state.password}></TextInput>
             </View>
-            <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-              <Text style={{ color: 'white', fontWeight: '500' }}>Sign In</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                alignSelf: 'center',
-                marginTop: 32,
-              }}
-              onPress={() => this.props.navigation.navigate('Register')}>
-              <Text style={{ color: '#414959', fontSize: 14 }}>
-                New To Grem?
-                <Text style={{ fontWeight: '500', color: '#E9446A' }}>
-                  Join the revolution!
-                </Text>
+          </View>
+          <View style={styles.errorMessage}>
+            {this.state.errorMessage && (
+              <Text style={styles.error}>{this.state.errorMessage}</Text>
+            )}
+          </View>
+          <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
+            <Text style={{ color: 'white', fontWeight: '500' }}>Sign In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              alignSelf: 'center',
+              marginTop: 32,
+            }}
+            onPress={() => this.props.navigation.navigate('Register')}>
+            <Text style={{ color: '#414959', fontSize: 14 }}>
+              New To Grem?
+              <Text style={{ fontWeight: '500', color: '#E9446A' }}>
+                Join the revolution!
               </Text>
-            </TouchableOpacity>
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );
