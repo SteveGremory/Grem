@@ -9,10 +9,9 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import * as firebase from 'firebase';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 
 export class RegisterScreen extends React.Component {
   static navigationOptions = {
@@ -40,14 +39,14 @@ export class RegisterScreen extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView style={{ flex: 1 }}>
-          <SafeAreaView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{flex: 1}}>
+        <View style={styles.container}>
             <Image
               source={require('../assets/Logo.png')}
               style={{
                 width: '100%',
                 height: '50%',
+                marginTop: -22,
               }}></Image>
 
             <TouchableOpacity
@@ -55,7 +54,8 @@ export class RegisterScreen extends React.Component {
               onPress={() => this.props.navigation.goBack()}>
               <Icon name="ios-arrow-back" size={32} color="white"></Icon>
             </TouchableOpacity>
-
+            
+          
             <View style={styles.form}>
               <View>
                 <Text style={styles.inputTitle}>Full Name</Text>
@@ -85,7 +85,7 @@ export class RegisterScreen extends React.Component {
             </View>
             <View
               style={
-                (styles.errorMessage, { marginTop: -10, marginBottom: 30 })
+                (styles.errorMessage)
               }>
               {this.state.errorMessage && (
                 <Text style={styles.error}>{this.state.errorMessage}</Text>
@@ -94,21 +94,8 @@ export class RegisterScreen extends React.Component {
             <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
               <Text style={{ color: 'white', fontWeight: '500' }}>Sign Up</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{ alignSelf: 'center', marginTop: 28, flex: 1 }}
-              onPress={() => this.props.navigation.navigate('Login')}>
-              <Text
-                style={{ color: '#414959', fontSize: 14, borderRadius: 10 }}>
-                Been Here Before?
-                <Text style={{ fontWeight: '500', color: '#E9446A' }}>
-                  Log In!
-                </Text>
-              </Text>
-            </TouchableOpacity>
-          </SafeAreaView>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -130,8 +117,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   form: {
-    marginHorizontal: 30,
-    marginBottom: 24,
+    marginTop: -18,
+    marginBottom: -12,
+    marginHorizontal: 32,
   },
   inputTitle: {
     color: '#8A8F9E',
@@ -153,10 +141,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 40,
+    marginTop: -18
   },
   back: {
-    position: 'absolute',
-    top: 50,
+    position: "absolute",
+    top: 32,
     left: 25,
     width: 25,
     height: 25,

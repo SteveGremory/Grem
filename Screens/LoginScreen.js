@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import * as firebase from 'firebase';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 
 export class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -33,16 +34,15 @@ export class LoginScreen extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView style={{ flex: 1 }}>
-          <SafeAreaView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{flex: 1}}>
+        <View style={styles.container}>
             <StatusBar barStyle="light-content"></StatusBar>
             <Image
               source={require('../assets/Logo.png')}
               style={{
                 width: '100%',
                 height: '50%',
-                marginBottom: 28,
+                marginTop: -24,
               }}></Image>
 
             <View style={styles.form}>
@@ -66,7 +66,7 @@ export class LoginScreen extends React.Component {
             </View>
             <View
               style={
-                (styles.errorMessage, { marginTop: -10, marginBottom: 32 })
+                (styles.errorMessage)
               }>
               {this.state.errorMessage && (
                 <Text style={styles.error}>{this.state.errorMessage}</Text>
@@ -88,9 +88,8 @@ export class LoginScreen extends React.Component {
                 </Text>
               </Text>
             </TouchableOpacity>
-          </SafeAreaView>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -99,13 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-  },
-  greeting: {
-    marginTop: 32,
-    marginBottom: -40,
-    fontSize: 18,
-    fontWeight: '400',
-    textAlign: 'center',
   },
   errorMessage: {
     height: 72,
@@ -120,9 +112,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   form: {
-    marginTop: -10,
-    marginBottom: 48,
-    marginHorizontal: 30,
+    marginTop: -12,
+    marginHorizontal: 32,
   },
   inputTitle: {
     color: '#8A8F9E',
