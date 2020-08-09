@@ -1,5 +1,10 @@
 import React from 'react';
-import { Platform, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import {
+  Platform,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  View,
+} from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import firebase from 'firebase';
 import Fire from '../Fire';
@@ -34,13 +39,18 @@ export default class ChatScreen extends React.Component {
         messages={this.state.messages}
         onSend={Fire.send}
         user={this.user}
+        listViewProps={{
+          style: {
+            backgroundColor: 'black',
+          },
+        }}
       />
     );
 
     if (Platform.OS === 'android') {
       return (
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
+          style={{ flex: 1, backgroundColor: 'black' }}
           keyboardVerticalOffset={30}
           enabled>
           {chat}
@@ -48,6 +58,10 @@ export default class ChatScreen extends React.Component {
       );
     }
 
-    return <SafeAreaView style={{ flex: 1 }}>{chat}</SafeAreaView>;
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
+        {chat}
+      </SafeAreaView>
+    );
   }
 }

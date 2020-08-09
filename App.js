@@ -46,7 +46,7 @@ const AppContainer = createStackNavigator(
           },
         },
         Messges: {
-          screen: ChatScreen,
+          screen: MessagingScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Icon name="ios-chatbox-ellipses" size={24} color={tintColor} />
@@ -128,6 +128,8 @@ export default createAppContainer(
       Loading: LoadingScreen,
       App: AppContainer,
       Auth: AuthStack,
+      Chat: ChatScreen,
+      Messges: MessagingScreen,
     },
     {
       initialRouteName: 'Loading',

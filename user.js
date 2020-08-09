@@ -1,4 +1,4 @@
-var userInfo = {
+export default userInfo = {
   userPosts: 100,
   userFollowers: 90000,
   userFollowing: 0,
@@ -12,9 +12,10 @@ var userInfo = {
       name: 'your real father',
       text: 'lorem ipsum',
       timestamp: 1569109273726,
-      image:
-        'https://ipfs.io/ipfs/Qmcsjg3Mw99LDB1VM56CMr1HCoob1tUZNG42yV7GtUBaWq',
+      image: {
+        uri:
+          'https://ipfs.io/ipfs/Qmcsjg3Mw99LDB1VM56CMr1HCoob1tUZNG42yV7GtUBaWq',
+      },
     },
   ],
 };
-module.exports = userInfo;

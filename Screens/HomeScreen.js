@@ -1,8 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-import userInfo from '../user.js';
+import user from '../user.js';
 
 // temporary data until we pull from Firebase
 
@@ -15,7 +23,7 @@ export default class HomeScreen extends React.Component {
   //};
   //}
 
-  state = userInfo;
+  state = { userPosts: user.posts };
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
@@ -33,12 +41,13 @@ export default class HomeScreen extends React.Component {
                 {moment(post.timestamp).fromNow()}
               </Text>
             </View>
-
-            <Icon
-              name="ios-ellipsis-horizontal-outline"
-              size={24}
-              color="#73788B"
-            />
+            <TouchableOpacity>
+              <Icon
+                name="ios-ellipsis-horizontal-outline"
+                size={24}
+                color="#73788B"
+              />
+            </TouchableOpacity>
           </View>
 
           <Text style={styles.post}>{post.text}</Text>
@@ -60,7 +69,7 @@ export default class HomeScreen extends React.Component {
         </View>
         <FlatList
           style={styles.feed}
-          data={this.state.userInfo}
+          data={this.state.userPosts}
           renderItem={({ item }) => this.renderPost(item)}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
@@ -77,7 +86,6 @@ const styles = StyleSheet.create({
   },
   header: {
     ...Platform.select({
-
       ios: {
         paddingTop: 38,
       },

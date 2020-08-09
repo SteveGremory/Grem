@@ -1,22 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+import user from '../user.js';
 
 export default class MessagesScreen extends React.Component {
-  state = { chats: [] };
-  renderChats = (chatboxes) => {
-    return (
-      <View style={styles.feedItem}>
-        <Image source={chatboxes.avatar} style={styles.avatar} />
-        <View style={{ flex: 1 }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}></View>
-        </View>
-      </View>
-    );
+  state = {
+    chats: [
+      {
+        userName: 'GLOBAL',
+        id: 1,
+      },
+    ],
+    userInfo: user,
   };
   render() {
     return (
@@ -25,11 +26,23 @@ export default class MessagesScreen extends React.Component {
           <Text style={styles.headerTitle}>Messages</Text>
         </View>
         <FlatList
-          style={styles.feed}
-          data={this.state.chat}
-          renderItem={({ item }) => this.render(item)}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
+          style={{
+            backgroundColor: 'black',
+            borderRadius: 5,
+            padding: 8,
+            flexDirection: 'column',
+            marginVertical: 8,
+          }}
+          data={this.state.chats}
+          renderItem={({ item }) => (
+            <View>
+              <TouchableOpacity
+                style={styles.chatbox}
+                onPress={() => this.props.navigation.navigate('Chat')}>
+                <Text style={styles.name}>{item.userName}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         />
       </View>
     );
@@ -43,7 +56,6 @@ const styles = StyleSheet.create({
   },
   header: {
     ...Platform.select({
-
       ios: {
         paddingTop: 38,
       },
@@ -69,24 +81,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'red',
   },
-  feed: {
-    marginHorizontal: 16,
-  },
-  feedItem: {
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    padding: 8,
-    flexDirection: 'row',
-    marginVertical: 8,
-  },
   avatar: {
     width: 36,
     height: 36,
     borderRadius: 18,
     marginRight: 16,
+    flexDirection: 'column',
   },
   name: {
-    fontSize: 15,
+    fontSize: 32,
     fontWeight: '500',
     color: '#454D65',
   },
@@ -95,9 +98,10 @@ const styles = StyleSheet.create({
     color: '#C4C6CE',
     marginTop: 4,
   },
-  post: {
-    marginTop: 16,
-    fontSize: 14,
-    color: '#838899',
+  chatbox: {
+    backgroundColor: 'white',
+    marginHorizontal: 18,
+    marginTop: 18,
+    height: 54,
   },
 });
