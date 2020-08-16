@@ -92,6 +92,8 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '500',
     color: '#454D65',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   timestamp: {
     fontSize: 11,
@@ -103,5 +105,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
     marginTop: 18,
     height: 54,
+    borderRadius: 32,
   },
 });

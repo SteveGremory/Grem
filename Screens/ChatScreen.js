@@ -2,10 +2,13 @@ import React from 'react';
 import {
   Platform,
   KeyboardAvoidingView,
+  StyleSheet,
   SafeAreaView,
+  Text,
   View,
 } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
+import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase';
 import Fire from '../Fire';
 
@@ -34,19 +37,15 @@ export default class ChatScreen extends React.Component {
   }
 
   render() {
-    const chat = (
-      <GiftedChat
-        messages={this.state.messages}
-        onSend={Fire.send}
-        user={this.user}
-        listViewProps={{
-          style: {
-            backgroundColor: 'black',
-          },
-        }}
-      />
-    );
-
+    renderSend = (props) => {
+      return (
+        <Send {...props}>
+          <View style={styles.sendingContainer}>
+            <Icon name="ios-arrow-forward" size={32} color="red" />
+          </View>
+        </Send>
+      );
+    };
     if (Platform.OS === 'android') {
       return (
         <KeyboardAvoidingView
@@ -60,8 +59,48 @@ export default class ChatScreen extends React.Component {
 
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
-        {chat}
+        <GiftedChat
+          messages={this.state.messages}
+          onSend={Fire.send}
+          user={this.user}
+          scrollToBottom
+          renderSend={renderSend}
+          listViewProps={{
+            style: {
+              backgroundColor: 'black',
+            },
+          }}
+        />
       </SafeAreaView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  sendingContainer: {
+    borderRadius: 20,
+    backgroundColor: 'rgba(21, 22, 48, 0.1)',
+  },
+  header: {
+    ...Platform.select({
+      ios: {
+        paddingTop: 38,
+      },
+      android: {
+        paddingTop: 16,
+      },
+    }),
+    paddingBottom: 16,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: 'red',
+    shadowColor: 'red',
+    shadowOffset: { height: 5 },
+    shadowRadius: 15,
+    shadowOpacity: 0.5,
+    zIndex: 16,
+    marginBottom: 10,
+  },
+});

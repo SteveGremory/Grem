@@ -1,16 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default class TrendingScreen extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>TrendingScreen</Text>
-      </View>
-    );
+    return <Text>Hello</Text>;
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
