@@ -6,3 +6,5 @@ We are using IPFS and Ethereum to make a social media app which will change the 
 
 ANY CONTRIBUTIONS ARE GREATLY APPRECIATED.
 **Note - we are using firebase as of now, just to get a picture of how things work and so that we can understand the working and make our app as efficent as possible.**
+
+RESTful API link - https://github.com/GremApp/ExpressAPI
