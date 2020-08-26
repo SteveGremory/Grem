@@ -7,12 +7,14 @@ We are using IPFS and Ethereum to make a social media app which will change the 
 **Note - we are using firebase as of now, just to get a picture of how things work and so that we can understand the working and make our app as efficent as possible.**
 
 RESTful API Link - https://github.com/GremApp/ExpressAPI
+
 Node Module Link - https://github.com/GremApp/Grembase
 
 To Run: 
   1. Clone the repo
   2. Open the folder in the terminal and type ```yarn install```
   3. Then:
+  
      => if running on a mac with xcode and iPhone Simulator:
         ```cd ios && pod install``` 
         *then, open the "Grem.xcworkspace" file in xcode and run the project on a simulator/ physical device*
