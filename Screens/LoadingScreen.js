@@ -1,10 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   View,
-  Text,
-  StyleSheet,
   ActivityIndicator,
-  ImageBackground,
   Image,
 } from 'react-native';
 import * as firebase from 'firebase';
@@ -21,18 +18,9 @@ export default class LoadingScreen extends React.Component {
       <View style={{ alignItems: 'center', flex: 1, backgroundColor: 'black' }}>
         <Image
           source={require('../assets/Logo.png')}
-          style={{ width: '100%', height: '50%' }}></Image>
+          style={{ width: '100%', height: '50%' }} />
         <ActivityIndicator style={{ flex: 1, marginBottom: 300 }} />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

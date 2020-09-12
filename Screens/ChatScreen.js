@@ -4,10 +4,9 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
   SafeAreaView,
-  Text,
-  View,
+  View, Text, TouchableOpacity
 } from 'react-native';
-import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
+import { GiftedChat, Send } from 'react-native-gifted-chat';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase';
 import Fire from '../Fire';
@@ -20,15 +19,15 @@ export default class ChatScreen extends React.Component {
   get user() {
     return {
       _id: Fire.uid,
-      name: firebase.auth().currentUser.displayName,
+      name: firebase.auth().currentUser.email,
     };
   }
 
   componentDidMount() {
     Fire.get((message) =>
-      this.setState((previous) => ({
-        messages: GiftedChat.append(previous.messages, message),
-      })),
+        this.setState((previous) => ({
+          messages: GiftedChat.append(previous.messages, message),
+        })),
     );
   }
 
@@ -39,47 +38,46 @@ export default class ChatScreen extends React.Component {
   render() {
     renderSend = (props) => {
       return (
-        <Send {...props}>
-          <View style={styles.sendingContainer}>
-            <Icon name="ios-arrow-forward" size={32} color="red" />
-          </View>
-        </Send>
+          <Send {...props}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.back}>
+              <Icon name="ios-arrow-back" size={32} color="white"></Icon>
+            </TouchableOpacity>
+          </Send>
       );
     };
     if (Platform.OS === 'android') {
       return (
-        <KeyboardAvoidingView
-          style={{ flex: 1, backgroundColor: 'black' }}
-          keyboardVerticalOffset={30}
-          enabled>
-          {chat}
-        </KeyboardAvoidingView>
+          <KeyboardAvoidingView
+              style={{ flex: 1, backgroundColor: 'black' }}
+              keyboardVerticalOffset={30}
+              enabled>
+            {this.chat}
+          </KeyboardAvoidingView>
       );
     }
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
-        <GiftedChat
-          messages={this.state.messages}
-          onSend={Fire.send}
-          user={this.user}
-          scrollToBottom
-          renderSend={renderSend}
-          listViewProps={{
-            style: {
-              backgroundColor: 'black',
-            },
-          }}
-        />
-      </SafeAreaView>
+          <View style={{ flex: 1, backgroundColor: 'black' }}>
+            <GiftedChat
+                messages={this.state.messages}
+                onSend={Fire.send}
+                user={this.user}
+                scrollToBottom
+                renderSend={renderSend}
+                listViewProps={{
+                  style: {
+                    backgroundColor: 'black',
+                  },
+                }}/>
+          </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   sendingContainer: {
-    borderRadius: 20,
-    backgroundColor: 'rgba(21, 22, 48, 0.1)',
+    borderRadius: 24,
+    backgroundColor: 'rgba(21, 22, 42, 0.2)',
   },
   header: {
     ...Platform.select({
@@ -103,4 +101,15 @@ const styles = StyleSheet.create({
     zIndex: 16,
     marginBottom: 10,
   },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: 'red',
+  },
+  back: {
+    borderRadius: 20,
+    backgroundColor: 'rgba(21, 22, 48, 0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });

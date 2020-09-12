@@ -129,7 +129,7 @@ export default createAppContainer(
       App: AppContainer,
       Auth: AuthStack,
       Chat: ChatScreen,
-      Messges: MessagingScreen,
+      Messages: MessagingScreen,
     },
     {
       initialRouteName: 'Loading',
