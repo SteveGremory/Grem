@@ -14,7 +14,7 @@ export default class MessagesScreen extends React.Component {
     chats: [
       {
         userName: 'Mom',
-        recentMessage: "Get the groceries while you come home 😊",
+        recentMessage: "Get the groceries on your way home ! 😊",
         id: 1,
         avatar: {
           uri: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
@@ -119,12 +119,12 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   chatbox: {
-    shadowColor: 'white',
+    shadowColor: '#FFF',
     shadowOffset: { height: 8 },
     shadowRadius: 10,
     shadowOpacity: 0.5,
     borderRadius: 13,
-    backgroundColor: 'white',
+    backgroundColor: '#FFF',
     marginHorizontal: 18,
     marginTop: 20,
     height: 54,
