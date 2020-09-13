@@ -4,7 +4,10 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
   SafeAreaView,
-  View, Text, TouchableOpacity
+  View, 
+  Text, 
+  TouchableOpacity,
+  Navigation
 } from 'react-native';
 import { GiftedChat, Send } from 'react-native-gifted-chat';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -12,6 +15,10 @@ import firebase from 'firebase';
 import Fire from '../Fire';
 
 export default class ChatScreen extends React.Component {
+  navigationOptions = {
+    headerShown: true,
+  };
+
   state = {
     messages: [],
   };
@@ -39,8 +46,8 @@ export default class ChatScreen extends React.Component {
     renderSend = (props) => {
       return (
           <Send {...props}>
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.back}>
-              <Icon name="ios-arrow-back" size={32} color="white"></Icon>
+            <TouchableOpacity style={styles.sendArrow}>
+              <Icon name="ios-arrow-forward" size={32} color="white"></Icon>
             </TouchableOpacity>
           </Send>
       );
@@ -58,6 +65,15 @@ export default class ChatScreen extends React.Component {
 
     return (
           <View style={{ flex: 1, backgroundColor: 'black' }}>
+            <View style={styles.header}>
+
+              <TouchableOpacity onPress={() => this.props.navigation.navigate("App")}>
+                <Icon style={styles.back} name="ios-arrow-back" size={32} color="white"></Icon>
+              </TouchableOpacity>
+
+              <Text style={styles.headerTitle}>{firebase.auth().currentUser.displayName}</Text>
+
+            </View>
             <GiftedChat
                 messages={this.state.messages}
                 onSend={Fire.send}
@@ -100,16 +116,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     zIndex: 16,
     marginBottom: 10,
+    flexDirection: "row",
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: 'red',
+    textAlign: "center",
+  },
+  sendArrow: {
+    backgroundColor: "black",
+    borderRadius: 20,
+  },
+  back: {
+    backgroundColor: "black",
+    marginLeft: -80,
+    borderRadius: 20,
+    backgroundColor: 'rgba(21, 22, 48, 0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: '500',
     color: 'red',
   },
-  back: {
-    borderRadius: 20,
-    backgroundColor: 'rgba(21, 22, 48, 0.1)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
 });

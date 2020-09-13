@@ -15,14 +15,6 @@ import user from '../user.js';
 // temporary data until we pull from Firebase
 
 export default class HomeScreen extends React.Component {
-  componentDidMount() {
-  fetch('http://localhost:5000')
-  .then((res) => res.json())
-  .then((posts) => this.setState({ posts })).catch = (err) => {
-  console.log(err);
-  };
-  }
-
   state = { userPosts: user.posts };
   renderPost = (post) => {
     return (

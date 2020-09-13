@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import user from '../user.js';
 
+
 export default class MessagesScreen extends React.Component {
   state = {
     chats: [
@@ -48,6 +49,7 @@ export default class MessagesScreen extends React.Component {
 
         <FlatList
           data={this.state.chats}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View>
               <TouchableOpacity style={styles.chatbox}
@@ -58,7 +60,6 @@ export default class MessagesScreen extends React.Component {
               </TouchableOpacity>
             </View>
           )}
-          keyExtractor={(item) => item.id}
         />
       </View>
     );
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     shadowColor: 'red',
     shadowOffset: { height: 5 },
     shadowRadius: 15,
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.5,
     zIndex: 16,
     marginBottom: 10,
   },
@@ -105,7 +106,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   chatboxTextUsername: {
-    marginLeft: 5,
+    marginTop: 6,
+    marginLeft: 8,
     textAlign: "left",
     fontSize: 28,
     fontWeight: '500',
@@ -120,25 +122,26 @@ const styles = StyleSheet.create({
   },
   chatbox: {
     shadowColor: '#FFF',
-    shadowOffset: { height: 8 },
-    shadowRadius: 10,
+    shadowOffset: { height: 4 },
+    shadowRadius: 8,
     shadowOpacity: 0.5,
     borderRadius: 13,
     backgroundColor: '#FFF',
     marginHorizontal: 18,
     marginTop: 20,
-    height: 54,
+    height: 64,
   },
   chatboxRecentMessage: {
+    marginBottom: 6,
     fontWeight: "200",
-    marginLeft: 5,
+    marginLeft: 8,
     fontSize: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },
   avatar: {
     width: 50,
-    height: 40,
+    height: 50,
     borderRadius: 10,
     margin: 8,
     position: 'absolute',

@@ -4,6 +4,7 @@ import { SafeAreaView, Dimensions, Button, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import 'react-native-gesture-handler'
 
 import RegisterScreen from './Screens/RegisterScreen';
 import LoadingScreen from './Screens/LoadingScreen';
@@ -45,7 +46,7 @@ const AppContainer = createStackNavigator(
             ),
           },
         },
-        Messges: {
+        Messages: {
           screen: MessagingScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (

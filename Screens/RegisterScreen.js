@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -39,7 +39,7 @@ export class RegisterScreen extends React.Component {
   };
   render() {
     return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{flex: 1}}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{flex: 1, backgroundColor: "black"}}>
         <View style={styles.container}>
             <Image
               source={require('../assets/Logo.png')}

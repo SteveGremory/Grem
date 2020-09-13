@@ -30,7 +30,7 @@ export class LoginScreen extends React.Component {
   };
   render() {
     return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ flex: 1, backgroundColor: "black" }}>
         <View style={styles.container}>
           <StatusBar barStyle="light-content"></StatusBar>
           <Image
