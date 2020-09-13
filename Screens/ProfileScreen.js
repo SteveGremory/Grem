@@ -35,7 +35,7 @@ export default class ProfileScreen extends React.Component {
   //}
   render() {
     return (
-      <ScrollView style={{ backgroundColor: 'black' }}>
+      
         <View style={styles.container}>
           <View style={{ marginTop: 64, alignItems: 'center' }}>
             <View style={styles.avatarContainer}>
@@ -64,15 +64,15 @@ export default class ProfileScreen extends React.Component {
               <Text style={styles.statTitle}>FOLLOWING</Text>
             </View>
           </View>
-
-          <Button
-            onPress={() => {
-              firebase.auth().signOut();
-            }}
-            title="Log out"
-          />
+          <ScrollView style={{ backgroundColor: 'black' }}>
+            <Button
+              onPress={() => {
+                firebase.auth().signOut();
+              }}
+              title="Log out"
+            />
+          </ScrollView>
         </View>
-      </ScrollView>
     );
   }
 }
