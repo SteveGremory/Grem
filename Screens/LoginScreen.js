@@ -10,6 +10,11 @@ import {
   ScrollView,
 } from 'react-native';
 import * as firebase from 'firebase';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: "http://localhost:5000/users/login"
+})
 
 export class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -21,12 +26,23 @@ export class LoginScreen extends React.Component {
     errorMessage: null,
   };
   //Login Handler
-  handleLogin = () => {
+  //TODO: get it to log in and display le home page and keep user logged in.
+  //you could use async storage to store and remove user shit
+  handleLogin = async () => {
     const { email, password } = this.state;
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((error) => this.setState({ errorMessage: error.message }));
+    axios.post(
+      'https://grem-api.herokuapp.com/users/login', 
+      {
+         'email': email,
+         'password': password,
+         //other data key value pairs
+      },
+  ).then(response => {
+    console.log("response: " + JSON.stringify((response.data)))
+    })
+  .catch(err => {
+    console.log("error: " + JSON.stringify(err))
+    })
   };
   render() {
     return (
@@ -74,10 +90,10 @@ export class LoginScreen extends React.Component {
               marginTop: 32,
             }}
             onPress={() => this.props.navigation.navigate('Register')}>
-            <Text style={{ color: '#414959', fontSize: 14 }}>
+            <Text style={{ color: '#d3d3d3', fontSize: 14, fontWeight: "400" }}>
               New To Grem?
-              <Text style={{ fontWeight: '500', color: '#E9446A' }}>
-                Join the revolution!
+              <Text style={{ fontWeight: '300', color: 'red', fontSize: 16 }}>
+                 Join the revolution!
               </Text>
             </Text>
           </TouchableOpacity>

@@ -50,6 +50,7 @@ export default class ProfileScreen extends React.Component {
             </View>
             <Text style={styles.name}>{this.state.userRealName}</Text>
           </View>
+
           <View style={styles.statsContainer}>
             <View style={styles.stat}>
               <Text style={styles.statAmount}>{this.state.userPosts}</Text>
@@ -64,6 +65,7 @@ export default class ProfileScreen extends React.Component {
               <Text style={styles.statTitle}>FOLLOWING</Text>
             </View>
           </View>
+
           <ScrollView style={{ backgroundColor: 'black' }}>
             <Button
               onPress={() => {
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 10,
     margin: 32,
   },
   stat: {

@@ -8,9 +8,12 @@ import {
   Image,
   TextInput,
   Alert,
+  Platform
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import axios from 'axios';
 
 import { Permission, PERMISSION_TYPE } from '../AppPermissions';
 
@@ -35,14 +38,30 @@ export default class PostScreen extends React.Component {
   };
 
   selectImage = () => {
-    ImagePicker.openPicker({
+    const images = ImagePicker.openPicker({
+      mediaType: 'photo',
       width: 1920,
       height: 1080,
       cropping: true,
-    }).then((image) => {
-      console.log(image);
-      this.setState({ userImage: image.path });
-    });
+    })
+    const data = new FormData();
+    images.forEach((image, index) => {
+      data.append(`file[${index}]`, {
+          uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
+          type: 'image/jpeg',
+          name: 'image.jpg'
+      });
+  });
+  axios({
+      url: 'https://grem-api.herokuapp.com/api/content/upload-post',
+      method: 'POST',
+      data,
+      headers: { 'Content-Type': 'multipart/form-data' }
+  }).then((response) => {
+      console.log('image upload response: ', response)
+  }).catch((error) => {
+      console.log('image upload error: ', error)
+  });
   };
   render() {
     return (

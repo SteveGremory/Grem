@@ -7,17 +7,14 @@ import {
   View, 
   Text, 
   TouchableOpacity,
-  Navigation
+  Image
 } from 'react-native';
-import { GiftedChat, Send } from 'react-native-gifted-chat';
+import { GiftedChat, Send, InputToolbar, renderInputToolbar, Actions } from 'react-native-gifted-chat';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase';
 import Fire from '../Fire';
-
+import ImagePicker from 'react-native-image-crop-picker'
 export default class ChatScreen extends React.Component {
-  navigationOptions = {
-    headerShown: true,
-  };
 
   state = {
     messages: [],
@@ -43,15 +40,62 @@ export default class ChatScreen extends React.Component {
   }
 
   render() {
-    renderSend = (props) => {
-      return (
-          <Send {...props}>
-            <TouchableOpacity style={styles.sendArrow}>
-              <Icon name="ios-arrow-forward" size={32} color="white"></Icon>
-            </TouchableOpacity>
-          </Send>
-      );
+    const renderInputToolbar = (props) => (
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          backgroundColor: 'white',
+          borderRadius: 30,
+        }}
+        primaryStyle={{ alignItems: 'center', justifyContent: "center" }}
+      />
+    );
+
+    const renderSend = (props) => (
+      <Send
+        {...props}
+        containerStyle={{
+          
+        }}
+      >
+        <Icon name="ios-arrow-forward" style={{borderRadius: 20, borderColor: "red"}} size={40} color="black"></Icon>
+      </Send>
+    );
+
+    const selectImage = () => {
+      ImagePicker.openPicker({
+        width: 1920,
+        height: 1080,
+        cropping: true,
+      }).then((image) => {
+        console.log(image);
+        this.setState({ userImage: image.data });
+      });
     };
+
+    const renderActions = (props) => (
+      <Actions
+        {...props}
+        containerStyle={{
+          width: 44,
+          height: 44,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginLeft: 4,
+          marginRight: 4,
+          marginBottom: 0,
+        }}
+        options={{
+          ['Send Image']: selectImage,
+        }}
+        icon={() => (
+          <Icon name="ios-add" size={20} color="black"></Icon>
+        )}
+        onSend={console.log()} //add logic here you idiot..TODO
+        optionTintColor="White"
+      />
+    );
+
     if (Platform.OS === 'android') {
       return (
           <KeyboardAvoidingView
@@ -75,11 +119,13 @@ export default class ChatScreen extends React.Component {
 
             </View>
             <GiftedChat
+                renderSend={renderSend}
+                renderInputToolbar={renderInputToolbar}
                 messages={this.state.messages}
                 onSend={Fire.send}
                 user={this.user}
                 scrollToBottom
-                renderSend={renderSend}
+                renderActions={renderActions}
                 listViewProps={{
                   style: {
                     backgroundColor: 'black',
