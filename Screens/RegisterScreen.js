@@ -37,10 +37,26 @@ export class RegisterScreen extends React.Component {
     axios
       .post("http://localhost:5000/users/signup", data)
       .then((response) => {
-        console.log("response: " + response.data);
+        console.info("response: " + response.data);
       })
       .catch((err) => {
-        console.log("error: " + err);
+        if (err.message == "Request failed with status code 409") {
+          this.setState({
+            errorMessage:
+              "This email/username is associated with another account.",
+          });
+        }
+        if (err.message == "Request failed with status code 500") {
+          this.setState({
+            errorMessage: "An unexpected error has occurred.",
+          });
+        }
+        if (err.message == "Network Error") {
+          this.setState({
+            errorMessage: "Network Error.",
+          });
+        }
+        console.error(err.message);
       });
   };
   render() {
