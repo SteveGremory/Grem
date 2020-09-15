@@ -12,10 +12,6 @@ import {
 import * as firebase from "firebase";
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "http://localhost:5000/users/login",
-});
-
 export class LoginScreen extends React.Component {
   static navigationOptions = {
     headerShown: false,
@@ -28,21 +24,44 @@ export class LoginScreen extends React.Component {
   //Login Handler
   //TODO: get it to log in and display le home page and keep user logged in.
   //you could use async storage to store and remove user shit
+
   handleLogin = async () => {
-    const { email, password } = this.state;
-    axios
-      .post("https://grem-api.herokuapp.com/users/login", {
-        email: email,
-        password: password,
-        //other data key value pairs
-      })
-      .then((response) => {
-        console.log("response: " + JSON.stringify(response.data));
-      })
-      .catch((err) => {
-        console.log("error: " + JSON.stringify(err));
+    const data = {
+      email: this.state.email,
+      password: this.state.password,
+      //other data key value pairs
+    };
+    if (this.state.email == "") {
+      this.setState({
+        errorMessage: "A valid e-mail is required for logging in.",
       });
+    }
+    if (this.state.password == "") {
+      this.setState({
+        errorMessage: "A valid password is required for logging in.",
+      });
+    } else {
+      await axios
+        .post("https://grem-api.herokuapp.com/users/login", data)
+        .then((response) => {
+          console.info("response: " + response.data);
+        })
+        .catch((err) => {
+          if (err.message == "Request failed with status code 401") {
+            this.setState({
+              errorMessage: "Sign In Failed, check your email and password.",
+            });
+          }
+          if (err.message == "Network Error") {
+            this.setState({
+              errorMessage: "Network Error.",
+            });
+          }
+          console.error(err.message);
+        });
+    }
   };
+
   render() {
     return (
       <ScrollView

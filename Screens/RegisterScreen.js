@@ -18,10 +18,8 @@ export class RegisterScreen extends React.Component {
     headerShown: false,
   };
   state = {
-    name: "",
     email: "",
     password: "",
-    ipfsHash: "",
     username: "",
     errorMessage: null,
   };
@@ -33,31 +31,46 @@ export class RegisterScreen extends React.Component {
       password: this.state.password,
       //other data key value pairs
     };
-
-    axios
-      .post("http://localhost:5000/users/signup", data)
-      .then((response) => {
-        console.info("response: " + response.data);
-      })
-      .catch((err) => {
-        if (err.message == "Request failed with status code 409") {
-          this.setState({
-            errorMessage:
-              "This email/username is associated with another account.",
-          });
-        }
-        if (err.message == "Request failed with status code 500") {
-          this.setState({
-            errorMessage: "An unexpected error has occurred.",
-          });
-        }
-        if (err.message == "Network Error") {
-          this.setState({
-            errorMessage: "Network Error.",
-          });
-        }
-        console.error(err.message);
+    if (this.state.email == "") {
+      this.setState({
+        errorMessage: "A valid e-mail is required for signup.",
       });
+    }
+    if (this.state.password == "") {
+      this.setState({
+        errorMessage: "A valid password is required for signup.",
+      });
+    }
+    if (this.state.username == "") {
+      this.setState({
+        errorMessage: "A valid username is required for signup.",
+      });
+    } else {
+      await axios
+        .post("https://grem-api.herokuapp.com/users/signup", data)
+        .then((response) => {
+          console.info("response: " + response.data);
+        })
+        .catch((err) => {
+          if (err.message == "Request failed with status code 409") {
+            this.setState({
+              errorMessage:
+                "This email/username is associated with another account.",
+            });
+          }
+          if (err.message == "Request failed with status code 500") {
+            this.setState({
+              errorMessage: "E-mail is badly formatted.",
+            });
+          }
+          if (err.message == "Network Error") {
+            this.setState({
+              errorMessage: "Network Error.",
+            });
+          }
+          console.error(err.message);
+        });
+    }
   };
   render() {
     return (
