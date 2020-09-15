@@ -184,8 +184,8 @@ const styles = StyleSheet.create({
   },
   back: {
     position: "absolute",
-    top: 32,
-    left: 25,
+    top: 54,
+    left: 32,
     width: 25,
     height: 25,
     borderRadius: 20,
