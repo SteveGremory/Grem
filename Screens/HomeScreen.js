@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -7,10 +7,10 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import moment from 'moment';
-import user from '../user.js';
+} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import moment from "moment";
+import user from "../user.js";
 
 // temporary data until we pull from Firebase
 
@@ -23,10 +23,11 @@ export default class HomeScreen extends React.Component {
         <View style={{ flex: 1 }}>
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <View>
               <Text style={styles.name}>{post.name}</Text>
               <Text style={styles.timestamp}>
@@ -74,7 +75,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
   header: {
     ...Platform.select({
@@ -86,12 +87,12 @@ const styles = StyleSheet.create({
       },
     }),
     paddingBottom: 16,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
     borderBottomWidth: 2,
-    borderBottomColor: 'red',
-    shadowColor: 'red',
+    borderBottomColor: "red",
+    shadowColor: "red",
     shadowOffset: { height: 5 },
     shadowRadius: 15,
     shadowOpacity: 0.5,
@@ -100,17 +101,17 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '500',
-    color: 'red',
+    fontWeight: "500",
+    color: "red",
   },
   feed: {
     marginHorizontal: 16,
   },
   feedItem: {
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderRadius: 5,
     padding: 8,
-    flexDirection: 'row',
+    flexDirection: "row",
     marginVertical: 8,
   },
   avatar: {
@@ -121,18 +122,18 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 15,
-    fontWeight: '500',
-    color: '#454D65',
+    fontWeight: "500",
+    color: "#454D65",
   },
   timestamp: {
     fontSize: 11,
-    color: '#C4C6CE',
+    color: "#C4C6CE",
     marginTop: 4,
   },
   post: {
     marginTop: 16,
     fontSize: 14,
-    color: '#838899',
+    color: "#838899",
   },
   postImage: {
     width: undefined,

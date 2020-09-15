@@ -13,11 +13,9 @@ import {
   GiftedChat,
   Send,
   InputToolbar,
-  renderInputToolbar,
   Actions,
 } from "react-native-gifted-chat";
 import Icon from "react-native-vector-icons/Ionicons";
-import firebase from "firebase";
 import Fire from "../Fire";
 import ImagePicker from "react-native-image-crop-picker";
 export default class ChatScreen extends React.Component {
@@ -27,8 +25,8 @@ export default class ChatScreen extends React.Component {
 
   get user() {
     return {
-      _id: Fire.uid,
-      name: firebase.auth().currentUser.email,
+      _id: "PUT ID LOGIC HERE PLS",
+      name: "PutNameLogicHere",
     };
   }
 
@@ -115,7 +113,7 @@ export default class ChatScreen extends React.Component {
       <View style={{ flex: 1, backgroundColor: "black" }}>
         <View style={styles.header}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("App")}
+            onPress={() => this.props.navigation.navigate("App")} //.goBack()
           >
             <Icon
               style={styles.back}
@@ -125,9 +123,7 @@ export default class ChatScreen extends React.Component {
             ></Icon>
           </TouchableOpacity>
 
-          <Text style={styles.headerTitle}>
-            {firebase.auth().currentUser.displayName}
-          </Text>
+          <Text style={styles.headerTitle}>HELLO</Text>
         </View>
         <GiftedChat
           renderSend={renderSend}

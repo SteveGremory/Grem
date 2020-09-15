@@ -90,7 +90,7 @@ export class RegisterScreen extends React.Component {
 
           <TouchableOpacity
             style={styles.back}
-            onPress={() => this.props.navigation.goBack()}
+            onPress={() => this.props.navigation.navigate("App")}
           >
             <Icon name="ios-arrow-back" size={32} color="white"></Icon>
           </TouchableOpacity>
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   back: {
     position: "absolute",
-    top: 54,
+    top: 32,
     left: 32,
     width: 25,
     height: 25,
