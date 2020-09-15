@@ -1,18 +1,18 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView} from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 
 export default class TrendingScreen extends React.Component {
   render() {
-    return(
+    return (
       <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.headerTitle}>Trending</Text>
-          </View>
-          <ScrollView>
-            <Text style={styles.textStyle}>Coming Soon!</Text>
-          </ScrollView>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Trending</Text>
+        </View>
+        <ScrollView>
+          <Text style={styles.textStyle}>Coming Soon!</Text>
+        </ScrollView>
       </View>
-    )
+    );
   }
 }
 const styles = StyleSheet.create({
@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
       },
     }),
     paddingBottom: 16,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
     borderBottomWidth: 2,
-    borderBottomColor: 'red',
-    shadowColor: 'red',
+    borderBottomColor: "red",
+    shadowColor: "red",
     shadowOffset: { height: 5 },
     shadowRadius: 15,
     shadowOpacity: 0.5,
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '500',
-    color: 'red',
+    fontWeight: "500",
+    color: "red",
   },
   textStyle: {
     flex: 1,
@@ -56,5 +56,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 64,
     fontWeight: "200",
-  }
+  },
 });

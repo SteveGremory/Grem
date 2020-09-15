@@ -1,24 +1,24 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createDrawerNavigator } from 'react-navigation-drawer';
-import { SafeAreaView, Dimensions, Button, View } from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
-import 'react-native-gesture-handler'
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createDrawerNavigator } from "react-navigation-drawer";
+import { SafeAreaView, Dimensions, Button, View } from "react-native";
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+import Icon from "react-native-vector-icons/Ionicons";
+import "react-native-gesture-handler";
 
-import RegisterScreen from './Screens/RegisterScreen';
-import LoadingScreen from './Screens/LoadingScreen';
-import HomeScreen from './Screens/HomeScreen';
-import LoginScreen from './Screens/LoginScreen';
-import TrendingScreen from './Screens/TrendingScreen';
-import MessagingScreen from './Screens/MessagingScreen';
-import PostScreen from './Screens/PostScreen';
-import ProfileScreen from './Screens/ProfileScreen';
+import RegisterScreen from "./Screens/RegisterScreen";
+import LoadingScreen from "./Screens/LoadingScreen";
+import HomeScreen from "./Screens/HomeScreen";
+import LoginScreen from "./Screens/LoginScreen";
+import TrendingScreen from "./Screens/TrendingScreen";
+import MessagingScreen from "./Screens/MessagingScreen";
+import PostScreen from "./Screens/PostScreen";
+import ProfileScreen from "./Screens/ProfileScreen";
 //import firebaseConfig from "./Fire";
 
-import React from 'react';
-import * as firebase from 'firebase';
-import ChatScreen from './Screens/ChatScreen';
+import React from "react";
+import * as firebase from "firebase";
+import ChatScreen from "./Screens/ChatScreen";
 
 //var firebaseConfig = {
 //apiKey: "AIzaSyB1tv1-Mk_CAY5nUvaoun5zeg6Z6nOQJaU",
@@ -61,9 +61,9 @@ const AppContainer = createStackNavigator(
               <Icon
                 name="ios-add-circle"
                 size={48}
-                color={'red'}
+                color={"red"}
                 style={{
-                  shadowColor: '#E9446A',
+                  shadowColor: "#E9446A",
                   shadowOffset: { width: 0, height: 10 },
                   shadowRadius: 10,
                   shadowOpacity: 0.3,
@@ -93,29 +93,29 @@ const AppContainer = createStackNavigator(
       {
         defaultNavigationOptions: {
           tabBarOnPress: ({ navigation, defaultHandler }) => {
-            if (navigation.state.key === 'Post') {
-              navigation.navigate('postModal');
+            if (navigation.state.key === "Post") {
+              navigation.navigate("postModal");
             } else {
               defaultHandler();
             }
           },
         },
         tabBarOptions: {
-          activeTintColor: 'red',
-          inactiveTintColor: 'black',
+          activeTintColor: "red",
+          inactiveTintColor: "black",
           showLabel: false,
         },
-      },
+      }
     ),
     postModal: {
       screen: PostScreen,
     },
   },
   {
-    mode: 'modal',
-    headerMode: 'none',
+    mode: "modal",
+    headerMode: "none",
     //initialRouteName: 'postModal',
-  },
+  }
 );
 
 const AuthStack = createStackNavigator({
@@ -133,7 +133,7 @@ export default createAppContainer(
       Messages: MessagingScreen,
     },
     {
-      initialRouteName: 'Loading',
-    },
-  ),
+      initialRouteName: "Loading",
+    }
+  )
 );
