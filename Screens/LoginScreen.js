@@ -8,8 +8,10 @@ import {
   StatusBar,
   Image,
   ScrollView,
+  Alert,
 } from "react-native";
 import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -44,6 +46,9 @@ export class LoginScreen extends React.Component {
         .post("https://grem-api.herokuapp.com/users/login", data)
         .then((response) => {
           console.info("response: " + response.data);
+          Alert.alert("Logged In!", "'Enjoy freedom!'");
+          this.setState({ isLoggedIn: "true" });
+          this.props.navigation.navigate("App");
         })
         .catch((err) => {
           if (err.message == "Request failed with status code 401") {
@@ -58,6 +63,11 @@ export class LoginScreen extends React.Component {
           }
           console.error(err.message);
         });
+      await AsyncStorage.setItem("isLoggedIn", this.state.isLoggedIn).catch(
+        (err) => {
+          console.error(err);
+        }
+      );
     }
   };
 
