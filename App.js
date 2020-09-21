@@ -1,6 +1,4 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import { createDrawerNavigator } from "react-navigation-drawer";
-import { SafeAreaView, Dimensions, Button, View } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -17,22 +15,7 @@ import ProfileScreen from "./Screens/ProfileScreen";
 //import firebaseConfig from "./Fire";
 
 import React from "react";
-import * as firebase from "firebase";
 import ChatScreen from "./Screens/ChatScreen";
-
-//var firebaseConfig = {
-//apiKey: "AIzaSyB1tv1-Mk_CAY5nUvaoun5zeg6Z6nOQJaU",
-// authDomain: "grem-customlogin.firebaseapp.com",
-//databaseURL: "https://grem-customlogin.firebaseio.com",
-//projectId: "grem-customlogin",
-//storageBucket: "grem-customlogin.appspot.com",
-//messagingSenderId: "452326262426",
-//appId: "1:452326262426:web:8d6b7532b732af4bef8123",
-//measurementId: "G-R9DJYM8H37",
-//};
-
-// Initialize Firebase
-//firebase.initializeApp(firebaseConfig);
 
 const AppContainer = createStackNavigator(
   {

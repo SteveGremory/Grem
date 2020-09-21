@@ -8,10 +8,11 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import * as firebase from "firebase";
 import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export class RegisterScreen extends React.Component {
   static navigationOptions = {
@@ -22,6 +23,7 @@ export class RegisterScreen extends React.Component {
     password: "",
     username: "",
     errorMessage: null,
+    isLoggedIn: "false",
   };
 
   handleSignUp = async () => {
@@ -31,6 +33,7 @@ export class RegisterScreen extends React.Component {
       password: this.state.password,
       //other data key value pairs
     };
+    //HANDLE ALL OF THE SIGNUP STARTS...
     if (this.state.email == "") {
       this.setState({
         errorMessage: "A valid e-mail is required for signup.",
@@ -50,6 +53,9 @@ export class RegisterScreen extends React.Component {
         .post("https://grem-api.herokuapp.com/users/signup", data)
         .then((response) => {
           console.info("response: " + response.data);
+          Alert.alert("User Created!", "'TO PRIVACY AND BEYOND!'");
+          this.setState({ isLoggedIn: "true" });
+          this.props.navigation.navigate("App");
         })
         .catch((err) => {
           if (err.message == "Request failed with status code 409") {
@@ -70,7 +76,13 @@ export class RegisterScreen extends React.Component {
           }
           console.error(err.message);
         });
+      await AsyncStorage.setItem("isLoggedIn", this.state.isLoggedIn).catch(
+        (err) => {
+          console.error(err);
+        }
+      );
     }
+    //HANDLE ALL OF THE SIGNUP ENDS...
   };
   render() {
     return (
@@ -83,14 +95,14 @@ export class RegisterScreen extends React.Component {
             source={require("../assets/Logo.png")}
             style={{
               width: "100%",
-              height: "50%",
-              marginTop: -22,
+              height: "30%",
+              marginTop: 40,
             }}
           ></Image>
 
           <TouchableOpacity
             style={styles.back}
-            onPress={() => this.props.navigation.navigate("App")}
+            onPress={() => this.props.navigation.navigate("Login")}
           >
             <Icon name="ios-arrow-back" size={32} color="white"></Icon>
           </TouchableOpacity>
@@ -156,8 +168,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   form: {
-    marginTop: -18,
-    marginBottom: -12,
     marginHorizontal: 32,
   },
   inputTitle: {
@@ -180,7 +190,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 40,
-    marginTop: -18,
   },
   back: {
     position: "absolute",

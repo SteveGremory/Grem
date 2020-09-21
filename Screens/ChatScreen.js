@@ -16,7 +16,6 @@ import {
   Actions,
 } from "react-native-gifted-chat";
 import Icon from "react-native-vector-icons/Ionicons";
-import Fire from "../Fire";
 import ImagePicker from "react-native-image-crop-picker";
 export default class ChatScreen extends React.Component {
   state = {
@@ -31,15 +30,15 @@ export default class ChatScreen extends React.Component {
   }
 
   componentDidMount() {
-    Fire.get((message) =>
-      this.setState((previous) => ({
-        messages: GiftedChat.append(previous.messages, message),
-      }))
-    );
+    //ire.get((message) =>
+    // this.setState((previous) => ({
+    //   messages: GiftedChat.append(previous.messages, message),
+    //  }))
+    //);
   }
 
   componentWillUnmount() {
-    Fire.off();
+    //Fire.off();
   }
 
   render() {
@@ -92,7 +91,7 @@ export default class ChatScreen extends React.Component {
           ["Send Image"]: selectImage,
         }}
         icon={() => <Icon name="ios-add" size={20} color="black"></Icon>}
-        onSend={console.log()} //add logic here you idiot..TODO
+        onSend={console.log()} //add logic to pick-a-pic here you idiot..TODO
         optionTintColor="White"
       />
     );
@@ -129,7 +128,7 @@ export default class ChatScreen extends React.Component {
           renderSend={renderSend}
           renderInputToolbar={renderInputToolbar}
           messages={this.state.messages}
-          onSend={Fire.send}
+          onSend={console.log("sendpressed.")} //Fire.send
           user={this.user}
           scrollToBottom
           renderActions={renderActions}

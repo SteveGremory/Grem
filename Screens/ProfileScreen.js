@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,16 +6,21 @@ import {
   Button,
   Image,
   ScrollView,
-} from 'react-native';
-import firebase from 'firebase';
-import userInfo from '../user.js';
-
-function uploadUserID() {
-  let userID = firebase.auth().currentUser.uid;
-}
+} from "react-native";
+import userInfo from "../user.js";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class ProfileScreen extends React.Component {
   state = userInfo;
+
+  signOut = async () => {
+    try {
+      await AsyncStorage.setItem("isLoggedIn", "false");
+      this.props.navigation.navigate("Auth");
+    } catch (err) {
+      console.info(err);
+    }
+  };
 
   //unsubscribe = null;
   //TODO: MAKE LOGIC FOR REALTIME FOLLOWER UPDATES
@@ -35,46 +40,40 @@ export default class ProfileScreen extends React.Component {
   //}
   render() {
     return (
-      
-        <View style={styles.container}>
-          <View style={{ marginTop: 64, alignItems: 'center' }}>
-            <View style={styles.avatarContainer}>
-              <Image
-                source={
-                  this.state.userAvatar
-                    ? this.state.userAvatar
-                    : require('../assets/tempAvatar.jpg')
-                }
-                style={styles.avatar}
-              />
-            </View>
-            <Text style={styles.name}>{this.state.userRealName}</Text>
-          </View>
-
-          <View style={styles.statsContainer}>
-            <View style={styles.stat}>
-              <Text style={styles.statAmount}>{this.state.userPosts}</Text>
-              <Text style={styles.statTitle}>POSTS</Text>
-            </View>
-            <View style={styles.stat}>
-              <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
-              <Text style={styles.statTitle}>FOLLOWERS</Text>
-            </View>
-            <View style={styles.stat}>
-              <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
-              <Text style={styles.statTitle}>FOLLOWING</Text>
-            </View>
-          </View>
-
-          <ScrollView style={{ backgroundColor: 'black' }}>
-            <Button
-              onPress={() => {
-                firebase.auth().signOut();
-              }}
-              title="Log out"
+      <View style={styles.container}>
+        <View style={{ marginTop: 64, alignItems: "center" }}>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={
+                this.state.userAvatar
+                  ? this.state.userAvatar
+                  : require("../assets/tempAvatar.jpg")
+              }
+              style={styles.avatar}
             />
-          </ScrollView>
+          </View>
+          <Text style={styles.name}>{this.state.userRealName}</Text>
         </View>
+
+        <View style={styles.statsContainer}>
+          <View style={styles.stat}>
+            <Text style={styles.statAmount}>{this.state.userPosts}</Text>
+            <Text style={styles.statTitle}>POSTS</Text>
+          </View>
+          <View style={styles.stat}>
+            <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
+            <Text style={styles.statTitle}>FOLLOWERS</Text>
+          </View>
+          <View style={styles.stat}>
+            <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
+            <Text style={styles.statTitle}>FOLLOWING</Text>
+          </View>
+        </View>
+
+        <ScrollView style={{ backgroundColor: "black" }}>
+          <Button onPress={this.signOut} title="Log out" />
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -82,14 +81,14 @@ export default class ProfileScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
   profile: {
     marginTop: 64,
-    alignItems: 'center',
+    alignItems: "center",
   },
   avatarContainer: {
-    shadowColor: 'red',
+    shadowColor: "red",
     shadowRadius: 40,
     shadowOpacity: 0.4,
   },
@@ -101,27 +100,27 @@ const styles = StyleSheet.create({
   name: {
     marginTop: 24,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 10,
     margin: 32,
   },
   stat: {
-    alignItems: 'center',
+    alignItems: "center",
     flex: 1,
   },
   statAmount: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: '300',
+    fontWeight: "300",
   },
   statTitle: {
-    color: 'white',
+    color: "white",
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: "500",
     marginTop: 4,
   },
 });

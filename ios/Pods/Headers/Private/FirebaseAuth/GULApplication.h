@@ -1,1 +1,0 @@
-../../../FirebaseAuth/GoogleUtilities/AppDelegateSwizzler/Private/GULApplication.h

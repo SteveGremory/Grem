@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   postImage: {
     width: undefined,
     height: 150,
-    borderRadius: 5,
+    borderRadius: 10,
     marginVertical: 15,
   },
 });

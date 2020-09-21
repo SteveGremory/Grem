@@ -9,7 +9,6 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import * as firebase from "firebase";
 import axios from "axios";
 
 export class LoginScreen extends React.Component {
