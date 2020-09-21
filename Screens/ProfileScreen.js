@@ -6,6 +6,7 @@ import {
   Button,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import userInfo from "../user.js";
 import AsyncStorage from "@react-native-community/async-storage";
