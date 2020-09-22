@@ -1,14 +1,14 @@
 {
-  "name": "RNFBApp",
-  "version": "8.4.3",
-  "description": "A well tested, feature rich Firebase implementation for React Native, supporting iOS & Android. Individual module support for Admob, Analytics, Auth, Crash Reporting, Cloud Firestore, Database, Dynamic Links, Functions, Messaging (FCM), Remote Config, Storage and more.",
+  "name": "RNFBAdMob",
+  "version": "7.6.5",
+  "description": "React Native Firebase - Google AdMob is an easy way to monetize mobile apps with targeted, in-app advertising.",
   "summary": "A well tested feature rich Firebase implementation for React Native, supporting iOS & Android.",
   "homepage": "http://invertase.io/oss/react-native-firebase",
   "license": "Apache-2.0",
   "authors": "Invertase Limited",
   "source": {
     "git": "https://github.com/invertase/react-native-firebase.git",
-    "tag": "v8.4.3"
+    "tag": "v7.6.5"
   },
   "social_media_url": "http://twitter.com/invertaseio",
   "platforms": {
@@ -19,7 +19,13 @@
     "React-Core": [
 
     ],
-    "Firebase/CoreOnly": [
+    "RNFBApp": [
+
+    ],
+    "PersonalizedAdConsent": [
+      "~> 1.0.4"
+    ],
+    "Firebase/AdMob": [
       "~> 6.30.0"
     ]
   },

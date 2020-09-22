@@ -12,7 +12,6 @@ import TrendingScreen from "./Screens/TrendingScreen";
 import MessagingScreen from "./Screens/MessagingScreen";
 import PostScreen from "./Screens/PostScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
-//import firebaseConfig from "./Fire";
 
 import React from "react";
 import ChatScreen from "./Screens/ChatScreen";

@@ -7,14 +7,24 @@ import {
   Image,
   Platform,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import user from "../user.js";
 
-// temporary data until we pull from Firebase
-
 export default class HomeScreen extends React.Component {
+  componentDidMount() {
+    Alert.alert("COMING SOON!", "Not yet, but soon.", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+    ]);
+  }
+
   state = { userPosts: user.posts };
   renderPost = (post) => {
     return (
