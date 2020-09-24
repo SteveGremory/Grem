@@ -29,22 +29,24 @@ export default class HomeScreen extends React.Component {
     await axios
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {
-        const resp = response.data["message"]["posts"];
-        console.log(resp);
-        this.setState({ userPosts: resp });
+        const respPosts = response.data["message"]["posts"];
+        const respInfo = response.data["message"];
+        this.setState({ userPosts: respPosts });
+        this.setState({ userInfo: respInfo });
         console.log(this.state.userPosts);
         this.intervalID = setTimeout(this.getData.bind(this), 5000);
+        console.log(this.state.userInfo.avatar);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  state = { userPosts: [] };
+  state = { userPosts: [], userInfo: "" };
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
-        <Image source={post.avatar} style={styles.avatar} />
+        <Image source={this.state.userInfo["avatar"]} style={styles.avatar} />
         <View style={{ flex: 1 }}>
           <View
             style={{
@@ -54,7 +56,7 @@ export default class HomeScreen extends React.Component {
             }}
           >
             <View>
-              <Text style={styles.name}>{post.name}</Text>
+              <Text style={styles.name}>{this.state.userInfo.username}</Text>
               <Text style={styles.timestamp}>
                 {moment(post.timestamp).fromNow()}
               </Text>

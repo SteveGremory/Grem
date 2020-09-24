@@ -7,12 +7,16 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
-import userInfo from "../user.js";
 import AsyncStorage from "@react-native-community/async-storage";
 import ImagePicker from "react-native-image-crop-picker";
+import axios from "axios";
 
 export default class ProfileScreen extends React.Component {
+  componentDidMount() {
+    this.getData;
+  }
   state = { userInfo, userImage: "" };
 
   signOut = async () => {
@@ -25,7 +29,22 @@ export default class ProfileScreen extends React.Component {
     this.props.navigation.navigate("Auth");
   };
 
-  changePFP = () => {
+  getData = async () => {
+    const uid = await AsyncStorage.getItem("userUID");
+    console.log(uid);
+    await axios
+      .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
+      .then((response) => {
+        const resp = response.data.message;
+        console.log(resp);
+        this.setState({ userInfo: resp });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  changePFP = async () => {
     ImagePicker.openPicker({
       mediaType: "photo",
       width: 600,
@@ -33,7 +52,20 @@ export default class ProfileScreen extends React.Component {
       cropping: true,
       multiple: false,
       includeBase64: true,
-    }).then((image) => {
+    }).then(async (image) => {
+      await axios
+        .post("https://grem-api.herokuapp.com/api/content/changepfp", {
+          avatar: {},
+        })
+        .then((resp) => {
+          Alert.alert("Profile Picture Changed Successfully!", "😎");
+          console.log(resp.data.message);
+        })
+        .catch((err) => {
+          Alert.alert("Profile Picture wasn't changed...", "🥺");
+          console.error(err);
+        });
+
       this.setState({ userImage: `data:${image.mime};base64,${image.data}` });
       console.log(this.state.userImage);
     });
@@ -62,10 +94,7 @@ export default class ProfileScreen extends React.Component {
             style={styles.avatarContainer}
             onPress={this.changePFP}
           >
-            <Image
-              source={{ uri: this.state.userImage }}
-              style={styles.avatar}
-            />
+            <Image source={this.state.userInfo.avatar} style={styles.avatar} />
           </TouchableOpacity>
           <Text style={styles.name}>{this.state.userRealName}</Text>
         </View>
