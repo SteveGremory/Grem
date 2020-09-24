@@ -21,6 +21,8 @@ export class LoginScreen extends React.Component {
     email: "",
     password: "",
     errorMessage: null,
+    isLoggedIn: false,
+    responseUID: "",
   };
   //Login Handler
   //TODO: get it to log in and display le home page and keep user logged in.
@@ -42,10 +44,10 @@ export class LoginScreen extends React.Component {
         errorMessage: "A valid password is required for logging in.",
       });
     } else {
-      await axios
-        .post("https://grem-api.herokuapp.com/users/login", data)
+      const resp = await axios
+        .post("https://grem-api.herokuapp.com/api/users/login", data)
         .then((response) => {
-          console.info("response: " + response.data);
+          this.setState({ responseUID: response.data.uid });
           Alert.alert("Logged In!", "'Enjoy freedom!'");
           this.setState({ isLoggedIn: "true" });
           this.props.navigation.navigate("App");
@@ -64,6 +66,11 @@ export class LoginScreen extends React.Component {
           console.error(err.message);
         });
       await AsyncStorage.setItem("isLoggedIn", this.state.isLoggedIn).catch(
+        (err) => {
+          console.error(err);
+        }
+      );
+      await AsyncStorage.setItem("userUID", this.state.responseUID).catch(
         (err) => {
           console.error(err);
         }

@@ -14,16 +14,7 @@ import moment from "moment";
 import user from "../user.js";
 
 export default class HomeScreen extends React.Component {
-  componentDidMount() {
-    Alert.alert("COMING SOON!", "Not yet, but soon.", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-    ]);
-  }
+  componentDidMount() {}
 
   state = { userPosts: user.posts };
   renderPost = (post) => {

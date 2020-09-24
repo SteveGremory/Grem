@@ -11,6 +11,8 @@ import {
   Platform,
 } from "react-native";
 
+import AsyncStorage from "@react-native-community/async-storage";
+
 import Icon from "react-native-vector-icons/Ionicons";
 
 import axios from "axios";
@@ -30,8 +32,24 @@ export default class PostScreen extends React.Component {
     userImage: "",
   };
 
-  uploadPost = () => {
-    Alert.alert("COMING SOON!", "Not yet, but soon.");
+  uploadPost = async () => {
+    const uid = await AsyncStorage.getItem("userUID");
+    const data = {
+      uid: uid,
+      id: "1",
+      text: this.state.text,
+      image: this.state.text, //TODO: change to the imge shit after you're done with the backend bullshit.
+    };
+
+    await axios
+      .post("https://grem-api.herokuapp.com/api/content/post", data)
+      .then((response) => {
+        Alert.alert("Post Successful!", "😎");
+      })
+      .catch((err) => {
+        Alert.alert("Upload Failed.", "🥺");
+        console.log(err);
+      });
   };
 
   selectImage = () => {
@@ -80,6 +98,8 @@ export default class PostScreen extends React.Component {
               multiline={true}
               numberOfLines={4}
               style={{ flex: 1 }}
+              value={this.state.text}
+              onChangeText={(text) => this.setState({ text })}
               placeholder="Share Something Publicly!"
             ></TextInput>
           </View>
