@@ -94,7 +94,7 @@ export class RegisterScreen extends React.Component {
             source={require("../assets/Logo.png")}
             style={{
               width: "100%",
-              height: "30%",
+              height: "35%",
               marginTop: 40,
             }}
           ></Image>

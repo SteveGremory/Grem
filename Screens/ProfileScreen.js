@@ -17,6 +17,7 @@ export default class ProfileScreen extends React.Component {
   signOut = async () => {
     try {
       await AsyncStorage.setItem("isLoggedIn", "false");
+      await AsyncStorage.removeItem("userUID");
       this.props.navigation.navigate("Auth");
     } catch (err) {
       console.info(err);
