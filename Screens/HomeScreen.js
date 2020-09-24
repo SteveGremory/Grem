@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -8,15 +8,22 @@ import {
   Platform,
   TouchableOpacity,
   Alert,
+  use,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
-import user from "../user.js";
 import axios from "axios";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default class HomeScreen extends React.Component {
-  async componentDidMount() {
+  componentDidMount() {
+    this.getData();
+  }
+  componentWillUnmount() {
+    clearTimeout(this.intervalID);
+  }
+
+  getData = async () => {
     const uid = await AsyncStorage.getItem("userUID");
     console.log(uid);
     await axios
@@ -26,15 +33,14 @@ export default class HomeScreen extends React.Component {
         console.log(resp);
         this.setState({ userPosts: resp });
         console.log(this.state.userPosts);
+        this.intervalID = setTimeout(this.getData.bind(this), 5000);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   state = { userPosts: [] };
-
-  getPosts = async () => {};
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>

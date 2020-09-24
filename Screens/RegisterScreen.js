@@ -23,7 +23,7 @@ export class RegisterScreen extends React.Component {
     password: "",
     username: "",
     errorMessage: null,
-    response: "",
+    responseUID: "",
   };
 
   handleSignUp = async () => {
@@ -55,6 +55,7 @@ export class RegisterScreen extends React.Component {
           Alert.alert("User Created!", "'TO PRIVACY AND BEYOND!'");
           this.setState({ isLoggedIn: "true" });
           this.props.navigation.navigate("App");
+          console.log(resp);
         })
         .catch((err) => {
           if (err.message == "Request failed with status code 409") {
@@ -75,11 +76,21 @@ export class RegisterScreen extends React.Component {
           }
           console.error(err.message);
         });
-      await AsyncStorage.setItem("isLoggedIn", this.state.isLoggedIn).catch(
-        (err) => {
-          console.error(err);
-        }
-      );
+      await axios
+        .post("https://grem-api.herokuapp.com/api/content/getuid", {
+          email: this.state.email,
+        })
+        .then((resp) => {
+          const uuidHere = resp.data["message"];
+          this.setState({ responseUID: uuidHere });
+          console.log(uuidHere);
+        });
+      await AsyncStorage.multiSet([
+        ["isLoggedIn", this.state.isLoggedIn],
+        ["userUID", this.state.responseUID],
+      ]).catch((err) => {
+        console.error(err);
+      });
     }
     //HANDLE ALL OF THE SIGNUP ENDS...
   };

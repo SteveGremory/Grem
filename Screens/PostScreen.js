@@ -34,6 +34,7 @@ export default class PostScreen extends React.Component {
 
   uploadPost = async () => {
     const uid = await AsyncStorage.getItem("userUID");
+    console.log(uid);
     const data = {
       uid: uid,
       id: "1",
@@ -45,10 +46,11 @@ export default class PostScreen extends React.Component {
       .post("https://grem-api.herokuapp.com/api/content/post", data)
       .then((response) => {
         Alert.alert("Post Successful!", "😎");
+        console.log(response.data);
       })
       .catch((err) => {
         Alert.alert("Upload Failed.", "🥺");
-        console.log(err);
+        console.error(err);
       });
   };
 

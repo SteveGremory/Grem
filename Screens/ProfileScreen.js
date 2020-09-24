@@ -10,20 +10,34 @@ import {
 } from "react-native";
 import userInfo from "../user.js";
 import AsyncStorage from "@react-native-community/async-storage";
+import ImagePicker from "react-native-image-crop-picker";
 
 export default class ProfileScreen extends React.Component {
-  state = userInfo;
+  state = { userInfo, userImage: "" };
 
   signOut = async () => {
-    try {
-      await AsyncStorage.setItem("isLoggedIn", "false");
-      await AsyncStorage.removeItem("userUID");
-      this.props.navigation.navigate("Auth");
-    } catch (err) {
-      console.info(err);
-    }
+    await AsyncStorage.multiSet([
+      ["isLoggedIn", "false"],
+      ["userUID", ""],
+    ]).catch((err) => {
+      console.log(err);
+    });
+    this.props.navigation.navigate("Auth");
   };
 
+  changePFP = () => {
+    ImagePicker.openPicker({
+      mediaType: "photo",
+      width: 600,
+      height: 600,
+      cropping: true,
+      multiple: false,
+      includeBase64: true,
+    }).then((image) => {
+      this.setState({ userImage: `data:${image.mime};base64,${image.data}` });
+      console.log(this.state.userImage);
+    });
+  };
   //unsubscribe = null;
   //TODO: MAKE LOGIC FOR REALTIME FOLLOWER UPDATES
   //componentDidMount() {
@@ -44,16 +58,15 @@ export default class ProfileScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ marginTop: 64, alignItems: "center" }}>
-          <View style={styles.avatarContainer}>
+          <TouchableOpacity
+            style={styles.avatarContainer}
+            onPress={this.changePFP}
+          >
             <Image
-              source={
-                this.state.userAvatar
-                  ? this.state.userAvatar
-                  : require("../assets/tempAvatar.jpg")
-              }
+              source={{ uri: this.state.userImage }}
               style={styles.avatar}
             />
-          </View>
+          </TouchableOpacity>
           <Text style={styles.name}>{this.state.userRealName}</Text>
         </View>
 
