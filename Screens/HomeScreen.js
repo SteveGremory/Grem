@@ -12,11 +12,29 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import user from "../user.js";
+import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class HomeScreen extends React.Component {
-  componentDidMount() {}
+  async componentDidMount() {
+    const uid = await AsyncStorage.getItem("userUID");
+    console.log(uid);
+    await axios
+      .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
+      .then((response) => {
+        const resp = response.data["message"]["posts"];
+        console.log(resp);
+        this.setState({ userPosts: resp });
+        console.log(this.state.userPosts);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-  state = { userPosts: user.posts };
+  state = { userPosts: [] };
+
+  getPosts = async () => {};
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>

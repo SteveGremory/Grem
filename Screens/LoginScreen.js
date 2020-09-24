@@ -21,7 +21,7 @@ export class LoginScreen extends React.Component {
     email: "",
     password: "",
     errorMessage: null,
-    isLoggedIn: false,
+    isLoggedIn: "false",
     responseUID: "",
   };
   //Login Handler
@@ -48,6 +48,7 @@ export class LoginScreen extends React.Component {
         .post("https://grem-api.herokuapp.com/api/users/login", data)
         .then((response) => {
           this.setState({ responseUID: response.data.uid });
+          console.log(this.state.responseUID);
           Alert.alert("Logged In!", "'Enjoy freedom!'");
           this.setState({ isLoggedIn: "true" });
           this.props.navigation.navigate("App");
@@ -61,6 +62,11 @@ export class LoginScreen extends React.Component {
           if (err.message == "Network Error") {
             this.setState({
               errorMessage: "Network Error.",
+            });
+          }
+          if (err.message == "Request failed with status code 503") {
+            this.setState({
+              errorMessage: "You can't sign in more than 5 times in 1 hour.",
             });
           }
           console.error(err.message);

@@ -38,7 +38,7 @@ export default class PostScreen extends React.Component {
       uid: uid,
       id: "1",
       text: this.state.text,
-      image: this.state.text, //TODO: change to the imge shit after you're done with the backend bullshit.
+      image: this.state.text, //HELP, TODO
     };
 
     await axios
@@ -52,27 +52,18 @@ export default class PostScreen extends React.Component {
       });
   };
 
-  selectImage = () => {
+  selectImage = async () => {
     ImagePicker.openPicker({
       mediaType: "photo",
       width: 1366,
       height: 768,
       cropping: true,
+      multiple: false,
+      includeBase64: true,
     }).then((image) => {
-      console.log(image);
-      this.setState({ userImage: image.path });
+      this.setState({ userImage: `data:${image.mime};base64,${image.data}` });
+      console.log(this.state.userImage);
     });
-    axios({
-      url: "https://grem-api.herokuapp.com/api/content/upload-post",
-      method: "POST",
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then((response) => {
-        console.log("image upload response: ", response);
-      })
-      .catch((error) => {
-        console.log("image upload error: ", error);
-      });
   };
   render() {
     return (
@@ -96,7 +87,7 @@ export default class PostScreen extends React.Component {
             <TextInput
               autoFocus={true}
               multiline={true}
-              numberOfLines={4}
+              numberOfLines={5}
               style={{ flex: 1 }}
               value={this.state.text}
               onChangeText={(text) => this.setState({ text })}

@@ -49,7 +49,7 @@ export class RegisterScreen extends React.Component {
         errorMessage: "A valid username is required for signup.",
       });
     } else {
-      const response = await axios
+      await axios
         .post("https://grem-api.herokuapp.com/api/users/signup", data)
         .then((resp) => {
           Alert.alert("User Created!", "'TO PRIVACY AND BEYOND!'");
@@ -75,7 +75,6 @@ export class RegisterScreen extends React.Component {
           }
           console.error(err.message);
         });
-      console.log(response);
       await AsyncStorage.setItem("isLoggedIn", this.state.isLoggedIn).catch(
         (err) => {
           console.error(err);
