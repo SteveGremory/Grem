@@ -14,10 +14,7 @@ import ImagePicker from "react-native-image-crop-picker";
 import axios from "axios";
 
 export default class ProfileScreen extends React.Component {
-  componentDidMount() {
-    this.getData;
-  }
-  state = { userInfo, userImage: "" };
+  state = { userInfo: "", userImage: "" };
 
   signOut = async () => {
     try {
@@ -34,15 +31,23 @@ export default class ProfileScreen extends React.Component {
     this.props.navigation.navigate("Auth");
   };
 
+  componentDidMount() {
+    this.getData();
+  }
+  componentWillUnmount() {
+    clearTimeout(this.intervalID);
+  }
+
   getData = async () => {
     const uid = await AsyncStorage.getItem("userUID");
     console.log(uid);
     await axios
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {
-        const resp = response.data.message;
-        console.log(resp);
-        this.setState({ userInfo: resp });
+        const respInfo = response.data["message"];
+        this.setState({ userInfo: respInfo });
+
+        this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -101,20 +106,24 @@ export default class ProfileScreen extends React.Component {
           >
             <Image source={this.state.userInfo.avatar} style={styles.avatar} />
           </TouchableOpacity>
-          <Text style={styles.name}>{this.state.userRealName}</Text>
+          <Text style={styles.name}>{this.state.userInfo["username"]}</Text>
         </View>
 
         <View style={styles.statsContainer}>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userPosts}</Text>
+            <Text style={styles.statAmount}>0</Text>
             <Text style={styles.statTitle}>POSTS</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
+            <Text style={styles.statAmount}>
+              {this.state.userInfo.userFollowers}
+            </Text>
             <Text style={styles.statTitle}>FOLLOWERS</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
+            <Text style={styles.statAmount}>
+              {this.state.userInfo.userFollowing}
+            </Text>
             <Text style={styles.statTitle}>FOLLOWING</Text>
           </View>
         </View>
@@ -148,8 +157,9 @@ const styles = StyleSheet.create({
   },
   name: {
     marginTop: 24,
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 20,
+    fontWeight: "500",
+    color: "white",
   },
   statsContainer: {
     flexDirection: "row",

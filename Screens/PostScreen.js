@@ -39,7 +39,7 @@ export default class PostScreen extends React.Component {
       uid: uid,
       id: "1",
       text: this.state.text,
-      image: this.state.text, //HELP, TODO
+      image: this.state.userImage, //HELP, TODO
     };
 
     await axios
