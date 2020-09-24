@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -7,8 +7,6 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  Alert,
-  use,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
@@ -34,8 +32,9 @@ export default class HomeScreen extends React.Component {
         this.setState({ userPosts: respPosts });
         this.setState({ userInfo: respInfo });
         console.log(this.state.userPosts);
-        this.intervalID = setTimeout(this.getData.bind(this), 5000);
         console.log(this.state.userInfo.avatar);
+
+        this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -46,7 +45,7 @@ export default class HomeScreen extends React.Component {
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
-        <Image source={this.state.userInfo["avatar"]} style={styles.avatar} />
+        <Image source={this.state.userInfo.avatar} style={styles.avatar} />
         <View style={{ flex: 1 }}>
           <View
             style={{

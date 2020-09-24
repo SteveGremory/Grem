@@ -20,12 +20,17 @@ export default class ProfileScreen extends React.Component {
   state = { userInfo, userImage: "" };
 
   signOut = async () => {
-    await AsyncStorage.multiSet([
-      ["isLoggedIn", "false"],
-      ["userUID", ""],
-    ]).catch((err) => {
-      console.log(err);
-    });
+    try {
+      await AsyncStorage.setItem("isLoggedIn", "false");
+    } catch (error) {
+      console.error(error);
+    }
+    try {
+      await AsyncStorage.removeItem("userUID");
+    } catch (error) {
+      console.error(error);
+    }
+
     this.props.navigation.navigate("Auth");
   };
 

@@ -24,6 +24,7 @@ export class RegisterScreen extends React.Component {
     username: "",
     errorMessage: null,
     responseUID: "",
+    isLoggedIn: "false",
   };
 
   handleSignUp = async () => {
@@ -80,18 +81,17 @@ export class RegisterScreen extends React.Component {
         .post("https://grem-api.herokuapp.com/api/content/getuid", {
           email: this.state.email,
         })
-        .then((resp) => {
+        .then(async (resp) => {
           const uuidHere = resp.data["message"];
           this.setState({ responseUID: uuidHere });
           console.log(uuidHere);
+          await AsyncStorage.setItem("userUID", uuidHere);
+        })
+        .catch((err) => {
+          console.error(err);
         });
-      await AsyncStorage.multiSet([
-        ["isLoggedIn", this.state.isLoggedIn],
-        ["userUID", this.state.responseUID],
-      ]).catch((err) => {
-        console.error(err);
-      });
     }
+
     //HANDLE ALL OF THE SIGNUP ENDS...
   };
   render() {

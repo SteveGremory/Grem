@@ -71,12 +71,16 @@ export class LoginScreen extends React.Component {
           }
           console.error(err.message);
         });
-      await AsyncStorage.multiSet([
-        ["isLoggedIn", this.state.isLoggedIn],
-        ["userUID", this.state.responseUID],
-      ]).catch((err) => {
+      try {
+        await AsyncStorage.setItem(["isLoggedIn", this.state.isLoggedIn]);
+      } catch (err) {
         console.error(err);
-      });
+      }
+      try {
+        await AsyncStorage.setItem(["userUID", this.state.responseUID]);
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
