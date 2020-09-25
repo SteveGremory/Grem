@@ -43,20 +43,22 @@ const AppContainer = createStackNavigator(
             tabBarIcon: ({ tintColor }) => (
               <Icon
                 name="ios-add-circle"
-                size={48}
+                size={50}
                 color={"red"}
                 style={{
                   ...Platform.select({
                     ios: {
                       shadowColor: "#E9446A",
-                      shadowOffset: { width: 0, height: 10 },
+                      shadowOffset: { width: 5, height: 10 },
                       shadowRadius: 10,
-                      shadowOpacity: 0.3,
+                      shadowOpacity: 0.5,
                     },
                     android: {
-                      elevation: 3,
-                      backgroundColor: "#E9446A",
-                    },
+                      borderColor: "rgba(0,0,0,0)",
+                      borderWidth: 1,
+                      borderRadius: 100,
+                      elevation: 18, 
+                    }
                   }),
                 }}
               />

@@ -105,10 +105,15 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         paddingTop: 38,
+        shadowColor: "red",
+        shadowOffset: { height: 5 },
+        shadowRadius: 15,
+        shadowOpacity: 0.5,
+        zIndex: 16,
       },
       android: {
         paddingTop: 16,
-        elevation: 5,
+        borderRadius: 20,
       },
     }),
     paddingBottom: 16,
@@ -118,11 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderBottomWidth: 2,
     borderBottomColor: "red",
-    shadowColor: "red",
-    shadowOffset: { height: 5 },
-    shadowRadius: 15,
-    shadowOpacity: 0.5,
-    zIndex: 16,
+    
     marginBottom: 10,
   },
   headerTitle: {

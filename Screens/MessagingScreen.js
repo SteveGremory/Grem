@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  FlatList,
+  FlatList, Platform
 } from "react-native";
 import user from "../user.js";
 
@@ -23,7 +23,7 @@ export default class MessagesScreen extends React.Component {
       },
       {
         userName: "Daniel",
-        recentMessage: "Hey dude, wanna hang out with the boys at 4? ",
+        recentMessage: "Wanna hang out with the boys at 4? ",
         id: 3,
         avatar: {
           uri:
@@ -78,26 +78,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
+  
   header: {
     ...Platform.select({
       ios: {
         paddingTop: 38,
+        shadowColor: "red",
+        shadowOffset: { height: 5 },
+        shadowRadius: 15,
+        shadowOpacity: 0.5,
+        zIndex: 16,
       },
       android: {
         paddingTop: 16,
+        borderRadius: 20,
       },
     }),
     paddingBottom: 16,
+    color: "red",
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
     borderBottomWidth: 2,
     borderBottomColor: "red",
-    shadowColor: "red",
-    shadowOffset: { height: 5 },
-    shadowRadius: 15,
-    shadowOpacity: 0.5,
-    zIndex: 16,
+    
     marginBottom: 10,
   },
   headerTitle: {
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
     color: "red",
   },
   avatar: {
-    margin: 5,
+    margin: 8,
     position: "absolute",
     marginLeft: "80%",
     width: 45,
@@ -115,14 +119,27 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   chatboxTextUsername: {
-    marginTop: 2,
-    marginLeft: 8,
-    textAlign: "left",
-    fontSize: 28,
-    fontWeight: "500",
-    color: "#454D65",
-    justifyContent: "center",
-    alignItems: "center",
+    ...Platform.select({
+      ios: {    
+        marginTop: 2,
+        marginLeft: 8,
+        textAlign: "left",
+        fontSize: 28,
+        fontWeight: "500",
+        color: "#454D65",
+        justifyContent: "center",
+        alignItems: "center",
+      },
+      android: {    
+        marginLeft: 8,
+        textAlign: "left",
+        fontSize: 24,
+        fontWeight: "500",
+        color: "#454D65",
+        justifyContent: "center",
+        alignItems: "center",
+      }
+    }),
   },
   timestamp: {
     fontSize: 11,
@@ -130,15 +147,23 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   chatbox: {
-    shadowColor: "#FFF",
-    shadowOffset: { height: 3 },
-    shadowRadius: 8,
-    shadowOpacity: 0.5,
+    ...Platform.select({
+      ios: {
+        shadowColor: "#FFF",
+        shadowOffset: { height: 3 },
+        shadowRadius: 8,
+        shadowOpacity: 0.5,
+      },
+      android: {
+
+      }
+    }),
+
     borderRadius: 13,
     backgroundColor: "#FFF",
     marginHorizontal: 18,
-    marginTop: 20,
-    height: 55,
+    marginTop: 23,
+    height: 58,
   },
   chatboxRecentMessage: {
     marginBottom: 6,
