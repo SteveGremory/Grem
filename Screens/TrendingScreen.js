@@ -8,7 +8,6 @@ import { FlatList } from "react-native-gesture-handler";
 export default class TrendingScreen extends React.Component {
   updateSearch = async (search) => {
     await this.setState({ search: search });
-    console.log(search);
     let data = {
       username: this.state.search,
     };
@@ -17,7 +16,6 @@ export default class TrendingScreen extends React.Component {
       .then((result) => {
         this.setState({ userInfo: result.data["message"] });
       });
-    console.log(this.state.userInfo);
   };
   searchIcon = (props) => {
     return <Icon name="search-outline" size={32} color="white"></Icon>;

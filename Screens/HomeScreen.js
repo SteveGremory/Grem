@@ -24,7 +24,6 @@ export default class HomeScreen extends React.Component {
 
   getData = async () => {
     const uid = await AsyncStorage.getItem("userUID");
-    console.log(uid);
     await axios
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {

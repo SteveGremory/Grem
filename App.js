@@ -15,6 +15,7 @@ import ProfileScreen from "./Screens/ProfileScreen";
 
 import React from "react";
 import ChatScreen from "./Screens/ChatScreen";
+import { Platform } from "react-native";
 
 const AppContainer = createStackNavigator(
   {
@@ -45,12 +46,18 @@ const AppContainer = createStackNavigator(
                 size={48}
                 color={"red"}
                 style={{
-                  shadowColor: "#E9446A",
-                  shadowOffset: { width: 0, height: 10 },
-                  shadowRadius: 10,
-                  shadowOpacity: 0.3,
-                  elevation: 3,
-                  backgroundColor: "E9446A"
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#E9446A",
+                      shadowOffset: { width: 0, height: 10 },
+                      shadowRadius: 10,
+                      shadowOpacity: 0.3,
+                    },
+                    android: {
+                      elevation: 3,
+                      backgroundColor: "#E9446A",
+                    },
+                  }),
                 }}
               />
             ),

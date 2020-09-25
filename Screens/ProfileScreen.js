@@ -31,6 +31,8 @@ export default class ProfileScreen extends React.Component {
     this.props.navigation.navigate("Auth");
   };
 
+  intervalID;
+
   componentDidMount() {
     this.getData();
   }

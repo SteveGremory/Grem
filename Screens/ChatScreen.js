@@ -17,9 +17,13 @@ import {
 } from "react-native-gifted-chat";
 import Icon from "react-native-vector-icons/Ionicons";
 import ImagePicker from "react-native-image-crop-picker";
+import AsyncStorage from "@react-native-community/async-storage";
+import axios from "axios";
+
 export default class ChatScreen extends React.Component {
   state = {
     messages: [],
+    userInfo: "",
   };
 
   get user() {
@@ -28,18 +32,28 @@ export default class ChatScreen extends React.Component {
       name: "PutNameLogicHere",
     };
   }
-
+  intervalID;
   componentDidMount() {
-    //ire.get((message) =>
-    // this.setState((previous) => ({
-    //   messages: GiftedChat.append(previous.messages, message),
-    //  }))
-    //);
+    this.getData();
+  }
+  componentWillUnmount() {
+    clearTimeout(this.intervalID);
   }
 
-  componentWillUnmount() {
-    //Fire.off();
-  }
+  getData = async () => {
+    const uid = await AsyncStorage.getItem("userUID");
+    await axios
+      .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
+      .then((response) => {
+        const respInfo = response.data["message"];
+        this.setState({ userInfo: respInfo });
+
+        this.intervalID = setTimeout(this.getData.bind(this), 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   render() {
     const renderInputToolbar = (props) => (
@@ -47,7 +61,9 @@ export default class ChatScreen extends React.Component {
         {...props}
         containerStyle={{
           backgroundColor: "white",
-          borderRadius: 30,
+          borderRadius: 25,
+          marginLeft: 15,
+          marginRight: 15,
         }}
         primaryStyle={{ alignItems: "center", justifyContent: "center" }}
       />
@@ -66,8 +82,9 @@ export default class ChatScreen extends React.Component {
 
     const selectImage = () => {
       ImagePicker.openPicker({
-        width: 1920,
-        height: 1080,
+        width: 1366,
+        height: 768,
+        compressImageQuality: 1,
         cropping: true,
       }).then((image) => {
         console.log(image);
@@ -80,12 +97,13 @@ export default class ChatScreen extends React.Component {
         {...props}
         containerStyle={{
           width: 44,
-          height: 44,
+          height: 32,
           alignItems: "center",
           justifyContent: "center",
           marginLeft: 4,
           marginRight: 4,
-          marginBottom: 0,
+          marginBottom: 4,
+          marginTop: 4,
         }}
         options={{
           ["Send Image"]: selectImage,
@@ -98,13 +116,44 @@ export default class ChatScreen extends React.Component {
 
     if (Platform.OS === "android") {
       return (
-        <KeyboardAvoidingView
-          style={{ flex: 1, backgroundColor: "black" }}
-          keyboardVerticalOffset={30}
-          enabled
-        >
-          {this.chat}
-        </KeyboardAvoidingView>
+        <View style={{ flex: 1, backgroundColor: "black" }}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("App")} //.goBack()
+            >
+              <Icon
+                style={styles.back}
+                name="ios-arrow-back"
+                size={32}
+                color="white"
+              ></Icon>
+            </TouchableOpacity>
+
+            <Text style={styles.headerTitle}>
+              {this.state.userInfo.username}
+            </Text>
+          </View>
+          <KeyboardAvoidingView
+            style={{ flex: 1, backgroundColor: "black" }}
+            keyboardVerticalOffset={30}
+            enabled
+          >
+            <GiftedChat
+              renderSend={renderSend}
+              renderInputToolbar={renderInputToolbar}
+              messages={this.state.messages}
+              onSend={console.log("SendPressed.")} //Fire.send
+              user={this.user}
+              scrollToBottom
+              renderActions={renderActions}
+              listViewProps={{
+                style: {
+                  backgroundColor: "black",
+                },
+              }}
+            />
+          </KeyboardAvoidingView>
+        </View>
       );
     }
 
@@ -122,13 +171,13 @@ export default class ChatScreen extends React.Component {
             ></Icon>
           </TouchableOpacity>
 
-          <Text style={styles.headerTitle}>HELLO</Text>
+          <Text style={styles.headerTitle}>{this.state.userInfo.username}</Text>
         </View>
         <GiftedChat
           renderSend={renderSend}
           renderInputToolbar={renderInputToolbar}
           messages={this.state.messages}
-          onSend={console.log("sendpressed.")} //Fire.send
+          onSend={console.log("SendPressed.")} //Fire.send
           user={this.user}
           scrollToBottom
           renderActions={renderActions}

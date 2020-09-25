@@ -42,6 +42,7 @@ export default class MessagesScreen extends React.Component {
     ],
     userInfo: user,
   };
+
   render() {
     return (
       <View style={styles.container}>
@@ -105,14 +106,16 @@ const styles = StyleSheet.create({
     color: "red",
   },
   avatar: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    marginRight: 16,
+    margin: 5,
+    position: "absolute",
+    marginLeft: "80%",
+    width: 45,
+    height: 45,
+    borderRadius: 14,
     flexDirection: "column",
   },
   chatboxTextUsername: {
-    marginTop: 4,
+    marginTop: 2,
     marginLeft: 8,
     textAlign: "left",
     fontSize: 28,
@@ -128,14 +131,14 @@ const styles = StyleSheet.create({
   },
   chatbox: {
     shadowColor: "#FFF",
-    shadowOffset: { height: 4 },
+    shadowOffset: { height: 3 },
     shadowRadius: 8,
     shadowOpacity: 0.5,
     borderRadius: 13,
     backgroundColor: "#FFF",
     marginHorizontal: 18,
     marginTop: 20,
-    height: 64,
+    height: 55,
   },
   chatboxRecentMessage: {
     marginBottom: 6,
@@ -144,13 +147,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     justifyContent: "center",
     alignItems: "center",
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-    margin: 8,
-    position: "absolute",
-    marginLeft: "80%",
   },
 });
