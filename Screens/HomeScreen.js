@@ -14,6 +14,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default class HomeScreen extends React.Component {
+  intervalID;
   componentDidMount() {
     this.getData();
   }
@@ -31,10 +32,8 @@ export default class HomeScreen extends React.Component {
         const respInfo = response.data["message"];
         this.setState({ userPosts: respPosts });
         this.setState({ userInfo: respInfo });
-        console.log(this.state.userPosts);
-        console.log(this.state.userInfo.avatar);
 
-        this.intervalID = setTimeout(this.getData.bind(this), 5000);
+        this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -110,9 +109,11 @@ const styles = StyleSheet.create({
       },
       android: {
         paddingTop: 16,
+        elevation: 5,
       },
     }),
     paddingBottom: 16,
+    color: "red",
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",

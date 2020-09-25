@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   chatboxTextUsername: {
-    marginTop: 6,
+    marginTop: 4,
     marginLeft: 8,
     textAlign: "left",
     fontSize: 28,

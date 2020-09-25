@@ -30,6 +30,23 @@ export default class PostScreen extends React.Component {
   state = {
     text: "",
     userImage: "",
+    userPFP: ""
+  };
+
+  getData = async () => {
+    const uid = await AsyncStorage.getItem("userUID");
+    console.log(uid);
+    await axios
+      .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
+      .then((response) => {
+        const respInfo = response.data["message"];
+        this.setState({ userPosts: respInfo.avatar });
+
+        this.intervalID = setTimeout(this.getData.bind(this), 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   uploadPost = async () => {
@@ -39,7 +56,7 @@ export default class PostScreen extends React.Component {
       uid: uid,
       id: "1",
       text: this.state.text,
-      image: this.state.userImage, //HELP, TODO
+      image: this.state.userImage,
     };
 
     await axios
@@ -84,7 +101,7 @@ export default class PostScreen extends React.Component {
           <View style={styles.inputContainer}>
             <Image
               //todo: you have to set the logic to get the dp from a json file from ipfs and then set it as source down below...
-              source={require("../assets/LoginBackground.png")}
+              source={ this.state.userPFP}
               style={styles.avatar}
             ></Image>
             <TextInput
@@ -133,7 +150,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#D8D9DB",
   },
   inputContainer: {
-    margin: 32,
+    margin: 24,
     flexDirection: "row",
   },
   avatar: {

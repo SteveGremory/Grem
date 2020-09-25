@@ -49,7 +49,7 @@ export class RegisterScreen extends React.Component {
       this.setState({
         errorMessage: "A valid username is required for signup.",
       });
-    } else {
+    } else if (this.state.username != "" && this.state.email != "" && this.state.password != "") {
       await axios
         .post("https://grem-api.herokuapp.com/api/users/signup", data)
         .then(async (resp) => {

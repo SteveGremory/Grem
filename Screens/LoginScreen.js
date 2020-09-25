@@ -43,12 +43,11 @@ export class LoginScreen extends React.Component {
       this.setState({
         errorMessage: "A valid password is required for logging in.",
       });
-    } else {
+    } else if (this.state.email != "" && this.state.password != "") {
       await axios
         .post("https://grem-api.herokuapp.com/api/users/login", data)
         .then((response) => {
           this.setState({ responseUID: response.data.uid });
-          console.log(this.state.responseUID);
           Alert.alert("Logged In!", "'Enjoy freedom!'");
           this.setState({ isLoggedIn: "true" });
           this.props.navigation.navigate("App");
