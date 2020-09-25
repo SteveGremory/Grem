@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component {
         console.log(this.state.userPosts);
         console.log(this.state.userInfo.avatar);
 
-        this.intervalID = setTimeout(this.getData.bind(this), 1000);
+        this.intervalID = setTimeout(this.getData.bind(this), 5000);
       })
       .catch((err) => {
         console.log(err);
@@ -71,7 +71,7 @@ export default class HomeScreen extends React.Component {
 
           <Text style={styles.post}>{post.text}</Text>
           <Image
-            source={post.image}
+            source={{ uri: post.image }}
             style={styles.postImage}
             resizeMode="cover"
           />

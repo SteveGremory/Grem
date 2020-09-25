@@ -57,6 +57,7 @@ export default class PostScreen extends React.Component {
   selectImage = async () => {
     ImagePicker.openPicker({
       mediaType: "photo",
+      compressImageQuality: 1,
       width: 1366,
       height: 768,
       cropping: true,

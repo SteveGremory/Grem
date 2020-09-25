@@ -13,7 +13,7 @@ export default class TrendingScreen extends React.Component {
       username: this.state.search,
     };
     await axios
-      .post("http://localhost:5000/api/content/findbyusername", data)
+      .post("https://grem-api.herokuapp.com/api/content/findbyusername", data)
       .then((result) => {
         this.setState({ userInfo: result.data["message"] });
       });

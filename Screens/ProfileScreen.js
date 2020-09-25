@@ -46,7 +46,7 @@ export default class ProfileScreen extends React.Component {
       .then((response) => {
         const respInfo = response.data["message"];
         this.setState({ userInfo: respInfo });
-
+        console.log(respInfo);
         this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
       .catch((err) => {
