@@ -69,6 +69,7 @@
 		3A0E99D90F8A43E49597C56E /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		3CFD59BF0C8DF1FBBE9D1072 /* libPods-Grem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Grem.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		411DFCEE5A9F4DB4A793A510 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		4784D013251DAC8F00C0F0E7 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		48857A7EB4184DA98D3E80E8 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		59FB8ACE223A9C652E21C63F /* libPods-Grem-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Grem-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2ABDB6E7734690A84D6012 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -208,6 +209,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4784D013251DAC8F00C0F0E7 /* MaterialIcons.ttf */,
 				93AE8EB024ADDA7D001086CA /* Ionicons.ttf */,
 				13B07FAE1A68108700A75B9A /* Grem */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,

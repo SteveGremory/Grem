@@ -1,24 +1,116 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { SearchBar } from "react-native-elements";
+import Icon from "react-native-vector-icons/Ionicons";
+import axios from "axios";
+import { FlatList } from "react-native-gesture-handler";
 
 export default class TrendingScreen extends React.Component {
+  updateSearch = async (search) => {
+    await this.setState({ search: search });
+    console.log(search);
+    let data = {
+      username: this.state.search,
+    };
+    await axios
+      .post("http://localhost:5000/api/content/findbyusername", data)
+      .then((result) => {
+        this.setState({ userInfo: result.data["message"] });
+      });
+    console.log(this.state.userInfo);
+  };
+  searchIcon = (props) => {
+    return <Icon name="search-outline" size={32} color="white"></Icon>;
+  };
+  clearIcon = (props) => {
+    return <Icon name="close-outline" size={32} color="white"></Icon>;
+  };
+  renderUser = (item) => {
+    return (
+      <View style={styles.userItem}>
+        <Image source={item.avatar} style={styles.avatar} />
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View>
+              <Text style={styles.name}>{item.username}</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  state = { search: "", userInfo: "" };
+
   render() {
+    const { search } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Trending</Text>
         </View>
         <ScrollView>
-          <Text style={styles.textStyle}>Coming Soon!</Text>
+          <View>
+            <SearchBar
+              placeholder="Type Here..."
+              onChangeText={this.updateSearch}
+              value={search}
+              clearIcon={this.clearIcon}
+              lightTheme={false}
+              searchIcon={this.searchIcon}
+              placeholder="Search username"
+              round={true}
+              placeholderTextColor="white"
+              color="white"
+              autoCapitalize={false}
+            />
+          </View>
+          <View>
+            <FlatList
+              style={styles.user}
+              data={this.state.userInfo}
+              renderItem={({ item }) => this.renderUser(item)}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         </ScrollView>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
+  name: {
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#454D65",
+  },
+  user: {
+    marginTop: 10,
+    marginHorizontal: 16,
+  },
   container: {
     flex: 1,
     backgroundColor: "black",
+  },
+  userItem: {
+    backgroundColor: "#FFF",
+    borderRadius: 5,
+    padding: 8,
+    flexDirection: "row",
+    marginVertical: 8,
+  },
+  avatar: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    marginRight: 16,
   },
   header: {
     ...Platform.select({

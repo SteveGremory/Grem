@@ -52,9 +52,10 @@ export class RegisterScreen extends React.Component {
     } else {
       await axios
         .post("https://grem-api.herokuapp.com/api/users/signup", data)
-        .then((resp) => {
+        .then(async (resp) => {
           Alert.alert("User Created!", "'TO PRIVACY AND BEYOND!'");
           this.setState({ isLoggedIn: "true" });
+          await AsyncStorage.setItem("isLoggedIn", this.state.isLoggedIn);
           this.props.navigation.navigate("App");
           console.log(resp);
         })

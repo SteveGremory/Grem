@@ -44,7 +44,7 @@ export class LoginScreen extends React.Component {
         errorMessage: "A valid password is required for logging in.",
       });
     } else {
-      const resp = await axios
+      await axios
         .post("https://grem-api.herokuapp.com/api/users/login", data)
         .then((response) => {
           this.setState({ responseUID: response.data.uid });
@@ -66,18 +66,18 @@ export class LoginScreen extends React.Component {
           }
           if (err.message == "Request failed with status code 503") {
             this.setState({
-              errorMessage: "You can't sign in more than 5 times in 1 hour.",
+              errorMessage: "Server unreachable.",
             });
           }
           console.error(err.message);
         });
       try {
-        await AsyncStorage.setItem(["isLoggedIn", this.state.isLoggedIn]);
+        await AsyncStorage.setItem("isLoggedIn", this.state.isLoggedIn);
       } catch (err) {
         console.error(err);
       }
       try {
-        await AsyncStorage.setItem(["userUID", this.state.responseUID]);
+        await AsyncStorage.setItem("userUID", this.state.responseUID);
       } catch (err) {
         console.error(err);
       }
