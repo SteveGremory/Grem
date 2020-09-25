@@ -54,11 +54,9 @@ const AppContainer = createStackNavigator(
                       shadowOpacity: 0.5,
                     },
                     android: {
-                      borderColor: "rgba(0,0,0,0)",
-                      borderWidth: 1,
-                      borderRadius: 100,
-                      elevation: 18, 
-                    }
+                      backgroundColor: "#E9446A",
+                      elevation: 3,
+                    },
                   }),
                 }}
               />

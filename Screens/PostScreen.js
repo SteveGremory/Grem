@@ -17,30 +17,31 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import axios from "axios";
 
-import { Permission, PERMISSION_TYPE } from "../AppPermissions";
-
 import ImagePicker from "react-native-image-crop-picker";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default class PostScreen extends React.Component {
-  //componentDidMount() {
-  //Permission.checkPermission(PERMISSION_TYPE.photo);
-  //}
+  intervalID;
+  componentDidMount() {
+    this.getData();
+  }
+  componentWillUnmount() {
+    clearTimeout(this.intervalID);
+  }
 
   state = {
     text: "",
     userImage: "",
-    userPFP: ""
+    userPFP: "",
   };
 
   getData = async () => {
     const uid = await AsyncStorage.getItem("userUID");
-    console.log(uid);
     await axios
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {
         const respInfo = response.data["message"];
-        this.setState({ userPosts: respInfo.avatar });
+        this.setState({ userPFP: respInfo["avatar"] });
 
         this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
@@ -58,7 +59,6 @@ export default class PostScreen extends React.Component {
       text: this.state.text,
       image: this.state.userImage,
     };
-
     await axios
       .post("https://grem-api.herokuapp.com/api/content/post", data)
       .then((response) => {
@@ -82,7 +82,6 @@ export default class PostScreen extends React.Component {
       includeBase64: true,
     }).then((image) => {
       this.setState({ userImage: `data:${image.mime};base64,${image.data}` });
-      console.log(this.state.userImage);
     });
   };
   render() {
@@ -101,7 +100,7 @@ export default class PostScreen extends React.Component {
           <View style={styles.inputContainer}>
             <Image
               //todo: you have to set the logic to get the dp from a json file from ipfs and then set it as source down below...
-              source={ this.state.userPFP}
+              source={this.state.userPFP}
               style={styles.avatar}
             ></Image>
             <TextInput
