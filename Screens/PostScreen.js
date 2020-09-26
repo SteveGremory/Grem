@@ -31,7 +31,7 @@ export default class PostScreen extends React.Component {
 
   state = {
     text: "",
-    userImage: "0",
+    userImage: null,
     userPFP: "",
   };
 
@@ -86,16 +86,15 @@ export default class PostScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        
-          <View style={styles.header}>
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <Icon name="ios-arrow-back" size={24} color="black" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.uploadPost}>
-              <Text style={{ fontSize: 20 }}>Post</Text>
-            </TouchableOpacity>
-          </View>
-
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <Icon name="ios-arrow-back" size={24} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.uploadPost}>
+            <Text style={{ fontSize: 20 }}>Post</Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView>
           <View style={styles.inputContainer}>
             <Image
               //todo: you have to set the logic to get the dp from a json file from ipfs and then set it as source down below...
@@ -129,6 +128,7 @@ export default class PostScreen extends React.Component {
               }}
             />
           </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -155,7 +155,6 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 24,
     marginRight: 16,
-    marginTop: 12,
   },
   photo: {
     alignItems: "flex-end",
