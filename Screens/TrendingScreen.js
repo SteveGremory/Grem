@@ -54,7 +54,7 @@ export default class TrendingScreen extends React.Component {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Trending</Text>
         </View>
-        <ScrollView>
+        
           <View>
             <SearchBar
               placeholder="Type Here..."
@@ -78,7 +78,6 @@ export default class TrendingScreen extends React.Component {
               showsVerticalScrollIndicator={false}
             />
           </View>
-        </ScrollView>
       </View>
     );
   }

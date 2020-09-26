@@ -32,7 +32,7 @@ export default class HomeScreen extends React.Component {
         this.setState({ userPosts: respPosts });
         this.setState({ userInfo: respInfo });
 
-        this.intervalID = setTimeout(this.getData.bind(this), 1000);
+        this.intervalID = setTimeout(this.getData.bind(this), 2000);
       })
       .catch((err) => {
         console.log(err);

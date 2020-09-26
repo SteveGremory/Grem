@@ -64,6 +64,7 @@ export default class ChatScreen extends React.Component {
           borderRadius: 25,
           marginLeft: 15,
           marginRight: 15,
+          marginBottom: 15,
         }}
         primaryStyle={{ alignItems: "center", justifyContent: "center" }}
       />

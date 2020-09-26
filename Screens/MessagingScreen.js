@@ -15,7 +15,7 @@ export default class MessagesScreen extends React.Component {
       {
         userName: "Mom",
         recentMessage: "Get the groceries on your way home ! 😊",
-        id: 1,
+        id: "1",
         avatar: {
           uri:
             "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
@@ -24,7 +24,7 @@ export default class MessagesScreen extends React.Component {
       {
         userName: "Daniel",
         recentMessage: "Wanna hang out with the boys at 4? ",
-        id: 3,
+        id: "3",
         avatar: {
           uri:
             "https://images.pexels.com/photos/412840/pexels-photo-412840.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
@@ -33,14 +33,13 @@ export default class MessagesScreen extends React.Component {
       {
         userName: "Mike",
         recentMessage: "Yo, wanna play some multiplayer?",
-        id: 2,
+        id: "2",
         avatar: {
           uri:
             "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
         },
       },
     ],
-    userInfo: user,
   };
 
   render() {

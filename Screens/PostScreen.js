@@ -31,7 +31,7 @@ export default class PostScreen extends React.Component {
 
   state = {
     text: "",
-    userImage: "",
+    userImage: "0",
     userPFP: "",
   };
 
@@ -63,7 +63,6 @@ export default class PostScreen extends React.Component {
       .post("https://grem-api.herokuapp.com/api/content/post", data)
       .then((response) => {
         Alert.alert("Post Successful!", "😎");
-        console.log(response.data);
       })
       .catch((err) => {
         Alert.alert("Upload Failed.", "🥺");
@@ -87,7 +86,7 @@ export default class PostScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView>
+        
           <View style={styles.header}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
               <Icon name="ios-arrow-back" size={24} color="black" />
@@ -130,7 +129,6 @@ export default class PostScreen extends React.Component {
               }}
             />
           </View>
-        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -157,6 +155,7 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 24,
     marginRight: 16,
+    marginTop: 12,
   },
   photo: {
     alignItems: "flex-end",
