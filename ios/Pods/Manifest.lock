@@ -317,7 +317,7 @@ PODS:
     - TOCropViewController
   - RNPermissions (2.2.1):
     - React-Core
-  - RNReanimated (1.13.0):
+  - RNReanimated (1.13.1):
     - React
   - RNScreens (2.11.0):
     - React
@@ -526,7 +526,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
   RNImageCropPicker: 89352ad050ea8dd9bc1728802c477f5b38cd7b4c
   RNPermissions: 54f83272e3d1961fcbd6aff8fd826014c37fc578
-  RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
+  RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
   RNScreens: 0e91da98ab26d5d04c7b59a9b6bd694124caf88c
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   TOCropViewController: 2a1ae1242600b1f2d996fd91a5268b2309a33b5c
@@ -534,6 +534,6 @@ SPEC CHECKSUMS:
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 83f219d77dd67ad598ff92437256d09549dd6eab
+PODFILE CHECKSUM: a9431463657b576dc9a8f26687afd4b5ee9e0714
 
 COCOAPODS: 1.9.3

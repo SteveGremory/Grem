@@ -3,7 +3,9 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 install! 'cocoapods', :deterministic_uuids => false
 
 
-platform :ios, '13.5'
+platform :ios, '12.0'
+
+inhibit_all_warnings!
 
 target 'Grem' do
   permissions_path = '../node_modules/react-native-permissions/ios'
