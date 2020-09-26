@@ -88,7 +88,6 @@ export default class HomeScreen extends React.Component {
           style={styles.feed}
           data={this.state.userPosts}
           renderItem={({ item }) => this.renderPost(item)}
-          keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
         />
       </View>
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderBottomWidth: 2,
     borderBottomColor: "red",
-    
+
     marginBottom: 10,
   },
   headerTitle: {

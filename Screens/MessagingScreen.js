@@ -5,9 +5,9 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  FlatList, Platform
+  FlatList,
+  Platform,
 } from "react-native";
-import user from "../user.js";
 
 export default class MessagesScreen extends React.Component {
   state = {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
-  
+
   header: {
     ...Platform.select({
       ios: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderBottomWidth: 2,
     borderBottomColor: "red",
-    
+
     marginBottom: 10,
   },
   headerTitle: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   chatboxTextUsername: {
     ...Platform.select({
-      ios: {    
+      ios: {
         marginTop: 2,
         marginLeft: 8,
         textAlign: "left",
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
       },
-      android: {    
+      android: {
         marginLeft: 8,
         textAlign: "left",
         fontSize: 24,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         color: "#454D65",
         justifyContent: "center",
         alignItems: "center",
-      }
+      },
     }),
   },
   timestamp: {
@@ -154,9 +154,7 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         shadowOpacity: 0.5,
       },
-      android: {
-
-      }
+      android: {},
     }),
 
     borderRadius: 13,
