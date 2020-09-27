@@ -44,7 +44,6 @@ export default class PostScreen extends React.Component {
         const respInfo = response.data["message"];
         const getUserPFP = respInfo["avatar"];
         this.setState({ userPFP: getUserPFP });
-        console.log(this.state.userPFP);
         this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
       .catch((err) => {
@@ -110,7 +109,7 @@ export default class PostScreen extends React.Component {
           <View style={styles.inputContainer}>
             <Image
               //todo: you have to set the logic to get the dp from a json file from ipfs and then set it as source down below...
-              source={this.state.userPFP}
+              source={{ uri: this.state.userPFP }}
               style={styles.avatar}
             ></Image>
             <TextInput
