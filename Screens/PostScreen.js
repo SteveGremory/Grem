@@ -11,7 +11,7 @@ import {
   Platform,
 } from "react-native";
 
-import AsyncStorage from "@react-native-community/async-storage";
+import EncryptedStorage from "react-native-encrypted-storage";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -36,7 +36,7 @@ export default class PostScreen extends React.Component {
   };
 
   getData = async () => {
-    const uid = await AsyncStorage.getItem("userUID");
+    const uid = await EncryptedStorage.getItem("userUID");
     await axios
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {
@@ -51,7 +51,7 @@ export default class PostScreen extends React.Component {
   };
 
   uploadPost = async () => {
-    const uid = await AsyncStorage.getItem("userUID");
+    const uid = await EncryptedStorage.getItem("userUID");
     console.log(uid);
     const data = {
       uid: uid,

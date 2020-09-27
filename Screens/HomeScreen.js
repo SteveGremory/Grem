@@ -11,7 +11,7 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import axios from "axios";
-import AsyncStorage from "@react-native-community/async-storage";
+import EncryptedStorage from "react-native-encrypted-storage";
 
 export default class HomeScreen extends React.Component {
   intervalID;
@@ -23,7 +23,7 @@ export default class HomeScreen extends React.Component {
   }
 
   getData = async () => {
-    const uid = await AsyncStorage.getItem("userUID");
+    const uid = await EncryptedStorage.getItem("userUID");
     await axios
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {

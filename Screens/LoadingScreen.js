@@ -1,11 +1,11 @@
 import React from "react";
 import { View, ActivityIndicator, Image } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
+import EncryptedStorage from "react-native-encrypted-storage";
 
 export default class LoadingScreen extends React.Component {
   async componentDidMount() {
     try {
-      const value = await AsyncStorage.getItem("isLoggedIn");
+      const value = await EncryptedStorage.getItem("isLoggedIn");
       if (value == "true") {
         this.props.navigation.navigate("App");
       }

@@ -6043,6 +6043,11 @@ react-native-elements@^2.3.2:
     react-native-ratings "^7.2.0"
     react-native-status-bar-height "^2.5.0"
 
+react-native-encrypted-storage@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-encrypted-storage/-/react-native-encrypted-storage-3.0.0.tgz#b7bdd03ed361959fc777dab0383928954059a7ac"
+  integrity sha512-qH+8uZw10QFf1bpfKyqdku1wH9pRU6ZekDJ4KBiKcXu7RdrO/uw4zSVPu71329n142eFQQprk21JlLbSwg1Mlg==
+
 react-native-gesture-handler@~1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.8.0.tgz#18f61f51da50320f938957b0ee79bc58f47449dc"

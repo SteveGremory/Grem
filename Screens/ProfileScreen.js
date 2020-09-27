@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
+import EncryptedStorage from "react-native-encrypted-storage";
 import ImagePicker from "react-native-image-crop-picker";
 import axios from "axios";
 
@@ -18,12 +18,12 @@ export default class ProfileScreen extends React.Component {
 
   signOut = async () => {
     try {
-      await AsyncStorage.setItem("isLoggedIn", "false");
+      await EncryptedStorage.setItem("isLoggedIn", "false");
     } catch (error) {
       console.error(error);
     }
     try {
-      await AsyncStorage.removeItem("userUID");
+      await EncryptedStorage.removeItem("userUID");
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +41,7 @@ export default class ProfileScreen extends React.Component {
   }
 
   getData = async () => {
-    const uid = await AsyncStorage.getItem("userUID");
+    const uid = await EncryptedStorage.getItem("userUID");
     await axios
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {

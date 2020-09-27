@@ -17,7 +17,7 @@ import {
 } from "react-native-gifted-chat";
 import Icon from "react-native-vector-icons/Ionicons";
 import ImagePicker from "react-native-image-crop-picker";
-import AsyncStorage from "@react-native-community/async-storage";
+import EncryptedStorage from "react-native-encrypted-storage";
 import axios from "axios";
 
 export default class ChatScreen extends React.Component {
@@ -41,7 +41,7 @@ export default class ChatScreen extends React.Component {
   }
 
   getData = async () => {
-    const uid = await AsyncStorage.getItem("userUID");
+    const uid = await EncryptedStorage.getItem("userUID");
     await axios
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {
