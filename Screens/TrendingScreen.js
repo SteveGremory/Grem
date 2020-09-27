@@ -1,11 +1,20 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TextInput,
+} from "react-native";
 import { SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import { FlatList } from "react-native-gesture-handler";
 
 export default class TrendingScreen extends React.Component {
+  state = { search: "", userInfo: "" };
+
   updateSearch = async (search) => {
     await this.setState({ search: search });
     let data = {
@@ -22,6 +31,9 @@ export default class TrendingScreen extends React.Component {
   };
   clearIcon = (props) => {
     return <Icon name="close-outline" size={32} color="white"></Icon>;
+  };
+  onClear = (props) => {
+    this.setState({ search: "" });
   };
   renderUser = (item) => {
     return (
@@ -44,8 +56,6 @@ export default class TrendingScreen extends React.Component {
     );
   };
 
-  state = { search: "", userInfo: "" };
-
   render() {
     const { search } = this.state;
 
@@ -54,30 +64,30 @@ export default class TrendingScreen extends React.Component {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Trending</Text>
         </View>
-        
-          <View>
-            <SearchBar
-              placeholder="Type Here..."
-              onChangeText={this.updateSearch}
-              value={search}
-              clearIcon={this.clearIcon}
-              lightTheme={false}
-              searchIcon={this.searchIcon}
-              placeholder="Search username"
-              round={true}
-              placeholderTextColor="white"
-              color="white"
-              autoCapitalize={false}
-            />
-          </View>
-          <View>
-            <FlatList
-              style={styles.user}
-              data={this.state.userInfo}
-              renderItem={({ item }) => this.renderUser(item)}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
+
+        <View>
+          <SearchBar
+            placeholder="This Field is CaSe_SeNsEtIvE"
+            onChangeText={this.updateSearch}
+            value={search}
+            clearIcon={this.clearIcon}
+            onClear={this.onClear}
+            lightTheme={false}
+            searchIcon={this.searchIcon}
+            round={true}
+            placeholderTextColor="white"
+            color="white"
+            autoCapitalize="none"
+          />
+        </View>
+        <View>
+          <FlatList
+            style={styles.user}
+            data={this.state.userInfo}
+            renderItem={({ item }) => this.renderUser(item)}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </View>
     );
   }
@@ -109,7 +119,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     marginRight: 16,
   },
-  
+
   header: {
     ...Platform.select({
       ios: {
@@ -132,7 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderBottomWidth: 2,
     borderBottomColor: "red",
-    
+
     marginBottom: 10,
   },
   headerTitle: {

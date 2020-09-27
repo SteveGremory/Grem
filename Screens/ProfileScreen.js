@@ -31,13 +31,8 @@ export default class ProfileScreen extends React.Component {
     this.props.navigation.navigate("Auth");
   };
 
-  intervalID;
-
   componentDidMount() {
     this.getData();
-  }
-  componentWillUnmount() {
-    clearTimeout(this.intervalID);
   }
 
   getData = async () => {
@@ -47,7 +42,6 @@ export default class ProfileScreen extends React.Component {
       .then((response) => {
         const respInfo = response.data["message"];
         this.setState({ userInfo: respInfo });
-        this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -55,6 +49,7 @@ export default class ProfileScreen extends React.Component {
   };
 
   changePFP = async () => {
+    const uid = await EncryptedStorage.getItem("userUID");
     ImagePicker.openPicker({
       mediaType: "photo",
       width: 600,
@@ -65,7 +60,8 @@ export default class ProfileScreen extends React.Component {
     }).then(async (image) => {
       await axios
         .post("https://grem-api.herokuapp.com/api/content/changepfp", {
-          avatar: {},
+          avatar: this.state.userImage,
+          uid: uid,
         })
         .then((resp) => {
           Alert.alert("Profile Picture Changed Successfully!", "😎");
@@ -77,7 +73,6 @@ export default class ProfileScreen extends React.Component {
         });
 
       this.setState({ userImage: `data:${image.mime};base64,${image.data}` });
-      console.log(this.state.userImage);
     });
   };
   //unsubscribe = null;

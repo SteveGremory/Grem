@@ -32,7 +32,8 @@ export default class PostScreen extends React.Component {
   state = {
     text: "",
     userImage: null,
-    userPFP: "",
+    userPFP: null,
+    oldPosts: 0,
   };
 
   getData = async () => {
@@ -41,8 +42,9 @@ export default class PostScreen extends React.Component {
       .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
       .then((response) => {
         const respInfo = response.data["message"];
-        this.setState({ userPFP: respInfo["avatar"] });
-
+        const getUserPFP = respInfo["avatar"];
+        this.setState({ userPFP: getUserPFP });
+        console.log(this.state.userPFP);
         this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
       .catch((err) => {
@@ -52,20 +54,30 @@ export default class PostScreen extends React.Component {
 
   uploadPost = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
-    console.log(uid);
     const data = {
       uid: uid,
-      id: "1",
+      id: `${this.state.oldPosts + 1}`,
       text: this.state.text,
       image: this.state.userImage,
     };
     await axios
       .post("https://grem-api.herokuapp.com/api/content/post", data)
       .then((response) => {
-        Alert.alert("Post Successful!", "😎");
+        Alert.alert("Post Successful!", "😎", [
+          {
+            text: "COOL!",
+            onPress: () => this.props.navigation.navigate("App"),
+          },
+        ]);
+        this.setState({ text: "", userImage: null });
       })
       .catch((err) => {
-        Alert.alert("Upload Failed.", "🥺");
+        Alert.alert("Upload Failed.", "🥺", [
+          {
+            text: "PFFT OK!",
+            onPress: () => this.props.navigation.navigate("App"),
+          },
+        ]);
         console.error(err);
       });
   };

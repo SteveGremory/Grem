@@ -7,20 +7,21 @@ import {
   Image,
   Platform,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import axios from "axios";
 import EncryptedStorage from "react-native-encrypted-storage";
 
+//const CancelToken = axios.CancelToken;
+//const source = CancelToken.source();
+
 export default class HomeScreen extends React.Component {
-  intervalID;
   componentDidMount() {
     this.getData();
   }
-  componentWillUnmount() {
-    clearTimeout(this.intervalID);
-  }
+  componentWillUnmount() {}
 
   getData = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
@@ -31,15 +32,19 @@ export default class HomeScreen extends React.Component {
         const respInfo = response.data["message"];
         this.setState({ userPosts: respPosts });
         this.setState({ userInfo: respInfo });
-
-        this.intervalID = setTimeout(this.getData.bind(this), 2000);
+        this.setState({ refreshing: false });
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  state = { userPosts: [], userInfo: "" };
+  onRefresh = () => {
+    this.getData;
+    this.setState({ refreshing: true }, this.getData);
+  };
+
+  state = { userPosts: [], userInfo: "", refreshing: false };
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
@@ -87,8 +92,20 @@ export default class HomeScreen extends React.Component {
         <FlatList
           style={styles.feed}
           data={this.state.userPosts}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => this.renderPost(item)}
           showsVerticalScrollIndicator={false}
+          refreshing={this.state.refreshing}
+          onRefresh={this.onRefresh}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
+              tintColor="red"
+              title="Getting Fresh Posts..."
+              titleColor="red"
+            />
+          }
         />
       </View>
     );
