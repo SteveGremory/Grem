@@ -12,6 +12,7 @@ import TrendingScreen from "./Screens/TrendingScreen";
 import MessagingScreen from "./Screens/MessagingScreen";
 import PostScreen from "./Screens/PostScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
+import OtherProfile from "./Screens/OtherProfile";
 
 import React from "react";
 import ChatScreen from "./Screens/ChatScreen";
@@ -54,10 +55,10 @@ const AppContainer = createStackNavigator(
                       shadowOpacity: 0.5,
                     },
                     android: {
-                    borderColor: "rgba(0,0,0,0)",
-                    borderWidth: 1,
-                    borderRadius: 100,
-                    elevation: 18, 
+                      borderColor: "rgba(0,0,0,0)",
+                      borderWidth: 1,
+                      borderRadius: 100,
+                      elevation: 18,
                     },
                   }),
                 }}
@@ -123,6 +124,8 @@ export default createAppContainer(
       Auth: AuthStack,
       Chat: ChatScreen,
       Messages: MessagingScreen,
+      OtherProfile: OtherProfile,
+      Trending: TrendingScreen,
     },
     {
       initialRouteName: "Loading",

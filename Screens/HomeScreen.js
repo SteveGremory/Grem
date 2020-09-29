@@ -21,12 +21,11 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     this.getData();
   }
-  componentWillUnmount() {}
 
   getData = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
     await axios
-      .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
+      .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
       .then((response) => {
         const respPosts = response.data["message"]["posts"];
         const respInfo = response.data["message"];

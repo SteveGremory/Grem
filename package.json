@@ -27,6 +27,7 @@
     "react-native-gifted-chat": "^0.16.3",
     "react-native-image-crop-picker": "^0.35.0",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
+    "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-permissions": "^2.2.1",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",

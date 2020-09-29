@@ -14,7 +14,12 @@ import ImagePicker from "react-native-image-crop-picker";
 import axios from "axios";
 
 export default class ProfileScreen extends React.Component {
-  state = { userInfo: "", userImage: "" };
+  state = {
+    userFollowers: null,
+    userPFP: "",
+    userFollowing: null,
+    userPosts: null,
+  };
 
   signOut = async () => {
     try {
@@ -38,10 +43,16 @@ export default class ProfileScreen extends React.Component {
   getData = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
     await axios
-      .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
+      .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
       .then((response) => {
         const respInfo = response.data["message"];
-        this.setState({ userInfo: respInfo });
+        this.setState({
+          userFollowers: respInfo.userFollowers,
+        });
+        this.setState({ userPFP: respInfo.avatar });
+        this.setState({ userFollowing: respInfo.userFollowing });
+        this.setState({ userName: respInfo.username });
+        this.setState({ userPosts: respInfo.postsNumber });
       })
       .catch((err) => {
         console.log(err);
@@ -59,7 +70,7 @@ export default class ProfileScreen extends React.Component {
       includeBase64: true,
     }).then(async (image) => {
       await axios
-        .post("https://grem-api.herokuapp.com/api/content/changepfp", {
+        .post("https://grem-api.herokuapp.com/api/actions/changepfp", {
           avatar: this.state.userImage,
           uid: uid,
         })
@@ -75,22 +86,7 @@ export default class ProfileScreen extends React.Component {
       this.setState({ userImage: `data:${image.mime};base64,${image.data}` });
     });
   };
-  //unsubscribe = null;
-  //TODO: MAKE LOGIC FOR REALTIME FOLLOWER UPDATES
-  //componentDidMount() {
-  //const user = this.props.uid || Fire.shared.uid;
 
-  //this.unsubscribe = Fire.shared.firestore
-  //.collection('users')
-  //.doc(user)
-  //.onSnapshot((doc) => {
-  //this.setState({ user: doc.data() });
-  //});
-  //}
-
-  //componentWillUnmount() {
-  //this.unsubscribe();
-  //}
   render() {
     return (
       <View style={styles.container}>
@@ -99,26 +95,22 @@ export default class ProfileScreen extends React.Component {
             style={styles.avatarContainer}
             onPress={this.changePFP}
           >
-            <Image source={this.state.userInfo.avatar} style={styles.avatar} />
+            <Image source={this.state.userPFP} style={styles.avatar} />
           </TouchableOpacity>
-          <Text style={styles.name}>{this.state.userInfo["username"]}</Text>
+          <Text style={styles.name}>{this.state.userName}</Text>
         </View>
 
         <View style={styles.statsContainer}>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>0</Text>
+            <Text style={styles.statAmount}>{this.state.userPosts}</Text>
             <Text style={styles.statTitle}>POSTS</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>
-              {this.state.userInfo.userFollowers}
-            </Text>
+            <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
             <Text style={styles.statTitle}>FOLLOWERS</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>
-              {this.state.userInfo.userFollowing}
-            </Text>
+            <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
             <Text style={styles.statTitle}>FOLLOWING</Text>
           </View>
         </View>

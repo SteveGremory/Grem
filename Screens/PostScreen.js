@@ -25,26 +25,23 @@ export default class PostScreen extends React.Component {
   componentDidMount() {
     this.getData();
   }
-  componentWillUnmount() {
-    clearTimeout(this.intervalID);
-  }
-
   state = {
     text: "",
     userImage: null,
     userPFP: null,
-    oldPosts: 0,
+    oldPosts: null,
+    loading: false,
   };
 
   getData = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
     await axios
-      .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
+      .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
       .then((response) => {
         const respInfo = response.data["message"];
-        const getUserPFP = respInfo["avatar"];
-        this.setState({ userPFP: getUserPFP });
-        this.intervalID = setTimeout(this.getData.bind(this), 1000);
+        const oldPosts = respInfo.postsNumber;
+        this.setState({ userPFP: respInfo.avatar });
+        this.setState({ oldPosts: oldPosts });
       })
       .catch((err) => {
         console.log(err);
@@ -55,12 +52,12 @@ export default class PostScreen extends React.Component {
     const uid = await EncryptedStorage.getItem("userUID");
     const data = {
       uid: uid,
-      id: `${this.state.oldPosts + 1}`,
+      id: `${+this.state.oldPosts + 1}`,
       text: this.state.text,
       image: this.state.userImage,
     };
     await axios
-      .post("https://grem-api.herokuapp.com/api/content/post", data)
+      .post("https://grem-api.herokuapp.com/api/actions/post", data)
       .then((response) => {
         Alert.alert("Post Successful!", "😎", [
           {
@@ -84,7 +81,7 @@ export default class PostScreen extends React.Component {
   selectImage = async () => {
     ImagePicker.openPicker({
       mediaType: "photo",
-      compressImageQuality: 1,
+      compressImageQuality: 0.6,
       width: 1366,
       height: 768,
       cropping: true,
@@ -109,7 +106,7 @@ export default class PostScreen extends React.Component {
           <View style={styles.inputContainer}>
             <Image
               //todo: you have to set the logic to get the dp from a json file from ipfs and then set it as source down below...
-              source={{ uri: this.state.userPFP }}
+              source={this.state.userPFP}
               style={styles.avatar}
             ></Image>
             <TextInput

@@ -43,7 +43,7 @@ export default class ChatScreen extends React.Component {
   getData = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
     await axios
-      .post("https://grem-api.herokuapp.com/api/content/getuser", { uid: uid })
+      .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
       .then((response) => {
         const respInfo = response.data["message"];
         this.setState({ userInfo: respInfo });

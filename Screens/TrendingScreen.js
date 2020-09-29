@@ -10,10 +10,10 @@ import {
 import { SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 export default class TrendingScreen extends React.Component {
-  state = { search: "", userInfo: "" };
+  state = { search: "", userInfo: "", loading: false };
 
   updateSearch = async (search) => {
     await this.setState({ search: search });
@@ -21,9 +21,10 @@ export default class TrendingScreen extends React.Component {
       username: this.state.search,
     };
     await axios
-      .post("https://grem-api.herokuapp.com/api/content/findbyusername", data)
+      .post("https://grem-api.herokuapp.com/api/actions/findbyusername", data)
       .then((result) => {
         this.setState({ userInfo: result.data["message"] });
+        this.setState({});
       });
   };
   searchIcon = (props) => {
@@ -37,22 +38,26 @@ export default class TrendingScreen extends React.Component {
   };
   renderUser = (item) => {
     return (
-      <View style={styles.userItem}>
-        <Image source={item.avatar} style={styles.avatar} />
-        <View style={{ flex: 1 }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <View>
-              <Text style={styles.name}>{item.username}</Text>
+      <TouchableOpacity
+        onPress={() => this.props.navigation.navigate("OtherProfile")}
+      >
+        <View style={styles.userItem}>
+          <Image source={item.avatar} style={styles.avatar} />
+          <View style={{ flex: 1 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <View>
+                <Text style={styles.name}>{item.username}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -75,9 +80,10 @@ export default class TrendingScreen extends React.Component {
             lightTheme={false}
             searchIcon={this.searchIcon}
             round={true}
-            placeholderTextColor="white"
+            placeholderTextColor="#F5F5F5"
             color="white"
             autoCapitalize="none"
+            showLoading={this.props.loading}
           />
         </View>
         <View>
