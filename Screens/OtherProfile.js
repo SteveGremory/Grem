@@ -15,36 +15,40 @@ import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 
 export default class OtherProfile extends React.Component {
-  state = { userInfo: "", userImage: "", userPosts: "" };
+  state = {
+    userPostsNumber: null,
+    userFollowers: null,
+    userPFP: "",
+    userFollowing: null,
+    userPosts: null,
+    userName: "",
+  };
 
   componentDidMount() {
-    console.log(this.props.navigation.getParam("username"));
+    this.getData();
   }
   componentWillUnmount() {}
 
   getData = async () => {
-    let { username } = this.props.route.params;
-    console.log(username);
+    const username = this.props.navigation.getParam("username");
 
-    /*await axios
+    await axios
       .post("https://grem-api.herokuapp.com/api/actions/findbyusername", {
         username: username,
       })
       .then((response) => {
-        const respPosts = response.data["message"]["posts"];
         const respInfo = response.data["message"];
-        this.setState({ userPosts: respPosts });
-        this.setState({ userInfo: respInfo });
-        this.setState({ refreshing: false });
+        this.setState({
+          userFollowers: respInfo.userFollowers,
+        });
+        this.setState({ userPFP: respInfo.avatar });
+        this.setState({ userFollowing: respInfo.userFollowing });
+        this.setState({ userName: respInfo.username });
+        this.setState({ userPostsNumber: respInfo.postsNumber });
       })
       .catch((err) => {
         console.log(err);
-      });*/
-  };
-
-  onRefresh = () => {
-    this.getData;
-    this.setState({ refreshing: true }, this.getData);
+      });
   };
 
   render() {
@@ -58,26 +62,22 @@ export default class OtherProfile extends React.Component {
         </TouchableOpacity>
         <View style={{ marginTop: 64, alignItems: "center" }}>
           <TouchableOpacity style={styles.avatarContainer}>
-            <Image source={this.state.userInfo.avatar} style={styles.avatar} />
+            <Image source={this.state.userPFP} style={styles.avatar} />
           </TouchableOpacity>
-          <Text style={styles.name}>{this.state.userInfo["username"]}</Text>
+          <Text style={styles.name}>{this.state.userName}</Text>
         </View>
 
         <View style={styles.statsContainer}>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>0</Text>
+            <Text style={styles.statAmount}>{this.state.userPostsNumber}</Text>
             <Text style={styles.statTitle}>POSTS</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>
-              {this.state.userInfo.userFollowers}
-            </Text>
+            <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
             <Text style={styles.statTitle}>FOLLOWERS</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>
-              {this.state.userInfo.userFollowing}
-            </Text>
+            <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
             <Text style={styles.statTitle}>FOLLOWING</Text>
           </View>
         </View>
