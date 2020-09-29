@@ -12,18 +12,24 @@ import {
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
+import axios from "axios";
 
 export default class OtherProfile extends React.Component {
   state = { userInfo: "", userImage: "", userPosts: "" };
 
   componentDidMount() {
-    this.getData();
+    console.log(this.props.navigation.getParam("username"));
   }
   componentWillUnmount() {}
 
   getData = async () => {
-    await axios
-      .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
+    let { username } = this.props.route.params;
+    console.log(username);
+
+    /*await axios
+      .post("https://grem-api.herokuapp.com/api/actions/findbyusername", {
+        username: username,
+      })
       .then((response) => {
         const respPosts = response.data["message"]["posts"];
         const respInfo = response.data["message"];
@@ -33,7 +39,7 @@ export default class OtherProfile extends React.Component {
       })
       .catch((err) => {
         console.log(err);
-      });
+      });*/
   };
 
   onRefresh = () => {
@@ -76,15 +82,13 @@ export default class OtherProfile extends React.Component {
           </View>
         </View>
 
-        <ScrollView style={{ backgroundColor: "black" }}>
-          <FlatList
-            style={styles.feed}
-            data={this.state.userPosts}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => this.renderPost(item)}
-            showsVerticalScrollIndicator={false}
-          />
-        </ScrollView>
+        <FlatList
+          style={styles.feed}
+          style={{ backgroundColor: "black" }}
+          data={this.state.userPosts}
+          renderItem={({ item }) => this.renderPost(item)}
+          showsVerticalScrollIndicator={false}
+        />
       </View>
     );
   }

@@ -13,6 +13,9 @@ import axios from "axios";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 export default class TrendingScreen extends React.Component {
+  static navigationOptions = {
+    headerShown: false,
+  };
   state = { search: "", userInfo: "", loading: false };
 
   updateSearch = async (search) => {
@@ -39,7 +42,11 @@ export default class TrendingScreen extends React.Component {
   renderUser = (item) => {
     return (
       <TouchableOpacity
-        onPress={() => this.props.navigation.navigate("OtherProfile")}
+        onPress={() => {
+          this.props.navigation.navigate("OtherProfile", {
+            username: item.username,
+          });
+        }}
       >
         <View style={styles.userItem}>
           <Image source={item.avatar} style={styles.avatar} />
