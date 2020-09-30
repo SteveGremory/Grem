@@ -33,7 +33,6 @@ export default class OtherProfile extends React.Component {
       })
       .then(async (response) => {
         this.setState({ userInfo: response.data.message });
-        console.log(this.state.userInfo);
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +80,14 @@ export default class OtherProfile extends React.Component {
       </View>
     );
   };
+  //write logic plsss
+  handleFollow = async () => {
+    console.log("FIX THIS SHIT YOU ASSHOLE!");
+  };
+  //write logic plsss
+  handleMessage = async () => {
+    console.log("FIX THIS SHIT YOU ASSHOLE!");
+  };
 
   render() {
     return (
@@ -122,15 +129,17 @@ export default class OtherProfile extends React.Component {
         </View>
         <View style={styles.actionsContainer}>
           <TouchableOpacity style={styles.follow}>
-            <Text style={styles.followText}>FOLLOW</Text>
+            <Text style={styles.followText} onPress={this.handleFollow}>
+              FOLLOW
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.message}>
+          <TouchableOpacity style={styles.message} onPress={this.handleMessage}>
             <Text style={styles.messageText}>MESSAGE</Text>
           </TouchableOpacity>
         </View>
+
         <FlatList
           style={styles.feed}
-          style={{ backgroundColor: "black" }}
           data={this.state.userInfo.posts}
           renderItem={({ item }) => this.renderPost(item)}
           showsVerticalScrollIndicator={false}
@@ -143,7 +152,7 @@ export default class OtherProfile extends React.Component {
 const styles = StyleSheet.create({
   actionsContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     marginTop: 6,
     margin: 32,
   },
@@ -152,6 +161,10 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 2,
     borderRadius: 100,
+    shadowColor: "red",
+    shadowOffset: { height: 3 },
+    shadowRadius: 8,
+    shadowOpacity: 0.5,
   },
   followText: {
     color: "red",
@@ -166,6 +179,10 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 2,
     borderRadius: 100,
+    shadowColor: "red",
+    shadowOffset: { height: 3 },
+    shadowRadius: 8,
+    shadowOpacity: 0.5,
   },
   messageText: {
     color: "red",

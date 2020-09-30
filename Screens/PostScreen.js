@@ -31,6 +31,8 @@ export default class PostScreen extends React.Component {
     userPFP: null,
     oldPosts: null,
     loading: false,
+    refreshing: false,
+    userPosts: [],
   };
 
   getData = async () => {
@@ -42,6 +44,7 @@ export default class PostScreen extends React.Component {
         const oldPosts = respInfo.postsNumber;
         this.setState({ userPFP: respInfo.avatar });
         this.setState({ oldPosts: oldPosts });
+        this.setState({ userPosts: respInfo.posts });
       })
       .catch((err) => {
         console.log(err);
