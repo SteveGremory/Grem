@@ -95,7 +95,7 @@ export default class ProfileScreen extends React.Component {
             style={styles.avatarContainer}
             onPress={this.changePFP}
           >
-            <Image source={this.state.userPFP} style={styles.avatar} />
+            <Image source={{ uri: this.state.userPFP }} style={styles.avatar} />
           </TouchableOpacity>
           <Text style={styles.name}>{this.state.userName}</Text>
         </View>

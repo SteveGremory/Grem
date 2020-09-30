@@ -106,7 +106,7 @@ export default class PostScreen extends React.Component {
           <View style={styles.inputContainer}>
             <Image
               //todo: you have to set the logic to get the dp from a json file from ipfs and then set it as source down below...
-              source={this.state.userPFP}
+              source={{ uri: this.state.userPFP }}
               style={styles.avatar}
             ></Image>
             <TextInput

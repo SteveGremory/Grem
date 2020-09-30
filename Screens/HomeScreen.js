@@ -47,7 +47,10 @@ export default class HomeScreen extends React.Component {
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
-        <Image source={this.state.userInfo.avatar} style={styles.avatar} />
+        <Image
+          source={{ uri: this.state.userInfo.avatar }}
+          style={styles.avatar}
+        />
         <View style={{ flex: 1 }}>
           <View
             style={{
