@@ -16,35 +16,23 @@ import axios from "axios";
 
 export default class OtherProfile extends React.Component {
   state = {
-    userPostsNumber: null,
-    userFollowers: null,
-    userPFP: "",
-    userFollowing: null,
-    userPosts: null,
-    userName: "",
+    userInfo: "",
   };
 
   componentDidMount() {
     this.getData();
   }
-  componentWillUnmount() {}
 
   getData = async () => {
-    const username = this.props.navigation.getParam("username");
-
+    const usrname = this.props.navigation.getParam("username");
     await axios
       .post("https://grem-api.herokuapp.com/api/actions/findbyusername", {
-        username: username,
+        username: usrname,
       })
       .then((response) => {
-        const respInfo = response.data["message"];
-        this.setState({
-          userFollowers: respInfo.userFollowers,
-        });
-        this.setState({ userPFP: respInfo.avatar });
-        this.setState({ userFollowing: respInfo.userFollowing });
-        this.setState({ userName: respInfo.username });
-        this.setState({ userPostsNumber: respInfo.postsNumber });
+        const respInfo = response.data.message;
+        console.log(respInfo);
+        this.setState({ userInfo: respInfo });
       })
       .catch((err) => {
         console.log(err);
@@ -61,23 +49,32 @@ export default class OtherProfile extends React.Component {
           <Icon name="ios-arrow-back" size={32} color="white"></Icon>
         </TouchableOpacity>
         <View style={{ marginTop: 64, alignItems: "center" }}>
-          <TouchableOpacity style={styles.avatarContainer}>
-            <Image source={this.state.userPFP} style={styles.avatar} />
-          </TouchableOpacity>
-          <Text style={styles.name}>{this.state.userName}</Text>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={{ uri: this.state.userInfo.avatar }}
+              style={styles.avatar}
+            />
+          </View>
+          <Text style={styles.name}>{this.state.userInfo.username}</Text>
         </View>
 
         <View style={styles.statsContainer}>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userPostsNumber}</Text>
+            <Text style={styles.statAmount}>
+              {this.state.userInfo.postsNumber}
+            </Text>
             <Text style={styles.statTitle}>POSTS</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
+            <Text style={styles.statAmount}>
+              {this.state.userInfo.userFollowers}
+            </Text>
             <Text style={styles.statTitle}>FOLLOWERS</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
+            <Text style={styles.statAmount}>
+              {this.state.userInfo.userFollowing}
+            </Text>
             <Text style={styles.statTitle}>FOLLOWING</Text>
           </View>
         </View>

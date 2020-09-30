@@ -49,7 +49,7 @@ export default class TrendingScreen extends React.Component {
         }}
       >
         <View style={styles.userItem}>
-          <Image source={item.avatar} style={styles.avatar} />
+          <Image source={{ uri: item.avatar }} style={styles.avatar} />
           <View style={{ flex: 1 }}>
             <View
               style={{

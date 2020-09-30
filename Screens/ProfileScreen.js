@@ -39,6 +39,9 @@ export default class ProfileScreen extends React.Component {
   componentDidMount() {
     this.getData();
   }
+  componentWillReceiveProps() {
+    this.getData();
+  }
 
   getData = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
@@ -66,6 +69,7 @@ export default class ProfileScreen extends React.Component {
       width: 600,
       height: 600,
       cropping: true,
+      compressImageQuality: 0.6,
       multiple: false,
       includeBase64: true,
     }).then(async (image) => {
