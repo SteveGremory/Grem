@@ -132,7 +132,7 @@ android {
         applicationId "com.grem"
         targetSdkVersion rootProject.ext.targetSdkVersion
         vectorDrawables.useSupportLibrary = true
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         compileSdkVersion 28
         versionCode 1
