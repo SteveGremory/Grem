@@ -39,9 +39,6 @@ export default class ProfileScreen extends React.Component {
   componentDidMount() {
     this.getData();
   }
-  componentWillReceiveProps() {
-    this.getData();
-  }
 
   getData = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
@@ -49,6 +46,7 @@ export default class ProfileScreen extends React.Component {
       .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
       .then((response) => {
         const respInfo = response.data["message"];
+        console.log(respInfo);
         this.setState({
           userFollowers: respInfo.userFollowers,
         });

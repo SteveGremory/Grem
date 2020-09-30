@@ -24,7 +24,7 @@ export default class TrendingScreen extends React.Component {
       username: this.state.search,
     };
     await axios
-      .post("https://grem-api.herokuapp.com/api/actions/findbyusername", data)
+      .post("https://grem-api.herokuapp.com/api/actions/search-user", data)
       .then((result) => {
         this.setState({ userInfo: result.data["message"] });
         this.setState({});
@@ -97,6 +97,7 @@ export default class TrendingScreen extends React.Component {
           <FlatList
             style={styles.user}
             data={this.state.userInfo}
+            id="2"
             renderItem={({ item }) => this.renderUser(item)}
             showsVerticalScrollIndicator={false}
           />

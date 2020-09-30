@@ -13,10 +13,12 @@ import {
 import { FlatList } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
+import moment from "moment";
 
 export default class OtherProfile extends React.Component {
   state = {
-    userInfo: "",
+    userInfo: [],
+    isFollowing: "false",
   };
 
   componentDidMount() {
@@ -29,14 +31,55 @@ export default class OtherProfile extends React.Component {
       .post("https://grem-api.herokuapp.com/api/actions/findbyusername", {
         username: usrname,
       })
-      .then((response) => {
-        const respInfo = response.data.message;
-        console.log(respInfo);
-        this.setState({ userInfo: respInfo });
+      .then(async (response) => {
+        this.setState({ userInfo: response.data.message });
+        console.log(this.state.userInfo);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+  renderPost = (post) => {
+    return (
+      <View style={styles.feedItem}>
+        <Image
+          source={{ uri: this.state.userInfo.avatar }}
+          style={styles.avatarPost}
+        />
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View>
+              <Text style={styles.namePost}>
+                {this.state.userInfo.username}
+              </Text>
+              <Text style={styles.timestamp}>
+                {moment(post.timestamp).fromNow()}
+              </Text>
+            </View>
+            <TouchableOpacity>
+              <Icon
+                name="ios-ellipsis-horizontal-outline"
+                size={24}
+                color="#73788B"
+              />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.post}>{post.text}</Text>
+          <Image
+            source={{ uri: post.image }}
+            style={styles.postImage}
+            resizeMode="cover"
+          />
+        </View>
+      </View>
+    );
   };
 
   render() {
@@ -57,7 +100,6 @@ export default class OtherProfile extends React.Component {
           </View>
           <Text style={styles.name}>{this.state.userInfo.username}</Text>
         </View>
-
         <View style={styles.statsContainer}>
           <View style={styles.stat}>
             <Text style={styles.statAmount}>
@@ -78,11 +120,18 @@ export default class OtherProfile extends React.Component {
             <Text style={styles.statTitle}>FOLLOWING</Text>
           </View>
         </View>
-
+        <View style={styles.actionsContainer}>
+          <TouchableOpacity style={styles.follow}>
+            <Text style={styles.followText}>FOLLOW</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.message}>
+            <Text style={styles.messageText}>MESSAGE</Text>
+          </TouchableOpacity>
+        </View>
         <FlatList
           style={styles.feed}
           style={{ backgroundColor: "black" }}
-          data={this.state.userPosts}
+          data={this.state.userInfo.posts}
           renderItem={({ item }) => this.renderPost(item)}
           showsVerticalScrollIndicator={false}
         />
@@ -92,6 +141,38 @@ export default class OtherProfile extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  actionsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 6,
+    margin: 32,
+  },
+  follow: {
+    backgroundColor: "black",
+    borderColor: "red",
+    borderWidth: 2,
+    borderRadius: 100,
+  },
+  followText: {
+    color: "red",
+    fontSize: 22,
+    padding: 10,
+    fontWeight: "200",
+  },
+  //display when isFollowing = true.
+  following: {},
+  message: {
+    backgroundColor: "black",
+    borderColor: "red",
+    borderWidth: 2,
+    borderRadius: 100,
+  },
+  messageText: {
+    color: "red",
+    fontSize: 22,
+    padding: 10,
+    fontWeight: "200",
+  },
   container: {
     flex: 1,
     backgroundColor: "black",
@@ -147,5 +228,42 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(21, 22, 48, 0.1)",
     alignItems: "center",
     justifyContent: "center",
+  },
+  feed: {
+    marginHorizontal: 16,
+  },
+  feedItem: {
+    backgroundColor: "#FFF",
+    borderRadius: 5,
+    padding: 8,
+    flexDirection: "row",
+    marginVertical: 8,
+  },
+  avatarPost: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    marginRight: 16,
+  },
+  namePost: {
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#454D65",
+  },
+  timestamp: {
+    fontSize: 11,
+    color: "#C4C6CE",
+    marginTop: 4,
+  },
+  post: {
+    marginTop: 16,
+    fontSize: 14,
+    color: "#838899",
+  },
+  postImage: {
+    width: undefined,
+    height: 150,
+    borderRadius: 10,
+    marginVertical: 15,
   },
 });
