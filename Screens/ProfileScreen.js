@@ -13,7 +13,7 @@ import EncryptedStorage from "react-native-encrypted-storage";
 import ImagePicker from "react-native-image-crop-picker";
 import axios from "axios";
 import moment from "moment";
-import Icon from "react-native-vector-icons";
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default class ProfileScreen extends React.Component {
   state = {
@@ -74,7 +74,23 @@ export default class ProfileScreen extends React.Component {
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
-        <Image source={{ uri: this.state.userPFP }} style={styles.avatarPost} />
+        <View style={{ flexDirection: "column" }}>
+          <Image
+            source={{ uri: this.state.userPFP }}
+            style={styles.avatarPost}
+          />
+          <View style={styles.iconView}>
+            <TouchableOpacity style={styles.iconProps}>
+              <Icon name="heart-outline" size={30} />
+              <Text style={styles.statPost}>100</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.iconProps}>
+              <Icon name="chatbubble-ellipses-outline" size={30} />
+              <Text style={styles.statPost}>100</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={{ flex: 1 }}>
           <View
             style={{
@@ -198,6 +214,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
+  },
+  iconView: {
+    alignSelf: "flex-start",
+    marginTop: "150%",
+    marginLeft: "2%",
+    marginRight: "2%",
+    justifyContent: "space-between",
+  },
+  iconProps: {
+    marginBottom: 2,
+  },
+  statPost: {
+    fontSize: 11,
+    color: "#595959",
+    marginTop: 4,
+    marginBottom: 4,
+    alignSelf: "center",
   },
   actionsContainer: {
     flexDirection: "row",

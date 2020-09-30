@@ -47,10 +47,23 @@ export default class HomeScreen extends React.Component {
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
-        <Image
-          source={{ uri: this.state.userInfo.avatar }}
-          style={styles.avatar}
-        />
+        <View style={{ flexDirection: "column" }}>
+          <Image
+            source={{ uri: this.state.userInfo.avatar }}
+            style={styles.avatar}
+          />
+          <View style={styles.iconView}>
+            <TouchableOpacity style={styles.iconProps}>
+              <Icon name="heart-outline" size={30} />
+              <Text style={styles.statPost}>100</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.iconProps}>
+              <Icon name="chatbubble-ellipses-outline" size={30} />
+              <Text style={styles.statPost}>100</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={{ flex: 1 }}>
           <View
             style={{
@@ -65,16 +78,10 @@ export default class HomeScreen extends React.Component {
                 {moment(post.timestamp).fromNow()}
               </Text>
             </View>
-            <TouchableOpacity>
-              <Icon
-                name="ios-ellipsis-horizontal-outline"
-                size={24}
-                color="#73788B"
-              />
-            </TouchableOpacity>
           </View>
 
           <Text style={styles.post}>{post.text}</Text>
+
           <Image
             source={{ uri: post.image }}
             style={styles.postImage}
@@ -118,6 +125,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
+  },
+  iconView: {
+    alignSelf: "flex-start",
+    marginTop: "150%",
+    marginLeft: "2%",
+    marginRight: "2%",
+    justifyContent: "space-between",
+  },
+  iconProps: {
+    marginBottom: 2,
   },
   header: {
     ...Platform.select({
@@ -175,6 +192,13 @@ const styles = StyleSheet.create({
     color: "#C4C6CE",
     marginTop: 4,
   },
+  statPost: {
+    fontSize: 11,
+    color: "#595959",
+    marginTop: 4,
+    marginBottom: 4,
+    alignSelf: "center",
+  },
   post: {
     marginTop: 16,
     fontSize: 14,
@@ -182,7 +206,7 @@ const styles = StyleSheet.create({
   },
   postImage: {
     width: undefined,
-    height: 150,
+    height: 160,
     borderRadius: 10,
     marginVertical: 15,
   },
