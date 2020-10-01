@@ -14,14 +14,15 @@ import ImagePicker from "react-native-image-crop-picker";
 import axios from "axios";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default class ProfileScreen extends React.Component {
   state = {
-    userFollowers: null,
-    userPFP: "",
-    userFollowing: null,
-    userName: "",
-    userPostsNumber: null,
+    userFollowers: 0,
+    userPFP: " ",
+    userFollowing: 0,
+    userName: " ",
+    userPostsNumber: 0,
     userPosts: [],
     refreshing: false,
   };
@@ -54,8 +55,7 @@ export default class ProfileScreen extends React.Component {
     await axios
       .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
       .then((response) => {
-        const respInfo = response.data["message"];
-        console.log(respInfo);
+        const respInfo = response.data.message;
         this.setState({
           userFollowers: respInfo.userFollowers,
         });
@@ -140,7 +140,6 @@ export default class ProfileScreen extends React.Component {
         })
         .then((resp) => {
           Alert.alert("Profile Picture Changed Successfully!", "😎");
-          console.log(resp.data.message);
         })
         .catch((err) => {
           Alert.alert("Profile Picture wasn't changed...", "🥺");
@@ -154,47 +153,7 @@ export default class ProfileScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ marginTop: 64, alignItems: "center" }}>
-          <TouchableOpacity
-            style={styles.avatarContainer}
-            onPress={this.changePFP}
-          >
-            <Image source={{ uri: this.state.userPFP }} style={styles.avatar} />
-          </TouchableOpacity>
-          <Text style={styles.name}>{this.state.userName}</Text>
-        </View>
-
-        <View style={styles.statsContainer}>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userPostsNumber}</Text>
-            <Text style={styles.statTitle}>POSTS</Text>
-          </View>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
-            <Text style={styles.statTitle}>FOLLOWERS</Text>
-          </View>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
-            <Text style={styles.statTitle}>FOLLOWING</Text>
-          </View>
-        </View>
-
-        <View style={styles.actionsContainer}>
-          <TouchableOpacity style={styles.signOut} onPress={this.signOut}>
-            <Text style={styles.signOutText}>LOG OUT</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.signOut} onPress={this.settings}>
-            <Text style={styles.signOutText}>SETTINGS</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          style={styles.feed}
-          data={this.state.userPosts}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => this.renderPost(item)}
-          showsVerticalScrollIndicator={false}
-          refreshing={this.state.refreshing}
-          onRefresh={this.onRefresh}
+        <ScrollView
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -204,7 +163,54 @@ export default class ProfileScreen extends React.Component {
               titleColor="red"
             />
           }
-        />
+        >
+          <View style={{ marginTop: 64, alignItems: "center" }}>
+            <TouchableOpacity
+              style={styles.avatarContainer}
+              onPress={this.changePFP}
+            >
+              <Image
+                source={{ uri: this.state.userPFP }}
+                style={styles.avatar}
+              />
+            </TouchableOpacity>
+            <Text style={styles.name}>{this.state.userName}</Text>
+          </View>
+
+          <View style={styles.statsContainer}>
+            <View style={styles.stat}>
+              <Text style={styles.statAmount}>
+                {this.state.userPostsNumber}
+              </Text>
+              <Text style={styles.statTitle}>POSTS</Text>
+            </View>
+            <View style={styles.stat}>
+              <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
+              <Text style={styles.statTitle}>FOLLOWERS</Text>
+            </View>
+            <View style={styles.stat}>
+              <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
+              <Text style={styles.statTitle}>FOLLOWING</Text>
+            </View>
+          </View>
+
+          <View style={styles.actionsContainer}>
+            <TouchableOpacity style={styles.signOut} onPress={this.signOut}>
+              <Text style={styles.signOutText}>LOG OUT</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.signOut} onPress={this.settings}>
+              <Text style={styles.signOutText}>SETTINGS</Text>
+            </TouchableOpacity>
+          </View>
+
+          <FlatList
+            style={styles.feed}
+            data={this.state.userPosts}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => this.renderPost(item)}
+            showsVerticalScrollIndicator={false}
+          />
+        </ScrollView>
       </View>
     );
   }
@@ -255,7 +261,7 @@ const styles = StyleSheet.create({
     fontWeight: "200",
   },
   profile: {
-    marginTop: 64,
+    marginTop: 32,
     alignItems: "center",
   },
   avatarContainer: {

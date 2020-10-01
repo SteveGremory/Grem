@@ -27,8 +27,8 @@ export default class HomeScreen extends React.Component {
     await axios
       .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
       .then((response) => {
-        const respPosts = response.data["message"]["posts"];
-        const respInfo = response.data["message"];
+        const respInfo = response.data.message;
+        const respPosts = respInfo.posts;
         this.setState({ userPosts: respPosts });
         this.setState({ userInfo: respInfo });
         this.setState({ refreshing: false });
