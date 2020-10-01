@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  SafeAreaView,
+  ActivityIndicator,
   ScrollView,
   Alert,
 } from "react-native";
@@ -34,6 +34,7 @@ export class RegisterScreen extends React.Component {
   };
 
   handleSignUp = async () => {
+    this.setState({ loading: true });
     const data = {
       username: this.state.username,
       email: this.state.email,
@@ -45,21 +46,25 @@ export class RegisterScreen extends React.Component {
       this.setState({
         errorMessage: "A valid e-mail is required for signup.",
       });
+      this.setState({ loading: false });
     }
     if (this.state.email == "") {
       this.setState({
         errorMessage: "A valid e-mail is required for signup.",
       });
+      this.setState({ loading: false });
     }
     if (this.state.password == "") {
       this.setState({
         errorMessage: "A valid password is required for signup.",
       });
+      this.setState({ loading: false });
     }
     if (this.state.username == "") {
       this.setState({
         errorMessage: "A valid username is required for signup.",
       });
+      this.setState({ loading: false });
     } else if (
       this.state.username != "" &&
       this.state.email != "" &&
@@ -73,6 +78,7 @@ export class RegisterScreen extends React.Component {
           this.setState({ isLoggedIn: "true" });
           await EncryptedStorage.setItem("isLoggedIn", this.state.isLoggedIn);
           this.props.navigation.navigate("App");
+          this.setState({ loading: false });
         })
         .catch((err) => {
           if (err.message == "Request failed with status code 409") {
@@ -80,16 +86,19 @@ export class RegisterScreen extends React.Component {
               errorMessage:
                 "This email/username is associated with another account.",
             });
+            this.setState({ loading: false });
           }
           if (err.message == "Request failed with status code 500") {
             this.setState({
               errorMessage: "E-mail is badly formatted.",
             });
+            this.setState({ loading: false });
           }
           if (err.message == "Network Error") {
             this.setState({
               errorMessage: "Network Error.",
             });
+            this.setState({ loading: false });
           }
           console.error(err.message);
         });
@@ -168,7 +177,11 @@ export class RegisterScreen extends React.Component {
             )}
           </View>
           <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-            <Text style={{ color: "white", fontWeight: "500" }}>Sign Up</Text>
+            {this.state.loading ? (
+              <ActivityIndicator color="white" size="small" />
+            ) : (
+              <Text style={{ color: "white", fontWeight: "500" }}>Sign Up</Text>
+            )}
           </TouchableOpacity>
         </ScrollView>
       </View>

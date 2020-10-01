@@ -8,7 +8,7 @@ import {
   Image,
   TextInput,
   Alert,
-  Platform,
+  ActivityIndicator,
 } from "react-native";
 
 import EncryptedStorage from "react-native-encrypted-storage";
@@ -31,7 +31,6 @@ export default class PostScreen extends React.Component {
     userPFP: null,
     oldPosts: null,
     loading: false,
-    refreshing: false,
     userPosts: [],
   };
 
@@ -52,6 +51,7 @@ export default class PostScreen extends React.Component {
   };
 
   uploadPost = async () => {
+    this.setState({ loading: true });
     const uid = await EncryptedStorage.getItem("userUID");
     const data = {
       uid: uid,
@@ -69,8 +69,10 @@ export default class PostScreen extends React.Component {
           },
         ]);
         this.setState({ text: "", userImage: null });
+        this.setState({ loading: false });
       })
       .catch((err) => {
+        this.setState({ loading: false });
         Alert.alert("Upload Failed.", "🥺", [
           {
             text: "PFFT OK!",
@@ -102,7 +104,11 @@ export default class PostScreen extends React.Component {
             <Icon name="ios-arrow-back" size={24} color="black" />
           </TouchableOpacity>
           <TouchableOpacity onPress={this.uploadPost}>
-            <Text style={{ fontSize: 20 }}>Post</Text>
+            {this.state.loading ? (
+              <ActivityIndicator color="black" size="small" />
+            ) : (
+              <Text style={{ fontSize: 20 }}>Post</Text>
+            )}
           </TouchableOpacity>
         </View>
         <ScrollView>

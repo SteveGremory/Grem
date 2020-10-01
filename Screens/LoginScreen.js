@@ -9,6 +9,7 @@ import {
   Image,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import axios from "axios";
 import EncryptedStorage from "react-native-encrypted-storage";
@@ -29,12 +30,14 @@ export class LoginScreen extends React.Component {
     errorMessage: null,
     isLoggedIn: "false",
     responseUID: "",
+    loading: false,
   };
   //Login Handler
   //TODO: get it to log in and display le home page and keep user logged in.
   //you could use async storage to store and remove user shit
 
   handleLogin = async () => {
+    this.setState({ loading: true });
     const data = {
       email: this.state.email,
       password: this.state.password,
@@ -44,16 +47,19 @@ export class LoginScreen extends React.Component {
       this.setState({
         errorMessage: "A valid e-mail is required for logging in.",
       });
+      this.setState({ loading: false });
     }
     if (this.state.email == "") {
       this.setState({
         errorMessage: "A valid e-mail is required for logging in.",
       });
+      this.setState({ loading: false });
     }
     if (this.state.password == "") {
       this.setState({
         errorMessage: "A valid password is required for logging in.",
       });
+      this.setState({ loading: false });
     } else if (
       this.state.email != "" &&
       this.state.password != "" &&
@@ -66,22 +72,26 @@ export class LoginScreen extends React.Component {
           Alert.alert("Logged In!", "'Enjoy freedom!'");
           this.setState({ isLoggedIn: "true" });
           this.props.navigation.navigate("App");
+          this.setState({ loading: false });
         })
         .catch((err) => {
           if (err.message == "Request failed with status code 401") {
             this.setState({
               errorMessage: "Sign In Failed, check your email and password.",
             });
+            this.setState({ loading: false });
           }
           if (err.message == "Network Error") {
             this.setState({
               errorMessage: "Network Error.",
             });
+            this.setState({ loading: false });
           }
           if (err.message == "Request failed with status code 503") {
             this.setState({
               errorMessage: "Server unreachable.",
             });
+            this.setState({ loading: false });
           }
           console.error(err.message);
         });
@@ -142,7 +152,11 @@ export class LoginScreen extends React.Component {
             )}
           </View>
           <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-            <Text style={{ color: "white", fontWeight: "500" }}>Sign In</Text>
+            {this.state.loading ? (
+              <ActivityIndicator color="white" size="small" />
+            ) : (
+              <Text style={{ color: "white", fontWeight: "500" }}>Sign In</Text>
+            )}
           </TouchableOpacity>
           <TouchableOpacity
             style={{
