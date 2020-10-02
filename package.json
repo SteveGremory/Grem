@@ -15,6 +15,8 @@
     "@react-native-community/async-storage": "^1.12.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/toolbar-android": "^0.1.0-rc.2",
+    "@types/react": "^16.9.50",
+    "@types/react-native": "^0.63.23",
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "moment": "^2.29.0",
@@ -27,14 +29,12 @@
     "react-native-gifted-chat": "^0.16.3",
     "react-native-image-crop-picker": "^0.35.0",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
-    "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-permissions": "^2.2.1",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
     "react-native-vector-icons": "^7.1.0",
     "react-navigation": "^4.4.1",
-    "react-navigation-drawer": "^2.5.1",
     "react-navigation-stack": "^2.8.3",
     "react-navigation-tabs": "^2.9.1"
   },
@@ -46,7 +46,8 @@
     "eslint": "^7.3.1",
     "jest": "^26.1.0",
     "metro-react-native-babel-preset": "^0.63.0",
-    "react-test-renderer": "16.13.1"
+    "react-test-renderer": "16.13.1",
+    "typescript": "3.4.3"
   },
   "jest": {
     "preset": "react-native"

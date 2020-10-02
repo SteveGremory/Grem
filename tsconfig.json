@@ -8,8 +8,7 @@
     "lib": ["ES2020"],
     "moduleResolution": "node",
     "noEmit": true,
-    "target": "esnext",
-    "noImplicitAny": false
+    "target": "esnext"
   },
   "exclude": [
     "node_modules",

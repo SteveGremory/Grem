@@ -17,7 +17,7 @@ import moment from "moment";
 
 export default class OtherProfile extends React.Component {
   state = {
-    userInfo: null,
+    userInfo: [],
     isFollowing: "false",
   };
 
