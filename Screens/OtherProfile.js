@@ -111,52 +111,57 @@ export default class OtherProfile extends React.Component {
         >
           <Icon name="ios-arrow-back" size={32} color="white"></Icon>
         </TouchableOpacity>
-        <View style={{ marginTop: 64, alignItems: "center" }}>
-          <View style={styles.avatarContainer}>
-            <Image
-              source={{ uri: this.state.userInfo.avatar }}
-              style={styles.avatar}
-            />
+        <ScrollView>
+          <View style={{ marginTop: 64, alignItems: "center" }}>
+            <View style={styles.avatarContainer}>
+              <Image
+                source={{ uri: this.state.userInfo.avatar }}
+                style={styles.avatar}
+              />
+            </View>
+            <Text style={styles.name}>{this.state.userInfo.username}</Text>
           </View>
-          <Text style={styles.name}>{this.state.userInfo.username}</Text>
-        </View>
-        <View style={styles.statsContainer}>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>
-              {this.state.userInfo.postsNumber}
-            </Text>
-            <Text style={styles.statTitle}>POSTS</Text>
+          <View style={styles.statsContainer}>
+            <View style={styles.stat}>
+              <Text style={styles.statAmount}>
+                {this.state.userInfo.postsNumber}
+              </Text>
+              <Text style={styles.statTitle}>POSTS</Text>
+            </View>
+            <View style={styles.stat}>
+              <Text style={styles.statAmount}>
+                {this.state.userInfo.userFollowers}
+              </Text>
+              <Text style={styles.statTitle}>FOLLOWERS</Text>
+            </View>
+            <View style={styles.stat}>
+              <Text style={styles.statAmount}>
+                {this.state.userInfo.userFollowing}
+              </Text>
+              <Text style={styles.statTitle}>FOLLOWING</Text>
+            </View>
           </View>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>
-              {this.state.userInfo.userFollowers}
-            </Text>
-            <Text style={styles.statTitle}>FOLLOWERS</Text>
+          <View style={styles.actionsContainer}>
+            <TouchableOpacity style={styles.follow}>
+              <Text style={styles.followText} onPress={this.handleFollow}>
+                FOLLOW
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.message}
+              onPress={this.handleMessage}
+            >
+              <Text style={styles.messageText}>MESSAGE</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>
-              {this.state.userInfo.userFollowing}
-            </Text>
-            <Text style={styles.statTitle}>FOLLOWING</Text>
-          </View>
-        </View>
-        <View style={styles.actionsContainer}>
-          <TouchableOpacity style={styles.follow}>
-            <Text style={styles.followText} onPress={this.handleFollow}>
-              FOLLOW
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.message} onPress={this.handleMessage}>
-            <Text style={styles.messageText}>MESSAGE</Text>
-          </TouchableOpacity>
-        </View>
 
-        <FlatList
-          style={styles.feed}
-          data={this.state.userInfo.posts}
-          renderItem={({ item }) => this.renderPost(item)}
-          showsVerticalScrollIndicator={false}
-        />
+          <FlatList
+            style={styles.feed}
+            data={this.state.userInfo.posts}
+            renderItem={({ item }) => this.renderPost(item)}
+            showsVerticalScrollIndicator={false}
+          />
+        </ScrollView>
       </View>
     );
   }
