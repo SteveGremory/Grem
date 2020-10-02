@@ -20,6 +20,12 @@ import ImagePicker from "react-native-image-crop-picker";
 import EncryptedStorage from "react-native-encrypted-storage";
 import axios from "axios";
 
+import * as sdk from "matrix-js-sdk";
+const client = sdk.createClient("https://matrix.org");
+client.publicRooms(function (err, data) {
+  console.log("Public Rooms: %s", JSON.stringify(data));
+});
+
 export default class ChatScreen extends React.Component {
   state = {
     messages: [],
