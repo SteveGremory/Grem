@@ -17,7 +17,7 @@ import moment from "moment";
 
 export default class OtherProfile extends React.Component {
   state = {
-    userInfo: [],
+    userInfo: null,
     isFollowing: "false",
   };
 
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 100,
     shadowColor: "red",
-    shadowOffset: { height: 3 },
+    shadowOffset: { height: 3, width: 10 },
     shadowRadius: 8,
     shadowOpacity: 0.5,
   },

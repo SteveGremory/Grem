@@ -43,7 +43,7 @@ export default class HomeScreen extends React.Component {
     this.setState({ refreshing: true }, this.getData);
   };
 
-  state = { userPosts: [], userInfo: "", refreshing: false };
+  state = { userPosts: [], userInfo: [], refreshing: false };
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>

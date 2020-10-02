@@ -23,7 +23,7 @@ import axios from "axios";
 export default class ChatScreen extends React.Component {
   state = {
     messages: [],
-    userInfo: "",
+    userInfo: [],
   };
 
   get user() {
@@ -88,7 +88,6 @@ export default class ChatScreen extends React.Component {
         compressImageQuality: 1,
         cropping: true,
       }).then((image) => {
-        console.log(image);
         this.setState({ userImage: image.data });
       });
     };
@@ -214,7 +213,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "red",
     shadowColor: "red",
-    shadowOffset: { height: 5 },
+    shadowOffset: { height: 5, width: 10 },
     shadowRadius: 15,
     shadowOpacity: 0.5,
     zIndex: 16,
@@ -232,16 +231,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   back: {
-    backgroundColor: "black",
     marginLeft: -80,
     borderRadius: 20,
     backgroundColor: "rgba(21, 22, 48, 0.1)",
     alignItems: "center",
     justifyContent: "center",
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "500",
-    color: "red",
   },
 });
