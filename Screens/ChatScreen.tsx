@@ -3,11 +3,9 @@ import {
   Platform,
   KeyboardAvoidingView,
   StyleSheet,
-  SafeAreaView,
   View,
   Text,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import {
   GiftedChat,
@@ -19,7 +17,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import ImagePicker from "react-native-image-crop-picker";
 import EncryptedStorage from "react-native-encrypted-storage";
 import axios from "axios";
-
+//SCREEN CLASS
 export default class ChatScreen extends React.Component {
   state = {
     messages: [],
@@ -28,18 +26,13 @@ export default class ChatScreen extends React.Component {
 
   get user() {
     return {
-      _id: "PUT ID LOGIC HERE PLS",
-      name: "PutNameLogicHere",
+      name: this.state.userInfo.username,
     };
   }
   intervalID;
   componentDidMount() {
     this.getData();
   }
-  componentWillUnmount() {
-    clearTimeout(this.intervalID);
-  }
-
   getData = async () => {
     const uid = await EncryptedStorage.getItem("userUID");
     await axios
@@ -47,8 +40,6 @@ export default class ChatScreen extends React.Component {
       .then((response) => {
         const respInfo = response.data["message"];
         this.setState({ userInfo: respInfo });
-
-        this.intervalID = setTimeout(this.getData.bind(this), 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -191,7 +182,7 @@ export default class ChatScreen extends React.Component {
     );
   }
 }
-
+//STYLES.
 const styles = StyleSheet.create({
   sendingContainer: {
     borderRadius: 24,
