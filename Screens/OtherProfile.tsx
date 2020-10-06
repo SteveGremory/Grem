@@ -9,23 +9,27 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import moment from "moment";
+import EncryptedStorage from "react-native-encrypted-storage";
 
 export default class OtherProfile extends React.Component {
   state = {
     userInfo: [],
     isFollowing: "false",
+    followerUsername: "",
   };
 
   componentDidMount() {
+    this.getDataOther();
     this.getData();
   }
 
-  getData = async () => {
+  getDataOther = async () => {
     const usrname = this.props.navigation.getParam("username");
     await axios
       .post("https://grem-api.herokuapp.com/api/actions/findbyusername", {
@@ -38,6 +42,20 @@ export default class OtherProfile extends React.Component {
         console.log(err);
       });
   };
+
+  getData = async () => {
+    const uid = await EncryptedStorage.getItem("userUID");
+    await axios
+      .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
+      .then((response) => {
+        const respInfo = response.data.message;
+        this.setState({ followerUsername: respInfo.username });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
@@ -95,7 +113,17 @@ export default class OtherProfile extends React.Component {
   };
   //write logic plsss
   handleFollow = async () => {
-    console.log("FIX THIS SHIT YOU ASSHOLE!");
+    await axios
+      .post("https://grem-api.herokuapp.com/api/actions/follow", {
+        followerUsername: this.state.userInfo.username,
+        followingUsername: this.state.followerUsername,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        Alert.alert("error.");
+      });
   };
   //write logic plsss
   handleMessage = async () => {
