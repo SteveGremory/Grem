@@ -58,7 +58,10 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.statPost}>100</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.iconProps}>
+            <TouchableOpacity
+              style={styles.iconProps}
+              onPress={() => this.props.navigation.navigate("commentModal")}
+            >
               <Icon name="chatbubble-ellipses-outline" size={30} />
               <Text style={styles.statPost}>100</Text>
             </TouchableOpacity>

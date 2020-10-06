@@ -17,6 +17,7 @@ import OtherProfile from "./Screens/OtherProfile";
 import React from "react";
 import ChatScreen from "./Screens/ChatScreen";
 import { Platform } from "react-native";
+import CommentScreen from "./Screens/CommentScreen";
 
 const AppContainer = createStackNavigator(
   {
@@ -103,6 +104,9 @@ const AppContainer = createStackNavigator(
     postModal: {
       screen: PostScreen,
     },
+    commentModal: {
+      screen: CommentScreen,
+    },
   },
   {
     mode: "modal",
@@ -126,6 +130,7 @@ export default createAppContainer(
       Messages: MessagingScreen,
       OtherProfile: OtherProfile,
       Trending: TrendingScreen,
+      Comments: CommentScreen,
     },
     {
       initialRouteName: "Loading",
