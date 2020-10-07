@@ -20,7 +20,7 @@ import EncryptedStorage from "react-native-encrypted-storage";
 export default class OtherProfile extends React.Component {
   state = {
     userInfo: [],
-    isFollowing: "false",
+    isFollowing: false,
     followerUsername: "",
   };
 
@@ -119,10 +119,10 @@ export default class OtherProfile extends React.Component {
         followingUsername: this.state.followerUsername,
       })
       .then((res) => {
-        console.log(res);
+        this.setState({ isFollowing: true });
       })
       .catch((err) => {
-        Alert.alert("error.");
+        Alert.alert("Couldn't Follow.");
       });
   };
   //write logic plsss
@@ -172,17 +172,26 @@ export default class OtherProfile extends React.Component {
             <Text style={styles.statTitle}>FOLLOWING</Text>
           </View>
         </View>
+
         <View style={styles.actionsContainer}>
-          <TouchableOpacity style={styles.follow}>
-            <Text style={styles.followText} onPress={this.handleFollow}>
-              FOLLOW
-            </Text>
-          </TouchableOpacity>
+          {this.state.isFollowing ? (
+            <TouchableOpacity style={styles.following}>
+              <Text style={styles.followingText} onPress={this.handleFollow}>
+                FOLLOWING
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.follow}>
+              <Text style={styles.followText} onPress={this.handleFollow}>
+                FOLLOW
+              </Text>
+            </TouchableOpacity>
+          )}
+
           <TouchableOpacity style={styles.message} onPress={this.handleMessage}>
             <Text style={styles.messageText}>MESSAGE</Text>
           </TouchableOpacity>
         </View>
-
         <FlatList
           style={styles.feed}
           data={this.state.userInfo.posts}
@@ -218,7 +227,22 @@ const styles = StyleSheet.create({
     fontWeight: "200",
   },
   //display when isFollowing = true.
-  following: {},
+  following: {
+    backgroundColor: "red",
+    borderColor: "black",
+    borderWidth: 0.5,
+    borderRadius: 100,
+    shadowColor: "red",
+    shadowOffset: { height: 3 },
+    shadowRadius: 8,
+    shadowOpacity: 0.5,
+  },
+  followingText: {
+    color: "black",
+    fontSize: 22,
+    padding: 10,
+    fontWeight: "200",
+  },
   message: {
     backgroundColor: "black",
     borderColor: "red",
