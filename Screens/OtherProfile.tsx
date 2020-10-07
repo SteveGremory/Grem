@@ -22,15 +22,18 @@ export default class OtherProfile extends React.Component {
     userInfo: [],
     isFollowing: false,
     followerUsername: "",
+    usrname: "",
   };
 
-  componentDidMount() {
-    this.getDataOther();
-    this.getData();
+  async componentDidMount() {
+    await this.getDataOther();
+    await this.getData();
+    await this.isFollowingCheck();
   }
 
   getDataOther = async () => {
     const usrname = this.props.navigation.getParam("username");
+    this.setState({ usrname: usrname });
     await axios
       .post("https://grem-api.herokuapp.com/api/actions/findbyusername", {
         username: usrname,
@@ -39,7 +42,7 @@ export default class OtherProfile extends React.Component {
         this.setState({ userInfo: response.data.message });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -111,7 +114,7 @@ export default class OtherProfile extends React.Component {
       </View>
     );
   };
-  //write logic plsss
+
   handleFollow = async () => {
     await axios
       .post("https://grem-api.herokuapp.com/api/actions/follow", {
@@ -125,9 +128,33 @@ export default class OtherProfile extends React.Component {
         Alert.alert("Couldn't Follow.");
       });
   };
+
   //write logic plsss
   handleMessage = async () => {
     console.log("FIX THIS SHIT YOU ASSHOLE!");
+  };
+
+  isFollowingCheck = async () => {
+    await axios
+      .post("https://grem-api.herokuapp.com/api/actions/is-following", {
+        followerUsername: this.state.userInfo.username,
+        followingUsername: this.state.followerUsername,
+      })
+      .then((res) => {
+        console.log(res.data.message);
+        if (res.data.message == "false") {
+          this.setState({ isFollowing: false });
+        } else if (res.data.message == "true") {
+          this.setState({ isFollowing: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  handleUnfollow = async () => {
+    console.log("ASYNC BABY, ASYNC");
   };
 
   render() {
@@ -175,16 +202,15 @@ export default class OtherProfile extends React.Component {
 
         <View style={styles.actionsContainer}>
           {this.state.isFollowing ? (
-            <TouchableOpacity style={styles.following}>
-              <Text style={styles.followingText} onPress={this.handleFollow}>
-                FOLLOWING
-              </Text>
+            <TouchableOpacity
+              style={styles.following}
+              onPress={this.handleUnfollow}
+            >
+              <Text style={styles.followingText}>FOLLOWING</Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity style={styles.follow}>
-              <Text style={styles.followText} onPress={this.handleFollow}>
-                FOLLOW
-              </Text>
+            <TouchableOpacity style={styles.follow} onPress={this.handleFollow}>
+              <Text style={styles.followText}>FOLLOW</Text>
             </TouchableOpacity>
           )}
 
