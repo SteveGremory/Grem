@@ -151,13 +151,24 @@ export class LoginScreen extends React.Component {
               <Text style={styles.error}>{this.state.errorMessage}</Text>
             )}
           </View>
-          <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
+          <View>
             {this.state.loading ? (
-              <ActivityIndicator color="white" size="small" />
+              <ActivityIndicator
+                style={styles.button}
+                color="white"
+                size="small"
+              />
             ) : (
-              <Text style={{ color: "white", fontWeight: "500" }}>Sign In</Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.handleLogin}
+              >
+                <Text style={{ color: "white", fontWeight: "500" }}>
+                  Log In
+                </Text>
+              </TouchableOpacity>
             )}
-          </TouchableOpacity>
+          </View>
           <TouchableOpacity
             style={{
               alignSelf: "center",

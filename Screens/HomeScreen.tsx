@@ -16,6 +16,8 @@ import EncryptedStorage from "react-native-encrypted-storage";
 
 //const CancelToken = axios.CancelToken;
 //const source = CancelToken.source();
+//todo: implement comments number in Line 72
+//todo: implement likes number in Line 61
 
 export default class HomeScreen extends React.Component {
   componentDidMount() {
@@ -55,15 +57,19 @@ export default class HomeScreen extends React.Component {
           <View style={styles.iconView}>
             <TouchableOpacity style={styles.iconProps}>
               <Icon name="heart-outline" size={30} />
-              <Text style={styles.statPost}>100</Text>
+              <Text style={styles.statPost}>{post.likeNumber}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.iconProps}
-              onPress={() => this.props.navigation.navigate("commentModal")}
+              onPress={() => {
+                this.props.navigation.navigate("commentModal", {
+                  postUid: post.uid,
+                });
+              }}
             >
               <Icon name="chatbubble-ellipses-outline" size={30} />
-              <Text style={styles.statPost}>100</Text>
+              <Text style={styles.statPost}>{post.commentsNumber}</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -176,13 +176,24 @@ export class RegisterScreen extends React.Component {
               <Text style={styles.error}>{this.state.errorMessage}</Text>
             )}
           </View>
-          <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
+          <View>
             {this.state.loading ? (
-              <ActivityIndicator color="white" size="small" />
+              <ActivityIndicator
+                style={styles.button}
+                color="white"
+                size="small"
+              />
             ) : (
-              <Text style={{ color: "white", fontWeight: "500" }}>Sign Up</Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.handleSignUp}
+              >
+                <Text style={{ color: "white", fontWeight: "500" }}>
+                  Sign Up
+                </Text>
+              </TouchableOpacity>
             )}
-          </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     );

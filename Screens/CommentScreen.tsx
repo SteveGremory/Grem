@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  FlatList,
 } from "react-native";
 import axios from "axios";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
-import { FlatList } from "react-native-gesture-handler";
 
 export default class CommentScreen extends React.Component {
   state = {
@@ -32,7 +32,11 @@ export default class CommentScreen extends React.Component {
     ],
   };
 
-  renderComments = (item) => {
+  getComments = async () => {
+    const postUid = this.props.navigation.getParam("postUid");
+  };
+
+  renderComments = (item: Object) => {
     return (
       <View>
         <TouchableOpacity>
