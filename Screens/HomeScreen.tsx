@@ -57,14 +57,18 @@ export default class HomeScreen extends React.Component {
           <View style={styles.iconView}>
             <TouchableOpacity style={styles.iconProps}>
               <Icon name="heart-outline" size={30} />
-              <Text style={styles.statPost}>{post.likeNumber}</Text>
+              <Text style={styles.statPost}>{post.likes}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.iconProps}
               onPress={() => {
                 this.props.navigation.navigate("commentModal", {
-                  postUid: post.uid,
+                  postUID: post.postUID,
+                  postImage: post.image,
+                  postText: post.text,
+                  postUsername: this.state.userInfo.username,
+                  postAvatar: this.state.userInfo.avatar,
                 });
               }}
             >

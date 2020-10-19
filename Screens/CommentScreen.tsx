@@ -7,33 +7,50 @@ import {
   Image,
   SafeAreaView,
   FlatList,
+  TextInput,
 } from "react-native";
 import axios from "axios";
 import moment from "moment";
+import EncryptedStorage from "react-native-encrypted-storage";
 import Icon from "react-native-vector-icons/Ionicons";
 
 export default class CommentScreen extends React.Component {
   state = {
+    userInfo: "",
     post: {
-      postUID: "String",
+      image: "",
+      text: "",
     },
-    userInfo: [
-      {
-        id: "1",
-        username: "Username-One",
-        comment: "Yooooo, this is cool fr mane",
-      },
-      {
-        id: "2",
-        username: "Username-Two",
-        comment: "Noice. Nigga.",
-        avatar: require("../assets/Logo.png"),
-      },
-    ],
+    comments: [],
   };
 
+  componentDidMount() {
+    this.getComments();
+  }
+
   getComments = async () => {
-    const postUid = this.props.navigation.getParam("postUid");
+    const uid = await EncryptedStorage.getItem("userUID");
+    const postUID = this.props.navigation.getParam("postUID");
+    await axios
+      .post("https://grem-api.herokuapp.com/api/actions/get-comments", {
+        uid: uid,
+        postUID: postUID,
+      })
+      .then((response) => {
+        this.setState({ comments: response.data.message });
+      });
+    await axios
+      .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
+      .then((response) => {
+        const respInfo = response.data.message;
+        const respPosts = respInfo.posts;
+        const foundValue = respPosts.filter((obj) => obj.postUID === postUID);
+        this.setState({ post: foundValue[0] });
+        this.setState({ userInfo: respInfo });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   renderComments = (item: Object) => {
@@ -41,10 +58,7 @@ export default class CommentScreen extends React.Component {
       <View>
         <TouchableOpacity>
           <View style={styles.userItem}>
-            <Image
-              source={require("../assets/Logo.png")}
-              style={styles.avatar}
-            />
+            <Image source={{ uri: item.avatar }} style={styles.avatar} />
             <View style={{ flex: 1 }}>
               <View
                 style={{
@@ -80,7 +94,7 @@ export default class CommentScreen extends React.Component {
           <View style={styles.feedItem}>
             <View style={{ flexDirection: "column" }}>
               <Image
-                source={require("../assets/Logo.png")}
+                source={{ uri: this.props.navigation.getParam("postAvatar") }}
                 style={styles.avatar}
               />
             </View>
@@ -93,15 +107,19 @@ export default class CommentScreen extends React.Component {
                 }}
               >
                 <View>
-                  <Text style={styles.name}>Tejveer</Text>
+                  <Text style={styles.name}>
+                    {this.props.navigation.getParam("postUsername")}
+                  </Text>
                   <Text style={styles.timestamp}>{moment(1).fromNow()}</Text>
                 </View>
               </View>
 
-              <Text style={styles.post}>bEHOLD, NIGGA.</Text>
+              <Text style={styles.post}>
+                {this.props.navigation.getParam("postText")}
+              </Text>
 
               <Image
-                source={require("../assets/LoginBackground.png")}
+                source={{ uri: this.props.navigation.getParam("postImage") }}
                 style={styles.postImage}
                 resizeMode="cover"
               />
@@ -110,11 +128,30 @@ export default class CommentScreen extends React.Component {
         </View>
         <FlatList
           style={styles.comments}
-          data={this.state.userInfo}
+          data={this.state.comments}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => this.renderComments(item)}
           showsVerticalScrollIndicator={false}
         />
+        <View style={{ flexDirection: "row" }}>
+          <TextInput
+            style={styles.enterComment}
+            placeholder="Comment Something!"
+            placeholderTextColor="#000"
+            multiline
+            placeholderTextColor="#000"
+          ></TextInput>
+          <View style={{ position: "absolute" }}>
+            <TouchableOpacity>
+              <Icon
+                name="ios-arrow-forward"
+                style={{ borderRadius: 20, borderColor: "red" }}
+                size={40}
+                color="black"
+              ></Icon>
+            </TouchableOpacity>
+          </View>
+        </View>
       </SafeAreaView>
     );
   }
@@ -124,6 +161,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000000",
+  },
+  enterComment: {
+    width: "100%",
+    height: 40,
+    borderRadius: 20,
+    marginVertical: 8,
+    backgroundColor: "#FFF",
+    justifyContent: "center",
+    paddingTop: 11,
+    paddingLeft: 11,
+    alignItems: "center",
+    position: "absolute", //Here is the trick
+    bottom: 0, //Here is the trick
   },
   header: {
     flexDirection: "row",

@@ -133,6 +133,7 @@ export default class ProfileScreen extends React.Component {
       multiple: false,
       includeBase64: true,
     }).then(async (image) => {
+      this.setState({ userImage: `data:${image.mime};base64,${image.data}` });
       await axios
         .post("https://grem-api.herokuapp.com/api/actions/changepfp", {
           avatar: this.state.userImage,
@@ -145,8 +146,6 @@ export default class ProfileScreen extends React.Component {
           Alert.alert("Profile Picture wasn't changed...", "🥺");
           console.error(err);
         });
-
-      this.setState({ userImage: `data:${image.mime};base64,${image.data}` });
     });
   };
 
