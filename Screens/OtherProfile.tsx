@@ -31,6 +31,25 @@ export default class OtherProfile extends React.Component {
     await this.isFollowingCheck();
   }
 
+  isFollowingCheck = async () => {
+    await axios
+      .post("https://grem-api.herokuapp.com/api/actions/is-following", {
+        followerUsername: this.state.userInfo.username,
+        followingUsername: this.state.followerUsername,
+      })
+      .then((res) => {
+        console.log(res.data.message);
+        if (res.data.message == "false") {
+          this.setState({ isFollowing: false });
+        } else if (res.data.message == "true") {
+          this.setState({ isFollowing: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   getDataOther = async () => {
     const usrname = this.props.navigation.getParam("username");
     this.setState({ usrname: usrname });
@@ -70,12 +89,23 @@ export default class OtherProfile extends React.Component {
           <View style={styles.iconView}>
             <TouchableOpacity style={styles.iconProps}>
               <Icon name="heart-outline" size={30} />
-              <Text style={styles.statPost}>100</Text>
+              <Text style={styles.statPost}>{post.likes}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.iconProps}>
+            <TouchableOpacity
+              style={styles.iconProps}
+              onPress={() => {
+                this.props.navigation.navigate("commentModal", {
+                  postUID: post.postUID,
+                  postImage: post.image,
+                  postText: post.text,
+                  postUsername: this.state.userInfo.username,
+                  postAvatar: this.state.userInfo.avatar,
+                });
+              }}
+            >
               <Icon name="chatbubble-ellipses-outline" size={30} />
-              <Text style={styles.statPost}>100</Text>
+              <Text style={styles.statPost}>{post.commentsNumber}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -95,16 +125,10 @@ export default class OtherProfile extends React.Component {
                 {moment(post.timestamp).fromNow()}
               </Text>
             </View>
-            <TouchableOpacity>
-              <Icon
-                name="ios-ellipsis-horizontal-outline"
-                size={24}
-                color="#73788B"
-              />
-            </TouchableOpacity>
           </View>
 
           <Text style={styles.post}>{post.text}</Text>
+
           <Image
             source={{ uri: post.image }}
             style={styles.postImage}
@@ -132,25 +156,6 @@ export default class OtherProfile extends React.Component {
   //write logic plsss
   handleMessage = async () => {
     console.log("FIX THIS SHIT YOU ASSHOLE!");
-  };
-
-  isFollowingCheck = async () => {
-    await axios
-      .post("https://grem-api.herokuapp.com/api/actions/is-following", {
-        followerUsername: this.state.userInfo.username,
-        followingUsername: this.state.followerUsername,
-      })
-      .then((res) => {
-        console.log(res.data.message);
-        if (res.data.message == "false") {
-          this.setState({ isFollowing: false });
-        } else if (res.data.message == "true") {
-          this.setState({ isFollowing: true });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   handleUnfollow = async () => {

@@ -42,8 +42,8 @@ export default class ProfileScreen extends React.Component {
     this.props.navigation.navigate("Auth");
   };
 
-  componentDidMount() {
-    this.getData();
+  async componentDidMount() {
+    await this.getData();
   }
 
   settings = () => {
@@ -118,7 +118,6 @@ export default class ProfileScreen extends React.Component {
     );
   };
   onRefresh = () => {
-    this.getData;
     this.setState({ refreshing: true }, this.getData);
   };
 

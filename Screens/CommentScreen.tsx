@@ -133,13 +133,14 @@ export default class CommentScreen extends React.Component {
           renderItem={({ item }) => this.renderComments(item)}
           showsVerticalScrollIndicator={false}
         />
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", marginHorizontal: 10 }}>
           <TextInput
             style={styles.enterComment}
             placeholder="Comment Something!"
             placeholderTextColor="#000"
-            multiline
             placeholderTextColor="#000"
+            numberOfLines="4"
+            multiline
           ></TextInput>
           <View style={{ position: "absolute" }}>
             <TouchableOpacity>
@@ -170,6 +171,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     justifyContent: "center",
     paddingTop: 11,
+    paddingRight: 11,
     paddingLeft: 11,
     alignItems: "center",
     position: "absolute", //Here is the trick

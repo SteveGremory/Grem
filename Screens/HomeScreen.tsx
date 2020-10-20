@@ -20,8 +20,8 @@ import EncryptedStorage from "react-native-encrypted-storage";
 //todo: implement likes number in Line 61
 
 export default class HomeScreen extends React.Component {
-  componentDidMount() {
-    this.getData();
+  async componentDidMount() {
+    await this.getData();
   }
 
   getData = async () => {
@@ -41,7 +41,6 @@ export default class HomeScreen extends React.Component {
   };
 
   onRefresh = () => {
-    this.getData;
     this.setState({ refreshing: true }, this.getData);
   };
 
