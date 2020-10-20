@@ -44,7 +44,7 @@ export default class HomeScreen extends React.Component {
     this.setState({ refreshing: true }, this.getData);
   };
 
-  state = { userPosts: [], userInfo: [], refreshing: false };
+  state = { userPosts: [], userInfo: [], refreshing: false, isLiked: false };
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
@@ -54,8 +54,17 @@ export default class HomeScreen extends React.Component {
             style={styles.avatar}
           />
           <View style={styles.iconView}>
-            <TouchableOpacity style={styles.iconProps}>
-              <Icon name="heart-outline" size={30} />
+            <TouchableOpacity
+              style={styles.iconProps}
+              onPress={() => {
+                this.setState({ isLiked: true });
+              }}
+            >
+              {this.state.isLiked ? (
+                <Icon name="heart" size={30} color="red" />
+              ) : (
+                <Icon name="heart" size={30} color="gray" />
+              )}
               <Text style={styles.statPost}>{post.likes}</Text>
             </TouchableOpacity>
 
