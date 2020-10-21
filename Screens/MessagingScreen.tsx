@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   FlatList,
   Platform,
+  SafeAreaView,
 } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default class MessagesScreen extends React.Component {
   state = {
@@ -67,6 +69,24 @@ export default class MessagesScreen extends React.Component {
             </View>
           )}
         />
+        <TouchableOpacity
+          style={{
+            backgroundColor: "white",
+            marginBottom: "5%",
+            marginLeft: "85%",
+            marginRight: "3%",
+            borderRadius: 35,
+            width: 50,
+            height: 50,
+          }}
+        >
+          <Icon
+            name="ios-add"
+            color="black"
+            size={48}
+            style={{ marginHorizontal: 2 }}
+          />
+        </TouchableOpacity>
       </View>
     );
   }

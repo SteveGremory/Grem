@@ -77,6 +77,7 @@ export default class HomeScreen extends React.Component {
                   postText: post.text,
                   postUsername: this.state.userInfo.username,
                   postAvatar: this.state.userInfo.avatar,
+                  postTimestamp: post.timestamp,
                 });
               }}
             >

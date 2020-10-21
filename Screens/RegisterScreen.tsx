@@ -149,6 +149,7 @@ export class RegisterScreen extends React.Component {
                 autoCapitalize="none"
                 onChangeText={(username) => this.setState({ username })}
                 value={this.state.username}
+                textContentType="username"
               ></TextInput>
             </View>
             <View style={{ marginTop: 32 }}>
@@ -168,6 +169,7 @@ export class RegisterScreen extends React.Component {
                 autoCapitalize="none"
                 onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
+                textContentType="password"
               ></TextInput>
             </View>
           </View>

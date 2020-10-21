@@ -110,7 +110,11 @@ export default class CommentScreen extends React.Component {
                   <Text style={styles.name}>
                     {this.props.navigation.getParam("postUsername")}
                   </Text>
-                  <Text style={styles.timestamp}>{moment(1).fromNow()}</Text>
+                  <Text style={styles.timestamp}>
+                    {moment(
+                      this.props.navigation.getParam("postTimestamp")
+                    ).fromNow()}
+                  </Text>
                 </View>
               </View>
 
