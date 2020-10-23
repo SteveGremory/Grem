@@ -22,31 +22,70 @@ export default class CommentScreen extends React.Component {
       text: "",
     },
     comments: [],
+    commentToBeSent: "",
+    userInfoComments: "",
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.getUser();
     this.getComments();
+    this.findUserInComments();
   }
 
   getComments = async () => {
-    const uid = await EncryptedStorage.getItem("userUID");
     const postUID = this.props.navigation.getParam("postUID");
     await axios
       .post("https://grem-api.herokuapp.com/api/actions/get-comments", {
-        uid: uid,
+        uid: this.state.userInfo.uid,
         postUID: postUID,
       })
       .then((response) => {
         this.setState({ comments: response.data.message });
+        console.log(this.state.comments.uid);
+      })
+      .catch((err) => {
+        console.log(err);
       });
+  };
+
+  getUser = async () => {
     await axios
-      .post("https://grem-api.herokuapp.com/api/actions/getuser", { uid: uid })
+      .post("https://grem-api.herokuapp.com/api/actions/findbyusername", {
+        username: this.props.navigation.getParam("postUsername"),
+      })
       .then((response) => {
         const respInfo = response.data.message;
-        const respPosts = respInfo.posts;
-        const foundValue = respPosts.filter((obj) => obj.postUID === postUID);
-        this.setState({ post: foundValue[0] });
         this.setState({ userInfo: respInfo });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  postComment = async () => {
+    const posterUID = await EncryptedStorage.getItem("userUID");
+    const postUID = this.props.navigation.getParam("postUID");
+    const usrname = this.props.navigation.getParam("postUsername");
+    await axios
+      .post("https://grem-api.herokuapp.com/api/actions/post-comment", {
+        usernamePostOwner: usrname,
+        uid: posterUID,
+        postUID: postUID,
+        comment: this.state.commentToBeSent,
+      })
+      .then((result) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  findUserInComments = async () => {
+    await axios
+      .post("https://grem-api.herokuapp.com/api/actions/getuser", {
+        uid: this.state.comments.uid,
+      })
+      .then((response) => {
+        const respInfo = response.data.message;
+        this.setState({ userInfoComments: respInfo });
       })
       .catch((err) => {
         console.log(err);
@@ -68,7 +107,9 @@ export default class CommentScreen extends React.Component {
                 }}
               >
                 <View>
-                  <Text style={styles.nameComment}>{item.username}</Text>
+                  <Text style={styles.nameComment}>
+                    {this.state.userInfoComments.username}
+                  </Text>
                   <Text style={styles.messageText}>{item.comment}</Text>
                 </View>
               </View>
@@ -86,7 +127,7 @@ export default class CommentScreen extends React.Component {
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Icon name="ios-arrow-back" size={24} color="white" />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.postComment}>
             <Text style={{ fontSize: 20, color: "white" }}>Share!</Text>
           </TouchableOpacity>
         </View>
@@ -132,7 +173,7 @@ export default class CommentScreen extends React.Component {
         </View>
         <FlatList
           style={styles.comments}
-          data={this.state.comments}
+          data={this.state.comments.commentsFinal}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => this.renderComments(item)}
           showsVerticalScrollIndicator={false}
@@ -141,9 +182,12 @@ export default class CommentScreen extends React.Component {
           <TextInput
             style={styles.enterComment}
             placeholder="Comment Something!"
-            placeholderTextColor="#000"
-            placeholderTextColor="#000"
-            numberOfLines="4"
+            placeholderTextColor="#808080"
+            numberOfLines={4}
+            onChangeText={(comment) =>
+              this.setState({ commentToBeSent: comment })
+            }
+            value={this.state.commentToBeSent}
             multiline
           ></TextInput>
           <View style={{ position: "absolute" }}>

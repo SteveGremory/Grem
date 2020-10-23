@@ -7,6 +7,7 @@ import {
   Image,
   RefreshControl,
   TouchableOpacity,
+  SafeAreaView,
   Alert,
 } from "react-native";
 import EncryptedStorage from "react-native-encrypted-storage";
@@ -25,6 +26,8 @@ export default class ProfileScreen extends React.Component {
     userPostsNumber: 0,
     userPosts: [],
     refreshing: false,
+    userInfo: "",
+    isLiked: false,
   };
 
   signOut = async () => {
@@ -65,29 +68,50 @@ export default class ProfileScreen extends React.Component {
         this.setState({ userPostsNumber: respInfo.postsNumber });
         this.setState({ userPosts: respInfo.posts });
         this.setState({ refreshing: false });
+        this.setState({ userInfo: respInfo });
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
   renderPost = (post) => {
     return (
       <View style={styles.feedItem}>
         <View style={{ flexDirection: "column" }}>
           <Image
-            source={{ uri: this.state.userPFP }}
+            source={{ uri: this.state.userInfo.avatar }}
             style={styles.avatarPost}
           />
           <View style={styles.iconView}>
-            <TouchableOpacity style={styles.iconProps}>
-              <Icon name="heart-outline" size={30} />
-              <Text style={styles.statPost}>100</Text>
+            <TouchableOpacity
+              style={styles.iconProps}
+              onPress={() => {
+                this.setState({ isLiked: true });
+              }}
+            >
+              {this.state.isLiked ? (
+                <Icon name="heart" size={30} color="red" />
+              ) : (
+                <Icon name="heart" size={30} color="gray" />
+              )}
+              <Text style={styles.statPost}>{post.likes}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.iconProps}>
+            <TouchableOpacity
+              style={styles.iconProps}
+              onPress={() => {
+                this.props.navigation.navigate("commentModal", {
+                  postUID: post.postUID,
+                  postImage: post.image,
+                  postText: post.text,
+                  postUsername: this.state.userInfo.username,
+                  postAvatar: this.state.userInfo.avatar,
+                  postTimestamp: post.timestamp,
+                });
+              }}
+            >
               <Icon name="chatbubble-ellipses-outline" size={30} />
-              <Text style={styles.statPost}>100</Text>
+              <Text style={styles.statPost}>{post.commentsNumber}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -100,7 +124,9 @@ export default class ProfileScreen extends React.Component {
             }}
           >
             <View>
-              <Text style={styles.namePost}>{this.state.userName}</Text>
+              <Text style={styles.namePost}>
+                {this.state.userInfo.username}
+              </Text>
               <Text style={styles.timestamp}>
                 {moment(post.timestamp).fromNow()}
               </Text>
@@ -108,6 +134,7 @@ export default class ProfileScreen extends React.Component {
           </View>
 
           <Text style={styles.post}>{post.text}</Text>
+
           <Image
             source={{ uri: post.image }}
             style={styles.postImage}
@@ -117,6 +144,7 @@ export default class ProfileScreen extends React.Component {
       </View>
     );
   };
+
   onRefresh = () => {
     this.setState({ refreshing: true }, this.getData);
   };
@@ -151,64 +179,70 @@ export default class ProfileScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.onRefresh}
-              tintColor="red"
-              title="Getting Fresh Posts..."
-              titleColor="red"
-            />
-          }
-        >
-          <View style={{ marginTop: 64, alignItems: "center" }}>
-            <TouchableOpacity
-              style={styles.avatarContainer}
-              onPress={this.changePFP}
-            >
-              <Image
-                source={{ uri: this.state.userPFP }}
-                style={styles.avatar}
+        <SafeAreaView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh}
+                tintColor="red"
+                title="Getting Fresh Posts..."
+                titleColor="red"
               />
-            </TouchableOpacity>
-            <Text style={styles.name}>{this.state.userName}</Text>
-          </View>
-
-          <View style={styles.statsContainer}>
-            <View style={styles.stat}>
-              <Text style={styles.statAmount}>
-                {this.state.userPostsNumber}
-              </Text>
-              <Text style={styles.statTitle}>POSTS</Text>
+            }
+          >
+            <View style={{ marginTop: 64, alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.avatarContainer}
+                onPress={this.changePFP}
+              >
+                <Image
+                  source={{ uri: this.state.userPFP }}
+                  style={styles.avatar}
+                />
+              </TouchableOpacity>
+              <Text style={styles.name}>{this.state.userName}</Text>
             </View>
-            <View style={styles.stat}>
-              <Text style={styles.statAmount}>{this.state.userFollowers}</Text>
-              <Text style={styles.statTitle}>FOLLOWERS</Text>
-            </View>
-            <View style={styles.stat}>
-              <Text style={styles.statAmount}>{this.state.userFollowing}</Text>
-              <Text style={styles.statTitle}>FOLLOWING</Text>
-            </View>
-          </View>
 
-          <View style={styles.actionsContainer}>
-            <TouchableOpacity style={styles.signOut} onPress={this.signOut}>
-              <Text style={styles.signOutText}>LOG OUT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.signOut} onPress={this.settings}>
-              <Text style={styles.signOutText}>SETTINGS</Text>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.statsContainer}>
+              <View style={styles.stat}>
+                <Text style={styles.statAmount}>
+                  {this.state.userPostsNumber}
+                </Text>
+                <Text style={styles.statTitle}>POSTS</Text>
+              </View>
+              <View style={styles.stat}>
+                <Text style={styles.statAmount}>
+                  {this.state.userFollowers}
+                </Text>
+                <Text style={styles.statTitle}>FOLLOWERS</Text>
+              </View>
+              <View style={styles.stat}>
+                <Text style={styles.statAmount}>
+                  {this.state.userFollowing}
+                </Text>
+                <Text style={styles.statTitle}>FOLLOWING</Text>
+              </View>
+            </View>
 
-          <FlatList
-            style={styles.feed}
-            data={this.state.userPosts}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => this.renderPost(item)}
-            showsVerticalScrollIndicator={false}
-          />
-        </ScrollView>
+            <View style={styles.actionsContainer}>
+              <TouchableOpacity style={styles.signOut} onPress={this.signOut}>
+                <Text style={styles.signOutText}>LOG OUT</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.signOut} onPress={this.settings}>
+                <Text style={styles.signOutText}>SETTINGS</Text>
+              </TouchableOpacity>
+            </View>
+
+            <FlatList
+              style={styles.feed}
+              data={this.state.userPosts}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => this.renderPost(item)}
+              showsVerticalScrollIndicator={false}
+            />
+          </ScrollView>
+        </SafeAreaView>
       </View>
     );
   }

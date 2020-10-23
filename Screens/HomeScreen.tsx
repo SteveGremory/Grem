@@ -122,12 +122,13 @@ export default class HomeScreen extends React.Component {
         </View>
         <FlatList
           style={styles.feed}
-          data={this.state.userPosts}
+          data={this.state.userPosts.slice(0, 1)}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => this.renderPost(item)}
           showsVerticalScrollIndicator={false}
           refreshing={this.state.refreshing}
           onRefresh={this.onRefresh}
+          maxToRenderPerBatch={1}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}

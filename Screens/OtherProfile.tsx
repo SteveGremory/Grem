@@ -23,6 +23,7 @@ export default class OtherProfile extends React.Component {
     isFollowing: false,
     followerUsername: "",
     usrname: "",
+    isLiked: false,
   };
 
   async componentDidMount() {
@@ -87,8 +88,17 @@ export default class OtherProfile extends React.Component {
             style={styles.avatarPost}
           />
           <View style={styles.iconView}>
-            <TouchableOpacity style={styles.iconProps}>
-              <Icon name="heart-outline" size={30} />
+            <TouchableOpacity
+              style={styles.iconProps}
+              onPress={() => {
+                this.setState({ isLiked: true });
+              }}
+            >
+              {this.state.isLiked ? (
+                <Icon name="heart" size={30} color="red" />
+              ) : (
+                <Icon name="heart" size={30} color="gray" />
+              )}
               <Text style={styles.statPost}>{post.likes}</Text>
             </TouchableOpacity>
 
@@ -101,6 +111,7 @@ export default class OtherProfile extends React.Component {
                   postText: post.text,
                   postUsername: this.state.userInfo.username,
                   postAvatar: this.state.userInfo.avatar,
+                  postTimestamp: post.timestamp,
                 });
               }}
             >
