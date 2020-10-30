@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   FlatList,
   TextInput,
+  Alert,
 } from "react-native";
 import axios from "axios";
 import moment from "moment";
@@ -29,7 +30,6 @@ export default class CommentScreen extends React.Component {
   async componentDidMount() {
     await this.getUser();
     this.getComments();
-    this.findUserInComments();
   }
 
   getComments = async () => {
@@ -69,23 +69,13 @@ export default class CommentScreen extends React.Component {
     await axios
       .post("https://grem-api.herokuapp.com/api/actions/post-comment", {
         usernamePostOwner: usrname,
-        uid: posterUID,
+        posterUID: posterUID,
         postUID: postUID,
         comment: this.state.commentToBeSent,
       })
-      .then((result) => {})
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  findUserInComments = async () => {
-    await axios
-      .post("https://grem-api.herokuapp.com/api/actions/getuser", {
-        uid: this.state.comments.uid,
-      })
-      .then((response) => {
-        const respInfo = response.data.message;
-        this.setState({ userInfoComments: respInfo });
+      .then((result) => {
+        Alert.alert("Comment Posted!");
+        this.setState({ commentToBeSent: "" });
       })
       .catch((err) => {
         console.log(err);
@@ -107,9 +97,7 @@ export default class CommentScreen extends React.Component {
                 }}
               >
                 <View>
-                  <Text style={styles.nameComment}>
-                    {this.state.userInfoComments.username}
-                  </Text>
+                  <Text style={styles.nameComment}>{item.username}</Text>
                   <Text style={styles.messageText}>{item.comment}</Text>
                 </View>
               </View>
@@ -251,7 +239,7 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   nameComment: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "400",
     color: "white",
   },

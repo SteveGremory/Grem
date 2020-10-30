@@ -99,7 +99,7 @@ export default class OtherProfile extends React.Component {
               ) : (
                 <Icon name="heart" size={30} color="gray" />
               )}
-              <Text style={styles.statPost}>{post.likes}</Text>
+              <Text style={styles.statPost}>{post.likesNumber}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -116,7 +116,7 @@ export default class OtherProfile extends React.Component {
               }}
             >
               <Icon name="chatbubble-ellipses-outline" size={30} />
-              <Text style={styles.statPost}>{post.commentsNumber}</Text>
+              <Text style={styles.statPost}>{}</Text>
             </TouchableOpacity>
           </View>
         </View>

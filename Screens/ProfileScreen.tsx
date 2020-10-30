@@ -94,7 +94,7 @@ export default class ProfileScreen extends React.Component {
               ) : (
                 <Icon name="heart" size={30} color="gray" />
               )}
-              <Text style={styles.statPost}>{post.likes}</Text>
+              <Text style={styles.statPost}>{}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity

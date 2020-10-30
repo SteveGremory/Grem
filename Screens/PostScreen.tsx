@@ -55,7 +55,7 @@ export default class PostScreen extends React.Component {
     const uid = await EncryptedStorage.getItem("userUID");
     const data = {
       uid: uid,
-      id: `${+this.state.oldPosts + 1}`,
+      id: Number.MAX_SAFE_INTEGER - this.state.oldPosts,
       text: this.state.text,
       image: this.state.userImage,
     };
