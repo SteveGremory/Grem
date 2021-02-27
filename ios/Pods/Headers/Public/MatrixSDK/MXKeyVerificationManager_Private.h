@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Crypto/Verification/MXKeyVerificationManager_Private.h

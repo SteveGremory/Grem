@@ -1,0 +1,7 @@
+module DoubleConversion {
+  umbrella header "Flipper-DoubleConversion-umbrella.h"
+  exclude header "DoubleConversion-umbrella.h"
+
+  export *
+  module * { export * }
+}

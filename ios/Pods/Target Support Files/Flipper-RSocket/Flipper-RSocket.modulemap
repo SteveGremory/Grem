@@ -1,0 +1,6 @@
+module RSocket {
+  umbrella header "Flipper-RSocket-umbrella.h"
+
+  export *
+  module * { export * }
+}

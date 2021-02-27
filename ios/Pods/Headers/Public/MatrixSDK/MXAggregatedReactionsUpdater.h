@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Aggregations/MXAggregatedReactionsUpdater.h

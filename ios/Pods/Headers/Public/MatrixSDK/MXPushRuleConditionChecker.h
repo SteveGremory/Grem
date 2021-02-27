@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/NotificationCenter/Checker/MXPushRuleConditionChecker.h

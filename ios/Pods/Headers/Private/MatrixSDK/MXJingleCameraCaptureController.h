@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDKExtensions/VoIP/Jingle/MXJingleCameraCaptureController.h

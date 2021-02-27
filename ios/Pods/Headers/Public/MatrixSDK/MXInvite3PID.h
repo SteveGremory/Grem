@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Data/MXInvite3PID.h

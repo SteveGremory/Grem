@@ -19,7 +19,8 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* GremTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GremTests.m */; };
-		93802F1424B96B3D006DE42C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 93802F1324B96B3D006DE42C /* GoogleService-Info.plist */; };
+		4700550125DEB437003DD81B /* MatrixProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4700550025DEB437003DD81B /* MatrixProtocol.swift */; };
+		4700550725DEB4B1003DD81B /* MatrixProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4700550625DEB4B1003DD81B /* MatrixProtocol.m */; };
 		93E27E5124AE048A0085C323 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93E27E5024AE048A0085C323 /* libRNVectorIcons.a */; };
 		9A8D35EF709677029646EE9A /* libPods-Grem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFD59BF0C8DF1FBBE9D1072 /* libPods-Grem.a */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,9 @@
 		3A0E99D90F8A43E49597C56E /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		3CFD59BF0C8DF1FBBE9D1072 /* libPods-Grem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Grem.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		411DFCEE5A9F4DB4A793A510 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		470054F525DEB22E003DD81B /* Grem-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Grem-Bridging-Header.h"; sourceTree = "<group>"; };
+		4700550025DEB437003DD81B /* MatrixProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixProtocol.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4700550625DEB4B1003DD81B /* MatrixProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatrixProtocol.m; sourceTree = "<group>"; };
 		4784D013251DAC8F00C0F0E7 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		48857A7EB4184DA98D3E80E8 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		59FB8ACE223A9C652E21C63F /* libPods-Grem-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Grem-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,7 +90,6 @@
 		9332BB7B24AE0BE4007ACD67 /* libPermission-PhotoLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPermission-PhotoLibrary.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9332BB7D24AE0BE4007ACD67 /* libRNPermissions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNPermissions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		934111A124D9CA1D007160F5 /* libabseil.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libabseil.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		93802F1324B96B3D006DE42C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		93AE8EB024ADDA7D001086CA /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		93E27E5024AE048A0085C323 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		95F1B0884D13422904D7D087 /* Pods-Grem-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grem-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Grem-tvOSTests/Pods-Grem-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,7 +173,7 @@
 		13B07FAE1A68108700A75B9A /* Grem */ = {
 			isa = PBXGroup;
 			children = (
-				93802F1324B96B3D006DE42C /* GoogleService-Info.plist */,
+				4700550025DEB437003DD81B /* MatrixProtocol.swift */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -178,6 +181,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				4700550625DEB4B1003DD81B /* MatrixProtocol.m */,
 			);
 			name = Grem;
 			sourceTree = "<group>";
@@ -218,6 +222,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D1B4C1D48947F92F456DD725 /* Pods */,
 				EB245571BD6A4E819AE80371 /* Resources */,
+				470054F525DEB22E003DD81B /* Grem-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				1B4AA687DCFB87A3A5C2E1C5 /* [CP] Copy Pods Resources */,
+				FC010316B888AFF3A351BF8A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -326,6 +332,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				C8953FD7990419AB03B302A6 /* [CP] Copy Pods Resources */,
+				FA9F0B255012A14CC36E9E86 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -389,7 +396,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 7ZGFS8FZAM;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1220;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -437,7 +444,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				93802F1424B96B3D006DE42C /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,6 +690,46 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Grem/Pods-Grem-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FA9F0B255012A14CC36E9E86 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Grem/Pods-Grem-frameworks.sh",
+				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/JitsiMeet.framework",
+				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Grem/Pods-Grem-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC010316B888AFF3A351BF8A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Grem-GremTests/Pods-Grem-GremTests-frameworks.sh",
+				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/JitsiMeet.framework",
+				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Grem-GremTests/Pods-Grem-GremTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -737,7 +783,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4700550125DEB437003DD81B /* MatrixProtocol.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				4700550725DEB4B1003DD81B /* MatrixProtocol.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -858,9 +906,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.grem.social;
 				PRODUCT_NAME = Grem;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Grem-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -886,8 +935,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.grem.social;
 				PRODUCT_NAME = Grem;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Grem-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

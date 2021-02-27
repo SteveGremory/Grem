@@ -20,8 +20,8 @@ import EncryptedStorage from "react-native-encrypted-storage";
 //todo: implement likes number in Line 61
 
 export default class HomeScreen extends React.Component {
-  async componentDidMount() {
-    await this.getData();
+   componentDidMount() {
+     this.getData;
   }
 
   getData = async () => {
@@ -33,7 +33,11 @@ export default class HomeScreen extends React.Component {
         const respPosts = respInfo.posts;
         this.setState({ userPosts: respPosts });
         this.setState({ userInfo: respInfo });
-        this.setState({ refreshing: false });
+        if (this.setState == false) {
+          console.log("Already false.")
+        } else 
+        {this.setState({ refreshing: false });
+      }
       })
       .catch((err) => {
         console.log(err);
@@ -46,6 +50,75 @@ export default class HomeScreen extends React.Component {
 
   state = { userPosts: [], userInfo: [], refreshing: false, isLiked: false };
   renderPost = (post) => {
+    if(post.image == null) {
+    return (
+      <View style={styles.feedItem}>
+        <View style={{ flexDirection: "column" }}>
+          <Image
+            source={{ uri: this.state.userInfo.avatar }}
+            style={styles.avatar}
+          />
+          <View style={styles.iconViewNonImage}>
+            <TouchableOpacity
+              style={styles.iconPropsNonImage}
+              onPress={() => {
+                this.setState({ isLiked: true });
+              }}
+            >
+              {this.state.isLiked ? (
+                <Icon name="heart" size={30} color="red" />
+              ) : (
+                <Icon name="heart" size={30} color="gray" />
+              )}
+              <Text style={styles.statPost}></Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.iconPropsNonImage}
+              onPress={() => {
+                this.props.navigation.navigate("commentModal", {
+                  postUID: post.postUID,
+                  postImage: post.image,
+                  postText: post.text,
+                  postUsername: this.state.userInfo.username,
+                  postAvatar: this.state.userInfo.avatar,
+                  postTimestamp: post.timestamp,
+                });
+              }}
+            >
+              <Icon name="chatbubble-ellipses-outline" size={30} />
+              <Text style={styles.statPost}></Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View>
+              <Text style={styles.name}>{this.state.userInfo.username}</Text>
+              <Text style={styles.timestamp}>
+                {moment(post.timestamp).fromNow()}
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.post}>{post.text}</Text>
+        </View>
+      </View>
+    );
+      console.log("No image.")
+    }
+    
+    else
+    //IF THERE IS AN IMAGE-
+    {
     return (
       <View style={styles.feedItem}>
         <View style={{ flexDirection: "column" }}>
@@ -103,7 +176,7 @@ export default class HomeScreen extends React.Component {
           </View>
 
           <Text style={styles.post}>{post.text}</Text>
-
+          
           <Image
             source={{ uri: post.image }}
             style={styles.postImage}
@@ -112,6 +185,7 @@ export default class HomeScreen extends React.Component {
         </View>
       </View>
     );
+    }
   };
 
   render() {
@@ -155,8 +229,18 @@ const styles = StyleSheet.create({
     marginRight: "2%",
     justifyContent: "space-between",
   },
+  iconViewNonImage: {
+    alignSelf: "flex-start",
+    marginTop: "50%",
+    marginLeft: "2%",
+    marginRight: "2%",
+    justifyContent: "space-between",
+  },
   iconProps: {
     marginBottom: 2,
+  },
+  iconPropsNonImage: {
+    marginBottom: 0.5,
   },
   header: {
     ...Platform.select({

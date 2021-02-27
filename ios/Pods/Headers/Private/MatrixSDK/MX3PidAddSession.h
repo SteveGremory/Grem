@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/ThreePidAdd/MX3PidAddSession.h

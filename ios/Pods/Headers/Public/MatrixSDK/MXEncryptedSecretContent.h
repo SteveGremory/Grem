@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Crypto/SecretStorage/JSONModels/MXEncryptedSecretContent.h

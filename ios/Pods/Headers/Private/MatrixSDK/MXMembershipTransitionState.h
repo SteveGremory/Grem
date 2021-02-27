@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Room/Membership/MXMembershipTransitionState.h

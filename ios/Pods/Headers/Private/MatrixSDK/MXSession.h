@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/MXSession.h

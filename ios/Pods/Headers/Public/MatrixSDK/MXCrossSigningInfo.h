@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Crypto/CrossSigning/Data/MXCrossSigningInfo.h

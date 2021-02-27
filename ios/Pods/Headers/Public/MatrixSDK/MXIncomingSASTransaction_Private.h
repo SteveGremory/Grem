@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Crypto/Verification/Transactions/SAS/MXIncomingSASTransaction_Private.h

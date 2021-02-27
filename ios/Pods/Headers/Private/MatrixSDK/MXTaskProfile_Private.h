@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Utils/Profiling/MXTaskProfile_Private.h

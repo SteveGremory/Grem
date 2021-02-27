@@ -1,0 +1,6 @@
+module peertalk {
+  umbrella header "Flipper-PeerTalk-umbrella.h"
+
+  export *
+  module * { export * }
+}

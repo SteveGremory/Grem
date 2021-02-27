@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/JSONModels/Aggregations/MXAggregationPaginatedResponse_Private.h

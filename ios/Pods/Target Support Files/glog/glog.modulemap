@@ -1,0 +1,7 @@
+module glog {
+  umbrella header "glog-umbrella.h"
+  exclude header "Flipper-Glog-umbrella.h"
+
+  export *
+  module * { export * }
+}

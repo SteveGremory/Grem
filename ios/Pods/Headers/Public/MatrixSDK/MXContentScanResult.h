@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/ContentScan/JSONModels/MXContentScanResult.h

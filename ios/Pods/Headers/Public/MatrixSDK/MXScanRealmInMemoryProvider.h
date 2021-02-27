@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/ContentScan/Data/Store/Realm/RealmProvider/MXScanRealmInMemoryProvider.h

@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Data/Store/MXFileStore/MXFileRoomStore.h

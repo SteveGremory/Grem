@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Crypto/Verification/Requests/MXKeyVerificationRequest_Private.h

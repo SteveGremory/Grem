@@ -1,0 +1,7 @@
+module folly {
+  umbrella header "Flipper-Folly-umbrella.h"
+  exclude header "Folly-umbrella.h"
+
+  export *
+  module * { export * }
+}

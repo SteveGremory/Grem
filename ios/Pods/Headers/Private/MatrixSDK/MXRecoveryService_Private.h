@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Crypto/Recovery/MXRecoveryService_Private.h

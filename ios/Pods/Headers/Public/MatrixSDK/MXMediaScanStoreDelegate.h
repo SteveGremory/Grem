@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/ContentScan/Data/Store/MXMediaScanStoreDelegate.h

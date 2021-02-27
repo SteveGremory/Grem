@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Aggregations/MXAggregations_Private.h

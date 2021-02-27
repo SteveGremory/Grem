@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/VoIP/CallKit/MXCallKitConfiguration.h

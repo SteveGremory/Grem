@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Data/Filters/MXFilterObject.h

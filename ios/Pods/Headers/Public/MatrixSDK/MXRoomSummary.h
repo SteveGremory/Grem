@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Data/MXRoomSummary.h

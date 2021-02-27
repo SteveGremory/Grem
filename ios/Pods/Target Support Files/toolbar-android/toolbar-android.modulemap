@@ -1,0 +1,6 @@
+module toolbar_android {
+  umbrella header "toolbar-android-umbrella.h"
+
+  export *
+  module * { export * }
+}

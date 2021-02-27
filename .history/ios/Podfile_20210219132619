@@ -1,0 +1,48 @@
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+install! 'cocoapods', :deterministic_uuids => false
+
+
+platform :ios, '12.0'
+
+inhibit_all_warnings!
+
+target 'Grem' do
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  # Obj-C
+  pod: 'SwiftMatrixSDK', :git => 'https://github.com/matrix-org/matrix-ios-sdk.git'
+  pod 'MatrixSDK', :modular_headers => true
+  pod 'MatrixSDK/SwiftSupport', :modular_headers => true
+  pod 'MatrixSDK/JingleCallStack', :modular_headers => true
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary.podspec"
+  pod 'AFNetworking', :modular_headers => true
+  pod 'GZIP', :modular_headers => true
+  pod 'JitsiMeetSDK', :modular_headers => true
+  pod 'OLMKit', :modular_headers => true
+  pod 'Realm', :modular_headers => true
+  pod 'libbase58', :modular_headers => true
+  config = use_native_modules!
+  use_react_native!(:path => config["reactNativePath"])
+
+  target 'GremTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+  # Enables Flipper.
+  #
+  # Note that if you have use_frameworks! enabled, Flipper will not work and
+  # you should disable these next few lines.
+  use_flipper!
+  post_install do |installer|
+    flipper_post_install(installer)
+  end
+end
+
+target 'Grem-tvOS' do
+  # Pods for Grem-tvOS
+
+  target 'Grem-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+end

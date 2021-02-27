@@ -169,7 +169,6 @@ export class RegisterScreen extends React.Component {
                 autoCapitalize="none"
                 onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
-                textContentType="password"
               ></TextInput>
             </View>
           </View>

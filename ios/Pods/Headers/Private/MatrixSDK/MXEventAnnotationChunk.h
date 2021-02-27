@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/JSONModels/Event/MXEventAnnotationChunk.h

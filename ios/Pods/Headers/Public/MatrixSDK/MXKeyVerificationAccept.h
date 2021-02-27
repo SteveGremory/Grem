@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Crypto/Verification/JSONModels/MXKeyVerificationAccept.h

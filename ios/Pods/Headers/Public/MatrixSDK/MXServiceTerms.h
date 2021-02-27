@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/NotificationCenter/ServiceTerms/MXServiceTerms.h

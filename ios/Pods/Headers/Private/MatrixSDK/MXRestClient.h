@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/MXRestClient.h

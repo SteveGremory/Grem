@@ -1,0 +1,1 @@
+../../../MatrixSDK/MatrixSDK/Crypto/Algorithms/MXEventDecryptionResult.h
